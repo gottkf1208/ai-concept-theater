@@ -2,3 +2,5 @@ node_modules
 package-lock.json
 test/screens
 test/shots
+test/mid
+assets/gen
