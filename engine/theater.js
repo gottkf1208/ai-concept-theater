@@ -1,6 +1,5 @@
 /* 타임라인 플레이어: 장면 목록을 순서대로 재생하고, 자막·음성·조작을 담당해요. */
 import * as P from './parts.js';
-import { tts } from './tts.js';
 
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fmt = sec => `${Math.floor(sec / 60)}:${String(Math.floor(sec % 60)).padStart(2, '0')}`;
@@ -8,7 +7,6 @@ const SVG_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 
 const SVG_PAUSE = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>';
 const SVG_PREV = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h2v16H6zM20 4L9 12l11 8z"/></svg>';
 const SVG_NEXT = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 4h2v16h-2zM4 4l11 8-11 8z"/></svg>';
-const SVG_VOICE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10v4h4l5 4V6L7 10zM16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12"/></svg>';
 const SVG_REPLAY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg>';
 
 export function mountTheater(container, ep, { mode = 'watch', base = '' } = {}) {
@@ -30,10 +28,8 @@ export function mountTheater(container, ep, { mode = 'watch', base = '' } = {}) 
   const btnPlay = P.h('button', { class: 'btn primary', type: 'button', 'aria-label': '재생', html: SVG_PLAY + '<span>재생</span>' });
   const btnPrev = P.h('button', { class: 'btn', type: 'button', 'aria-label': '이전 장면', html: SVG_PREV });
   const btnNext = P.h('button', { class: 'btn', type: 'button', 'aria-label': '다음 장면', html: SVG_NEXT });
-  const btnVoice = P.h('button', { class: 'btn', type: 'button', 'aria-pressed': 'false', 'aria-label': '음성 켜기', html: SVG_VOICE + '<span>음성</span>' });
   const time = P.h('span', { class: 'time' }, `0:00 / ${fmt(total)}`);
-  controls.append(btnPlay, btnPrev, btnNext, btnVoice, P.h('span', { class: 'sp' }), time);
-  if (!tts.supported) { btnVoice.disabled = true; btnVoice.title = '이 브라우저는 음성 합성을 지원하지 않아요'; }
+  controls.append(btnPlay, btnPrev, btnNext, P.h('span', { class: 'sp' }), time);
 
   const segs = scenes.map((sc, i) => {
     const b = P.h('button', { type: 'button', 'aria-label': `${i + 1}. ${sc.title}`, title: sc.title }, P.h('i'));
@@ -80,7 +76,6 @@ export function mountTheater(container, ep, { mode = 'watch', base = '' } = {}) 
       curCap = ci;
       const txt = ci >= 0 ? sc.captions[ci].text : '';
       caption.innerHTML = txt ? `<span>${txt}</span>` : '';
-      if (playing) tts.speak(txt);
     }
     segs.forEach((b, j) => { b.firstElementChild.style.width = j < idx ? '100%' : j === idx ? `${(localT / sc.dur) * 100}%` : '0'; });
     time.textContent = `${fmt(offsets[idx] + localT)} / ${fmt(total)}`;
@@ -104,20 +99,19 @@ export function mountTheater(container, ep, { mode = 'watch', base = '' } = {}) 
     playing = true; last = performance.now();
     btnPlay.innerHTML = SVG_PAUSE + '<span>멈춤</span>'; btnPlay.setAttribute('aria-label', '멈춤');
     root.classList.add('playing');
-    /* 현재 자막을 다시 읽어 주기 */
     curCap = -1; render();
     raf = requestAnimationFrame(loop); emit('play', true);
   }
   function pause() {
     if (!playing) return;
-    playing = false; cancelAnimationFrame(raf); tts.stop();
+    playing = false; cancelAnimationFrame(raf);
     btnPlay.innerHTML = SVG_PLAY + '<span>재생</span>'; btnPlay.setAttribute('aria-label', '재생');
     root.classList.remove('playing'); emit('play', false);
   }
   function goto(i, t = 0, keepPlaying = false) {
     i = P.clamp(i, 0, scenes.length - 1);
     const wasPlaying = playing || keepPlaying;
-    if (playing) { playing = false; cancelAnimationFrame(raf); tts.stop(); }
+    if (playing) { playing = false; cancelAnimationFrame(raf); }
     if (ended) { ended = false; endCard?.remove(); endCard = null; }
     build(i); localT = t; render();
     if (wasPlaying && mode !== 'idle') { playing = false; play(); }
@@ -139,9 +133,6 @@ export function mountTheater(container, ep, { mode = 'watch', base = '' } = {}) 
   btnPlay.addEventListener('click', () => playing ? pause() : play());
   btnPrev.addEventListener('click', () => goto(localT > 1.5 ? idx : idx - 1, 0));
   btnNext.addEventListener('click', () => goto(idx + 1, 0));
-  const syncVoice = () => { btnVoice.setAttribute('aria-pressed', tts.enabled ? 'true' : 'false'); btnVoice.setAttribute('aria-label', tts.enabled ? '음성 끄기' : '음성 켜기'); };
-  btnVoice.addEventListener('click', () => { tts.toggle(); syncVoice(); if (tts.enabled && playing) { curCap = -1; render(); } });
-  tts.init(); syncVoice();
 
   /* 키보드 */
   root.addEventListener('keydown', e => {
@@ -149,7 +140,6 @@ export function mountTheater(container, ep, { mode = 'watch', base = '' } = {}) 
     if (e.key === ' ' || e.key === 'k') { e.preventDefault(); playing ? pause() : play(); }
     else if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); goto(idx + 1, 0); }
     else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goto(localT > 1.5 ? idx : idx - 1, 0); }
-    else if (e.key === 'v' || e.key === 'V') { tts.toggle(); syncVoice(); }
     else if (e.key === 'Home') { goto(0, 0); }
   });
 

@@ -58,7 +58,7 @@
 
 ## 사용법
 
-- **혼자 3분:** `watch.html?ep=e1-agent-mcp`. 자막은 항상 켜져 있어요. 음성(브라우저 음성 합성, ko-KR)은 `V` 또는 '음성' 버튼.
+- **혼자 3분:** `watch.html?ep=e1-agent-mcp`. 자막은 항상 켜져 있어서 소리 없이 봐요.
 - **연수 모드:** `watch.html?ep=e1-agent-mcp&mode=train`. 큰 글씨 슬라이드. 제목 → 애니메이션 → 만져 보기 → 학생에게 이렇게 → 팁·오해 → 출처 순서로 넘어가요.
 - **녹화 모드:** `watch.html?ep=e1-agent-mcp&mode=rec`. 조작 버튼을 숨기고 16:9로 3초 카운트다운 뒤 자동 재생. 화면 녹화(Windows `Win+Alt+R`, macOS `Shift+Cmd+5`)나 브루로 영상 파일을 뜨세요.
 
@@ -68,7 +68,6 @@
 |---|---|
 | `Space` | 재생 · 멈춤 |
 | `←` `→` | 이전 · 다음 장면(연수 모드에서는 슬라이드) |
-| `V` | 음성 켜기 · 끄기 |
 | `N` | 강사 대본 열기 · 닫기(연수 모드) |
 | `Esc` | 연수 모드 나가기 |
 | `Home` | 첫 장면 |
@@ -80,7 +79,6 @@ index.html            첫 화면: 오늘의 한 토막, 트랙별 목록, 검색
 watch.html?ep=slug    시청 화면 (&mode=train 연수, &mode=rec 녹화)
 engine/theater.js     타임라인 플레이어(재생·멈춤·장면 이동·자막·음성)
 engine/parts.js       장면 부품(쿼카, 말풍선, 화살표, 상자, 토큰 칩, 노이즈 캔버스)
-engine/tts.js         브라우저 음성 합성
 engine/registry.js    에피소드 목록
 episodes/*.js         한 편 = 파일 하나
 episodes/next/*.js    시즌 2 (E7~E12)
