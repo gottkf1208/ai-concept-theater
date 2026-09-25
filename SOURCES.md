@@ -43,34 +43,34 @@
 - [NotebookLM 소개 — Google Blog](https://blog.google/technology/ai/notebooklm-google-ai/) — 올린 자료에 근거(grounding)해 답하고 인용을 다는 방식을 설명해요.
 - [Claude 용어집 — RAG (Retrieval-Augmented Generation)](https://platform.claude.com/docs/en/about-claude/glossary) — 정확성을 높이지만, 자료의 품질과 검색 결과에 달려 있다고 밝혀요.
 
-## 다음 시즌 · 캐릭터 얼굴이 장면마다 바뀌는 이유 — 일관성과 레퍼런스 이미지 (준비 중)
+## E7 캐릭터 얼굴이 장면마다 바뀌는 이유 — 일관성과 레퍼런스 이미지 (시즌 2)
 
 - [IP-Adapter: Text Compatible Image Prompt Adapter (arXiv, 2023)](https://arxiv.org/abs/2308.06721) — 이미지 한두 장을 프롬프트처럼 넣어 원하는 인물·스타일을 조건으로 주는 방법.
 - [DreamBooth: Fine Tuning Text-to-Image Diffusion Models for Subject-Driven Generation (arXiv, 2022)](https://arxiv.org/abs/2208.12242) — 몇 장의 사진만으로 같은 대상(인물·사물)을 여러 장면에 유지하는 방법.
 
-## 다음 시즌 · 영상이 이미지보다 훨씬 비싼 이유 — 연산량 (준비 중)
+## E8 영상이 이미지보다 훨씬 비싼 이유 — 연산량 (시즌 2)
 
 - [Stable Video Diffusion: Scaling Latent Video Diffusion Models to Large Datasets (arXiv, 2023)](https://arxiv.org/abs/2311.15127) — 영상 생성이 프레임과 시간 축을 함께 다뤄야 하는 이유를 보여주는 연구.
 - [High-Resolution Image Synthesis with Latent Diffusion Models (arXiv, 2021)](https://arxiv.org/abs/2112.10752) — 원본 화면 대신 압축된 잠재 공간에서 계산해 비용을 줄이는 방법(Stable Diffusion의 바탕).
 
-## 다음 시즌 · 영어 프롬프트가 조금 더 정확했던 이유 — 학습 데이터의 언어 비중 (준비 중)
+## E9 영어 프롬프트가 조금 더 정확했던 이유 — 학습 데이터의 언어 비중 (시즌 2)
 
 - [Learning Transferable Visual Models From Natural Language Supervision (CLIP, arXiv 2021)](https://arxiv.org/abs/2103.00020) — 인터넷의 이미지-텍스트 쌍으로 학습한다는 것을 보여준 연구.
 - [Common Crawl — 언어별 통계](https://commoncrawl.github.io/cc-crawl-statistics/plots/languages) — 웹 텍스트에서 영어 비중이 다른 언어보다 훨씬 크다는 걸 보여주는 통계.
 - [오늘의 사례 — 브루 대본 비교(vrew-talk)](https://gottkf1208.github.io/vrew-talk/) — 같은 장면을 한국어·영어 프롬프트로 만들어 본 오늘 기록.
 
-## 다음 시즌 · "생각하는 시간"이 있는 AI — 추론 모델 (준비 중)
+## E10 "생각하는 시간"이 있는 AI — 추론 모델 (시즌 2)
 
 - [Claude Docs — Extended thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) — Claude의 확장 사고 기능을 설명하는 공식 문서.
 - [Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (Wei et al., arXiv 2022)](https://arxiv.org/abs/2201.11903) — 단계별로 생각하게 하는 프롬프트가 추론 능력을 끌어올린다는 걸 보인 연구.
 
-## 다음 시즌 · 말로 만든 웹앱이 깃허브에 올라가 편집까지 되는 원리 — 바이브코딩 (준비 중)
+## E11 말로 만든 웹앱이 깃허브에 올라가 편집까지 되는 원리 — 바이브코딩 (시즌 2)
 
 - [GitHub Pages — 공식 문서](https://docs.github.com/en/pages) — 저장소 내용을 그대로 인터넷에 띄우는 정적 호스팅 서비스.
 - [GitHub REST API — Repository contents](https://docs.github.com/en/rest/repos/contents) — 화면에서 고친 내용을 저장소 파일에 다시 저장할 때 쓰는 API.
 - [Managing your personal access tokens (fine-grained)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) — 저장소·권한 범위를 좁게 설정하는 fine-grained 토큰 안내.
 
-## 다음 시즌 · AI가 만들었다고 표시하는 법 — AI 생성 표시와 워터마크 (준비 중)
+## E12 AI가 만들었다고 표시하는 법 — AI 생성 표시와 워터마크 (시즌 2)
 
 - [C2PA — Coalition for Content Provenance and Authenticity](https://c2pa.org/) — 파일 안에 제작 출처 정보를 심어 두는 보이지 않는 표시 표준.
 - [국가법령정보센터](https://www.law.go.kr/) — "인공지능 발전과 신뢰 기반 조성 등에 관한 기본법"으로 검색해 제31조(AI 생성물 표시)를 확인하세요.
@@ -85,3 +85,7 @@
 ## 사례 영상
 
 - [브루 연수 전 40분 특강 강의안](https://gottkf1208.github.io/vrew-talk/) — E3·E4의 프레임은 이 강의안의 v1.mp4(7초·11초)에서 뽑았어요.
+
+## E9의 언어 비중
+
+- Common Crawl CC-MAIN-2026-39 기준 영어 약 42%, 한국어 약 0.8%(CLD2 판별, 문서 수 기준). 극장 안에서는 시점마다 달라서 "가장 크다 / 1% 안팎"으로만 말해요.

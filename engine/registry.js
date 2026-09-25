@@ -12,12 +12,12 @@ export const EPISODES = [
   { no: 5, slug: 'e5-context', file: 'episodes/e5-context.js', status: 'ready' },
   { no: 6, slug: 'e6-rag', file: 'episodes/e6-rag.js', status: 'ready' },
   /* 다음 시즌: 대본 초안만 있어요. */
-  { no: 7, slug: 'n1-consistency', file: 'episodes/next/n1-consistency.js', status: 'soon' },
-  { no: 8, slug: 'n2-video-cost', file: 'episodes/next/n2-video-cost.js', status: 'soon' },
-  { no: 9, slug: 'n3-english-prompt', file: 'episodes/next/n3-english-prompt.js', status: 'soon' },
-  { no: 10, slug: 'n4-reasoning', file: 'episodes/next/n4-reasoning.js', status: 'soon' },
-  { no: 11, slug: 'n5-vibecoding', file: 'episodes/next/n5-vibecoding.js', status: 'soon' },
-  { no: 12, slug: 'n6-ai-label', file: 'episodes/next/n6-ai-label.js', status: 'soon' }
+  { no: 7, slug: 'n1-consistency', file: 'episodes/next/n1-consistency.js', status: 'ready' },
+  { no: 8, slug: 'n2-video-cost', file: 'episodes/next/n2-video-cost.js', status: 'ready' },
+  { no: 9, slug: 'n3-english-prompt', file: 'episodes/next/n3-english-prompt.js', status: 'ready' },
+  { no: 10, slug: 'n4-reasoning', file: 'episodes/next/n4-reasoning.js', status: 'ready' },
+  { no: 11, slug: 'n5-vibecoding', file: 'episodes/next/n5-vibecoding.js', status: 'ready' },
+  { no: 12, slug: 'n6-ai-label', file: 'episodes/next/n6-ai-label.js', status: 'ready' }
 ];
 
 export async function loadEpisode(slug, base = '') {

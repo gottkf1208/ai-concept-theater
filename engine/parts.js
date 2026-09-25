@@ -50,9 +50,9 @@ export function charReady(base = '') {
   return charReadyP;
 }
 export function keySrc(name, base = '') { return KEYS[name] ? `${base}assets/key/${name}.${KEYS[name]}` : null; }
-const FALLBACK = { base: 'idea', point: 'globe', think: 'idea', oops: 'globe', tablet: 'globe', wave: 'idea', dice: 'idea', glass: 'globe' };
+const FALLBACK = { idea: 'base', globe: 'point', think: 'base', oops: 'base', tablet: 'base', wave: 'base', dice: 'base', glass: 'point', point: 'base' };
 export function charSrc(pose = 'base', base = '') {
-  return charMap.get(pose) || charMap.get(FALLBACK[pose] || 'idea') || charMap.get('idea') || `${base}assets/char/idea.webp`;
+  return charMap.get(pose) || charMap.get(FALLBACK[pose] || 'base') || charMap.get('base') || charMap.get('idea') || `${base}assets/char/base.webp`;
 }
 
 export function quokka({ x = 80, y = 380, size = 240, flip = false, pose = 'base', base = '' } = {}) {

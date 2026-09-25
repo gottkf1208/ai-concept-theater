@@ -48,6 +48,9 @@
 .ep{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:20px;display:flex;flex-direction:column;gap:10px;transition:transform .18s,box-shadow .18s;position:relative}
 .ep:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
 .ep .no{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--faint);display:flex;justify-content:space-between;align-items:center}
+.ep .kv{position:absolute;right:14px;top:44px;height:118px;width:auto;object-fit:contain;pointer-events:none}
+.ep.has-kv h4,.ep.has-kv p{padding-right:96px}
+.ep.has-kv{min-height:230px}
 .ep h4{font-size:17.5px;font-weight:800;letter-spacing:-.02em;line-height:1.3}
 .ep h4 small{display:block;font-size:13px;font-weight:700;color:var(--aqua-deep);margin-top:4px}
 .ep p{font-size:13.5px;color:var(--muted);line-height:1.5;flex:1}
@@ -67,7 +70,7 @@
 .howto .card p{font-size:13.5px;color:var(--muted);line-height:1.55}
 .howto .card kbd{margin:0 2px}
 @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.why{grid-template-columns:repeat(2,1fr)}.howto{grid-template-columns:1fr}}
-@media (max-width:720px){.hero{grid-template-columns:1fr}.hero .fig{max-width:240px;justify-self:center;order:-1}.today{grid-template-columns:1fr;padding:22px}.grid{grid-template-columns:1fr}}
+@media (max-width:720px){.hero{grid-template-columns:1fr}.hero .fig{max-width:260px;justify-self:center;order:-1}.ep .kv{height:96px;top:40px}.ep.has-kv h4,.ep.has-kv p{padding-right:80px}.today{grid-template-columns:1fr;padding:22px}.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -115,7 +118,7 @@
   </section>
 
   <div class="list-head" id="list">
-    <div><div class="eyebrow">시즌 1</div><h2 class="sec">에피소드</h2></div>
+    <div><div class="eyebrow">시즌 1 · 시즌 2</div><h2 class="sec">에피소드 12편</h2></div>
     <label class="search"><span class="sr">에피소드 검색</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input type="search" id="q" placeholder="제목, 개념, 키워드 검색" autocomplete="off"></label>
   </div>
   <div class="track" id="trackA"><h3><span class="tag a">트랙 A</span><span>AI 영상을 만들다 생기는 "왜?"</span></h3><div class="grid"></div></div>
@@ -126,7 +129,7 @@
   <section class="lines-all" id="lines">
     <div class="eyebrow orange">모아 보기</div>
     <h2 class="sec">학생에게는 이렇게 말해요</h2>
-    <p class="lead">여섯 편의 문장을 한자리에. 수업 시작 1분에 하나씩 써 보세요.</p>
+    <p class="lead">열두 편의 문장을 한자리에. 수업 시작 1분에 하나씩 써 보세요.</p>
     <div id="linesAll"></div>
   </section>
 
@@ -152,7 +155,7 @@ const eps = await loadAll();
 const ready = eps.filter(e => e.status === 'ready');
 
 /* 키비주얼이 있으면 바꿔 끼우기 */
-await P.charReady(); const hero = P.keySrc('hero'); if (hero) { $('#heroFig').classList.add('key'); $('#heroImg').src = hero; }
+await P.charReady(); const hero = P.keySrc('hero'); if (hero) { $('#heroImg').src = hero; $('#heroImg').alt = '극장 의자에 앉아 팝콘을 든 쿼카'; }
 
 /* 오늘의 한 토막: 날짜로 결정적 선택 */
 const pool = ready.flatMap(e => e.teacherLines.map(l => ({ l, e })));
@@ -167,7 +170,8 @@ showToday();
 const card = e => {
   const soon = e.status !== 'ready';
   const el = P.h('article', { class: `ep ${soon ? 'soon' : ''}`, 'data-q': `${e.title} ${e.subtitle || ''} ${e.summary || ''} ${(e.keywords || []).join(' ')}`.toLowerCase() });
-  el.append(P.h('div', { class: 'no' }, `E${e.no}`, soon ? P.h('span', { class: 'tag soon' }, '준비 중') : P.h('span', { class: 'tag' }, '약 3분')));
+  el.append(P.h('div', { class: 'no' }, `E${e.no}`, soon ? P.h('span', { class: 'tag soon' }, '준비 중') : P.h('span', { class: 'tag' }, e.no > 6 ? '시즌 2 · 약 3분' : '약 3분')));
+  const kv = P.keySrc(e.slug); if (kv) { el.classList.add('has-kv'); el.append(P.h('img', { class: 'kv', src: kv, alt: '', loading: 'lazy' })); }
   el.append(P.h('h4', {}, e.title, e.subtitle ? P.h('small', {}, e.subtitle) : null));
   el.append(P.h('p', {}, e.summary || ''));
   if (!soon) el.append(P.h('div', { class: 'acts' }, P.h('a', { class: 'btn small primary', href: `watch.html?ep=${e.slug}` }, '보기'), P.h('a', { class: 'btn small', href: `watch.html?ep=${e.slug}&mode=train` }, '연수 모드')));
@@ -177,6 +181,7 @@ for (const e of eps) {
   const t = e.status !== 'ready' ? '#trackNext' : e.track === 'A' ? '#trackA' : '#trackB';
   $(`${t} .grid`).append(card(e));
 }
+document.querySelectorAll('.track').forEach(t => { if (!t.querySelector('.ep')) t.style.display = 'none'; });
 $('#q').addEventListener('input', () => {
   const v = $('#q').value.trim().toLowerCase();
   let n = 0;

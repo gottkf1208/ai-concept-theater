@@ -6,7 +6,7 @@ import { mkdirSync } from 'node:fs';
 const BASE = process.argv[2] || 'http://localhost:5310/';
 const OUT = 'test/screens';
 mkdirSync(OUT, { recursive: true });
-const SLUGS = (process.env.SLUGS || 'e1-agent-mcp,e2-seed,e3-diffusion,e4-plausible,e5-context,e6-rag').split(',');
+const SLUGS = (process.env.SLUGS || 'e1-agent-mcp,e2-seed,e3-diffusion,e4-plausible,e5-context,e6-rag,n1-consistency,n2-video-cost,n3-english-prompt,n4-reasoning,n5-vibecoding,n6-ai-label').split(',');
 const VIEWPORTS = [{ name: 'desk', width: 1440, height: 900 }, { name: 'phone', width: 390, height: 844 }];
 let fails = 0;
 const ok = (cond, msg) => { if (cond) console.log('  ✓', msg); else { fails++; console.log('  ✗', msg); } };

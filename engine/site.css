@@ -23,7 +23,7 @@ button{background:none;border:0;cursor:pointer}
 
 /* 상단 */
 .top{display:flex;align-items:center;gap:14px;padding:18px 0}
-.top .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.01em;font-size:15px}
+.top .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.01em;font-size:15px;white-space:nowrap}
 .top .brand img{width:30px;height:30px;object-fit:contain}
 .top .brand small{display:block;font-size:11px;font-weight:600;color:var(--faint);letter-spacing:.08em;text-transform:uppercase}
 .top .sp{flex:1}
@@ -65,6 +65,9 @@ footer a{color:var(--aqua-deep);font-weight:600}
 
 @media (max-width:640px){
   .wrap{padding:0 16px}
+  .top{gap:8px}
+  .top nav{gap:2px}
+  .top nav a,.top nav button{padding:8px 8px;font-size:13px}
   .top nav a span{display:none}
   .card{padding:18px;border-radius:18px}
 }

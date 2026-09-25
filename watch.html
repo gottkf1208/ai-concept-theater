@@ -12,7 +12,11 @@
 <link rel="stylesheet" href="engine/site.css">
 <link rel="stylesheet" href="engine/theater.css">
 <style>
-.ep-head{padding:26px 0 18px}
+.ep-head{padding:26px 0 18px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.ep-head .kv{height:220px;width:auto;object-fit:contain;justify-self:end}
+.ep-head .kv[hidden]{display:none}
+@media (max-width:720px){.ep-head{grid-template-columns:1fr}.ep-head .kv{height:150px;justify-self:start;order:-1}}
+body.mode-train .ep-head .kv{height:min(52vh,520px)}
 .ep-head .tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .ep-head h1{font-size:clamp(26px,4.2vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.18}
 .ep-head h1 small{display:block;font-size:.5em;font-weight:700;color:var(--muted);letter-spacing:-.01em;margin-top:8px}
@@ -122,6 +126,7 @@ body.mode-rec .theater.playing{cursor:none}
 
   <div class="slide s-title active">
     <div class="ep-head">
+      <div>
       <div class="tags" id="tags"></div>
       <h1 id="title">불러오는 중…</h1>
       <div class="modes">
@@ -130,6 +135,8 @@ body.mode-rec .theater.playing{cursor:none}
         <a class="btn" href="./#list">다른 편 보기</a>
       </div>
       <div class="keys"><span>단축키</span><kbd>Space</kbd> 재생·멈춤 <kbd>←</kbd><kbd>→</kbd> 장면 이동 <kbd>V</kbd> 음성 <span>· 연수 모드에서</span> <kbd>N</kbd> 강사 대본 <kbd>Esc</kbd> 나가기</div>
+      </div>
+      <img class="kv" id="kv" alt="" hidden>
     </div>
   </div>
 
@@ -215,6 +222,7 @@ document.title = `${ep.title} · 쿼카 AI 개념극장`;
 $('#tags').innerHTML = `<span class="tag ${ep.track.toLowerCase()}">${TRACKS[ep.track].label}</span><span class="tag">E${ep.no}</span><span class="tag">약 3분</span>`;
 $('#title').innerHTML = `${ep.title}<small>${ep.subtitle}</small>`;
 $('#btnTrain').href = `watch.html?ep=${slug}&mode=train`;
+const kvSrc = P.keySrc(slug); if (kvSrc) { $('#kv').src = kvSrc; $('#kv').hidden = false; }
 $('#btnRec').href = `watch.html?ep=${slug}&mode=rec`;
 
 /* 극장 */

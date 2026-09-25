@@ -1,5 +1,7 @@
 # 쿼카 AI 개념극장 — 이미지 요청 프롬프트 세트
 
+> 2026-09-25 현재: 포즈 8종(base·point·think·oops·tablet·wave·dice·glass), 편별 의상 12종, 히어로는 이미 만들어 `assets/`에 들어 있어요(CREDITS.md 참고). 아래는 새 포즈나 다음 시즌 그림을 추가로 뽑을 때 쓰는 규칙이에요. 참고 이미지는 이제 `assets/src/base.webp`(빨간 스웨터 3D 쿼카)를 쓰세요.
+
 GPT(이미지 생성)에 아래 프롬프트를 그대로 주고, 결과를 지정된 파일명으로 저장해 `assets/char/`, `assets/key/`에 넣은 뒤 `assets/manifest.js`에 이름을 한 줄 추가하면 사이트에 반영돼요. 없으면 기본 스티커(`idea.webp`, `globe.webp`)로 대신 나와요.
 
 ## 공통 규칙 (모든 프롬프트 앞에 붙이기)
