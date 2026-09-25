@@ -44,14 +44,26 @@ export function charReady(base = '') {
     try {
       const m = (await import(new URL('../assets/manifest.js', import.meta.url).href)).default;
       for (const [pose, ext] of Object.entries(m.char || {})) charMap.set(pose, `${base}assets/char/${pose}.${ext}`);
-      KEYS = m.key || {};
+      KEYS = m.key || {}; OUTFITS = m.outfits || {};
     } catch (e) { charMap.set('idea', `${base}assets/char/idea.webp`); }
   })();
   return charReadyP;
 }
 export function keySrc(name, base = '') { return KEYS[name] ? `${base}assets/key/${name}.${KEYS[name]}` : null; }
+/* 편별 의상: setOutfit(slug) 뒤에는 assets/char/{slug}/{pose}.webp 를 먼저 찾고, 'base'는 그 편 키비주얼을 써요. */
+let OUTFIT = null, OUTFITS = {};
+export function setOutfit(slug) { OUTFIT = slug; }
+export function outfitSrc(pose, base = '') {
+  if (!OUTFIT) return null;
+  const list = OUTFITS[OUTFIT] || [];
+  if (list.includes(pose)) return `${base}assets/char/${OUTFIT}/${pose}.webp`;
+  if (pose === 'base' || pose === 'idea') return keySrc(OUTFIT, base);
+  return null;
+}
 const FALLBACK = { idea: 'base', globe: 'point', think: 'base', oops: 'base', tablet: 'base', wave: 'base', dice: 'base', glass: 'point', point: 'base' };
 export function charSrc(pose = 'base', base = '') {
+  const o = outfitSrc(pose, base) || (FALLBACK[pose] ? outfitSrc(FALLBACK[pose], base) : null);
+  if (o) return o;
   return charMap.get(pose) || charMap.get(FALLBACK[pose] || 'base') || charMap.get('base') || charMap.get('idea') || `${base}assets/char/base.webp`;
 }
 

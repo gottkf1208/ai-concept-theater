@@ -96,6 +96,7 @@ export default {
 ## 이미지를 쓰고 싶다면
 
 - 쿼카 포즈나 키비주얼을 새로 만들었다면 `assets/char/`, `assets/key/`에 넣고 `assets/manifest.js`에 이름을 추가해요. 프롬프트 세트는 [IMAGE_PROMPTS.md](IMAGE_PROMPTS.md)에 있어요.
+- 새 편에 전용 의상을 입히려면: `assets/key/{slug}.webp`(기본 포즈)와 `assets/char/{slug}/{pose}.webp`(point·think·oops·wave 등)를 넣고 manifest의 `key`와 `outfits`에 등록해요. 없는 포즈는 자동으로 기본 포즈 → 공용 포즈 순서로 대체돼요.
 - AI로 만든 이미지는 [CREDITS.md](CREDITS.md)에 'AI 생성'으로 한 줄 적어 주세요.
 - 캐릭터는 쿼카연구회 오리지널 쿼카만 써요. 유명 캐릭터를 닮게 만들지 않아요.
 

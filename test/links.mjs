@@ -1,7 +1,7 @@
 /* 모든 에피소드의 출처 링크가 열리는지 확인해요(HEAD → 실패 시 GET, 브라우저 UA). */
 import { readdirSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
-const files = [...readdirSync('episodes').filter(f => f.endsWith('.js')).map(f => 'episodes/' + f), ...readdirSync('episodes/next').filter(f => f.endsWith('.js')).map(f => 'episodes/next/' + f)];
+const files = ['episodes','episodes/next','episodes/s3','episodes/s4'].flatMap(d => readdirSync(d).filter(f => f.endsWith('.js')).map(f => d + '/' + f));
 /* 브라우저 전용 전역이 모듈 최상위에서 쓰여도 Node에서 import되게 */
 globalThis.Image ??= class { };
 globalThis.document ??= { createElement: () => ({ getContext: () => null, style: {} }) };

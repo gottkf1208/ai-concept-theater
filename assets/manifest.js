@@ -1,11 +1,61 @@
-/* 이미지 자산 목록. 새 그림을 넣으면 여기에 이름을 한 줄 추가해요(확장자 빼고).
-   char: assets/char/{이름}.webp|png  — 쿼카 포즈
-   key : assets/key/{이름}.webp|png   — 편별 의상 변형(slug)과 첫 화면 히어로 */
+/* 이미지 자산 목록. 새 그림을 넣으면 여기에 이름을 추가해요(확장자 빼고).
+   char: assets/char/{이름}.webp  — 공용 쿼카 포즈
+   key : assets/key/{slug}.webp  — 편별 의상(기본 포즈)과 첫 화면 히어로
+   outfits: assets/char/{slug}/{pose}.webp — 그 편 의상으로 만든 포즈들. 없는 포즈는 key(기본) → 공용 포즈 순서로 대체돼요. */
 export default {
   char: { base: 'webp', point: 'webp', think: 'webp', oops: 'webp', tablet: 'webp', wave: 'webp', dice: 'webp', glass: 'webp', idea: 'webp', globe: 'webp' },
   key: {
-    hero: 'webp', 'hero-wide': 'webp',
-    'e1-agent-mcp': 'webp', 'e2-seed': 'webp', 'e3-diffusion': 'webp', 'e4-plausible': 'webp', 'e5-context': 'webp', 'e6-rag': 'webp',
-    'n1-consistency': 'webp', 'n2-video-cost': 'webp', 'n3-english-prompt': 'webp', 'n4-reasoning': 'webp', 'n5-vibecoding': 'webp', 'n6-ai-label': 'webp'
+    'hero': 'webp',
+    'hero-wide': 'webp',
+    'e1-agent-mcp': 'webp',
+    'e2-seed': 'webp',
+    'e3-diffusion': 'webp',
+    'e4-plausible': 'webp',
+    'e5-context': 'webp',
+    'e6-rag': 'webp',
+    'n1-consistency': 'webp',
+    'n2-video-cost': 'webp',
+    'n3-english-prompt': 'webp',
+    'n4-reasoning': 'webp',
+    'n5-vibecoding': 'webp',
+    'n6-ai-label': 'webp',
+    's3-voice': 'webp',
+    's3-avatar': 'webp',
+    's3-music': 'webp',
+    's3-subtitle': 'webp',
+    's3-vision': 'webp',
+    's3-role': 'webp',
+    's4-grading': 'webp',
+    's4-sycophancy': 'webp',
+    's4-privacy': 'webp',
+    's4-calc': 'webp',
+    's4-search': 'webp',
+    's4-choose': 'webp'
+  },
+  outfits: {
+    'e1-agent-mcp': ['point', 'tablet'],
+    'e2-seed': ['dice', 'oops', 'point', 'think', 'wave'],
+    'e3-diffusion': ['oops', 'point', 'think', 'wave'],
+    'e4-plausible': ['oops', 'think', 'wave'],
+    'e5-context': ['oops', 'point', 'think'],
+    'e6-rag': ['oops', 'point', 'tablet'],
+    'n1-consistency': ['oops', 'point', 'tablet', 'think', 'wave'],
+    'n2-video-cost': ['oops', 'point', 'tablet', 'wave'],
+    'n3-english-prompt': ['oops', 'point', 'tablet', 'think', 'wave'],
+    'n4-reasoning': ['glass', 'oops', 'point', 'think', 'wave'],
+    'n5-vibecoding': ['oops', 'point', 'tablet', 'think', 'wave'],
+    'n6-ai-label': ['point', 'tablet', 'think', 'wave'],
+    's3-voice': ['point', 'think', 'oops', 'wave'],
+    's3-avatar': ['point', 'think', 'oops', 'wave'],
+    's3-music': ['point', 'think', 'oops', 'wave'],
+    's3-subtitle': ['point', 'think', 'oops', 'wave'],
+    's3-vision': ['point', 'think', 'oops', 'wave'],
+    's3-role': ['point', 'think', 'oops', 'wave'],
+    's4-grading': ['point', 'think', 'oops', 'wave'],
+    's4-sycophancy': ['point', 'think', 'oops', 'wave'],
+    's4-privacy': ['point', 'think', 'oops', 'wave'],
+    's4-calc': ['point', 'think', 'oops', 'wave'],
+    's4-search': ['point', 'think', 'oops', 'wave'],
+    's4-choose': ['point', 'think', 'oops', 'wave']
   }
 };

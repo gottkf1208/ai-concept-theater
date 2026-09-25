@@ -222,6 +222,7 @@ document.title = `${ep.title} · 쿼카 AI 개념극장`;
 $('#tags').innerHTML = `<span class="tag ${ep.track.toLowerCase()}">${TRACKS[ep.track].label}</span><span class="tag">E${ep.no}</span><span class="tag">약 3분</span>`;
 $('#title').innerHTML = `${ep.title}<small>${ep.subtitle}</small>`;
 $('#btnTrain').href = `watch.html?ep=${slug}&mode=train`;
+P.setOutfit(slug);
 const kvSrc = P.keySrc(slug); if (kvSrc) { $('#kv').src = kvSrc; $('#kv').hidden = false; }
 $('#btnRec').href = `watch.html?ep=${slug}&mode=rec`;
 

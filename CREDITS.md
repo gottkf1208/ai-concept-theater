@@ -12,7 +12,8 @@
 | assets/favicon.svg | 직접 그림(코드) | 아니요 | |
 | assets/char/base.webp, dice.webp, glass.webp, oops.webp, point.webp | 의뢰인이 GPT(이미지 생성)로 만들어 전달한 쿼카 캐릭터 5종 | **AI 생성**(GPT) | 2026-09-25 교체. 해설자 기본 포즈 |
 | assets/char/think.webp, tablet.webp, wave.webp | Higgsfield · GPT Image 2.5, 위 base를 참조 이미지로 | **AI 생성** | 생각·태블릿·인사 포즈 |
-| assets/key/e1-agent-mcp.webp … n6-ai-label.webp (12장) | Higgsfield · GPT Image 2.5, base 참조 | **AI 생성** | 편별 의상 변형(후드·우비·화가 앞치마·탐정 코트·카디건·조끼·사진사·감독·여행자·조끼 안경·개발자 후드·앞치마) |
+| assets/key/e1-agent-mcp.webp … s4-choose.webp (24장) | Higgsfield · GPT Image 2.5, base 참조 | **AI 생성** | 편별 의상 변형(기본 포즈). 시즌 1·2 12종 + 시즌 3·4 12종(성우·촬영 스태프·DJ·통역사·연구원·연출가·심판·치어리더·보안 요원·회계사·기자·심사위원) |
+| assets/char/{slug}/{pose}.webp (96장) | Higgsfield · GPT Image 2.5, 각 편 의상 키비주얼을 참조 | **AI 생성** | 그 편 의상을 입은 포즈 세트(point·think·oops·wave·tablet·dice·glass 중 편마다 쓰는 것). 극장 안 해설자가 헤더와 같은 옷을 입도록 |
 | assets/key/hero.webp, hero-wide.webp, assets/og.png | Higgsfield · GPT Image 2.5(high), base 참조 | **AI 생성** | 첫 화면 히어로(극장 의자·팝콘), 공유용 OG |
 | assets/char/idea.webp, globe.webp | 연구회 스티커(이전 버전, 대체용으로 보관) | 연구회 자산 | 현재 화면에는 쓰이지 않음 |
 
@@ -20,7 +21,7 @@
 
 ## 힉스필드(Higgsfield) 크레딧 사용 내역
 
-예산 상한: 합계 100. 생성 전 잔액 확인, 누적 80에서 중단 규칙.
+예산 상한: 처음 100, 이후 의뢰인이 120으로 올림. 생성 전 잔액 확인, 상한의 80%에서 멈추고 보고하는 규칙.
 
 | 일시 | 모델 | 용도 | 쓴 크레딧 | 누적 |
 |---|---|---|---|---|
@@ -28,8 +29,10 @@
 | 2026-09-25 22:20 | gpt_image_2_5 (medium, 투명 배경) | 시험 1장: think 포즈 | 0.5 | 0.5 |
 | 2026-09-25 22:24 | gpt_image_2_5 (medium, 투명 배경) ×14 | tablet·wave 포즈 2장 + 편별 의상 변형 12장 | 7.0 | 7.5 |
 | 2026-09-25 22:25 | gpt_image_2_5 (high, 16:9) | 첫 화면 히어로 1장 | 1.5 | 9.0 |
+| 2026-09-25 22:55 | gpt_image_2_5 (medium, 투명) ×60 | 시즌 1·2 의상별 포즈 48장 + 시즌 3·4 의상 키비주얼 12장 | 30.0 | 39.0 |
+| 2026-09-25 23:10 | gpt_image_2_5 (medium, 투명) ×48 | 시즌 3·4 의상별 포즈 48장(point·think·oops·wave) | 24.0 | 63.0 |
 
-- 합계: **9.0 크레딧** (잔액 1082.5 → 1073.5, 의뢰인이 허용한 상한 120 이하)
+- 합계: **63.0 크레딧** (잔액 1082.5 → 1019.5, 의뢰인이 허용한 상한 120 이하)
 - 참고 이미지 업로드는 크레딧을 쓰지 않아요. 영상 생성은 하지 않았어요.
 
 ## 글꼴

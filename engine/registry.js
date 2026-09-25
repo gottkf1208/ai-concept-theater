@@ -11,13 +11,27 @@ export const EPISODES = [
   { no: 4, slug: 'e4-plausible', file: 'episodes/e4-plausible.js', status: 'ready' },
   { no: 5, slug: 'e5-context', file: 'episodes/e5-context.js', status: 'ready' },
   { no: 6, slug: 'e6-rag', file: 'episodes/e6-rag.js', status: 'ready' },
-  /* 다음 시즌: 대본 초안만 있어요. */
+  /* 시즌 2 */
   { no: 7, slug: 'n1-consistency', file: 'episodes/next/n1-consistency.js', status: 'ready' },
   { no: 8, slug: 'n2-video-cost', file: 'episodes/next/n2-video-cost.js', status: 'ready' },
   { no: 9, slug: 'n3-english-prompt', file: 'episodes/next/n3-english-prompt.js', status: 'ready' },
   { no: 10, slug: 'n4-reasoning', file: 'episodes/next/n4-reasoning.js', status: 'ready' },
   { no: 11, slug: 'n5-vibecoding', file: 'episodes/next/n5-vibecoding.js', status: 'ready' },
-  { no: 12, slug: 'n6-ai-label', file: 'episodes/next/n6-ai-label.js', status: 'ready' }
+  { no: 12, slug: 'n6-ai-label', file: 'episodes/next/n6-ai-label.js', status: 'ready' },
+  /* 시즌 3: AI 영상과 소리, 한 걸음 더 */
+  { no: 13, slug: 's3-voice', file: 'episodes/s3/s3-voice.js', status: 'ready' },
+  { no: 14, slug: 's3-avatar', file: 'episodes/s3/s3-avatar.js', status: 'ready' },
+  { no: 15, slug: 's3-music', file: 'episodes/s3/s3-music.js', status: 'ready' },
+  { no: 16, slug: 's3-subtitle', file: 'episodes/s3/s3-subtitle.js', status: 'ready' },
+  { no: 17, slug: 's3-vision', file: 'episodes/s3/s3-vision.js', status: 'ready' },
+  { no: 18, slug: 's3-role', file: 'episodes/s3/s3-role.js', status: 'ready' },
+  /* 시즌 4: 교실의 판단 */
+  { no: 19, slug: 's4-grading', file: 'episodes/s4/s4-grading.js', status: 'ready' },
+  { no: 20, slug: 's4-sycophancy', file: 'episodes/s4/s4-sycophancy.js', status: 'ready' },
+  { no: 21, slug: 's4-privacy', file: 'episodes/s4/s4-privacy.js', status: 'ready' },
+  { no: 22, slug: 's4-calc', file: 'episodes/s4/s4-calc.js', status: 'ready' },
+  { no: 23, slug: 's4-search', file: 'episodes/s4/s4-search.js', status: 'ready' },
+  { no: 24, slug: 's4-choose', file: 'episodes/s4/s4-choose.js', status: 'ready' }
 ];
 
 export async function loadEpisode(slug, base = '') {
