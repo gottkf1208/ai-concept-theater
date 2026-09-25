@@ -9,9 +9,9 @@ export default {
 
   scenes: [
     {
-      title: '오늘 사례: 카메라 연출 비교', dur: 13,
+      title: '카메라 연출 비교', dur: 13,
       captions: [
-        { t: 0, text: '오늘 <em>같은 장면</em>을 한국어와 영어 프롬프트로 각각 만들어 봤어요.' },
+        { t: 0, text: '<em>같은 장면</em>을 한국어와 영어 프롬프트로 각각 만들어 봤어요.' },
         { t: 5, text: '카메라 연출(<em>낮은 앵글</em>, <em>다가가는 카메라</em>) 표현은 영어 쪽이 조금 더 정확했어요.' },
         { t: 9.5, text: '나머지는 둘 다 <em>충분히 괜찮았어요</em>.' }
       ],
@@ -82,7 +82,7 @@ export default {
       title: '통계: 인터넷 글의 언어 비중', dur: 13,
       captions: [
         { t: 0, text: '인터넷에 있는 <em>글</em>만 보면, 언어 비중은 고르지 않아요.' },
-        { t: 5, text: '<em>영어</em> 비중이 가장 크고, <em>한국어</em>는 <em>1% 안팎</em>이에요. (Common Crawl 통계, 시점마다 달라요)' },
+        { t: 5, text: '<em>영어</em> 비중이 가장 크고, <em>한국어</em>는 <em>1% 안팎</em>이에요. 통계 시점마다 조금씩 달라요.' },
         { t: 9.5, text: '그러니 전문 용어일수록 영어 자료를 <em>더 많이 봤을 가능성</em>이 있어요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -141,7 +141,7 @@ export default {
           tl.at(stage.appendChild(b.el), .6 + i * 1.4, { from: 'right' });
           return b;
         });
-        const bottom = P.text({ x: 380, y: 610, w: 700, text: '도구마다 달라요. 안 써도 잘 되는 도구도 많아요.', size: 22, weight: 600, cls: 'muted' });
+        const bottom = P.text({ x: 380, y: 610, w: 700, text: '안 써도 잘 되는 도구도 많아요.', size: 22, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(bottom.el), 9.8, { from: 'up' });
         return {
           tick(t) {
@@ -152,7 +152,7 @@ export default {
       }
     },
     {
-      title: '정리: 언어보다 구체성', dur: 12,
+      title: '언어보다 구체성', dur: 12,
       captions: [
         { t: 0, text: '결국 중요한 건 언어보다 <em>구체성</em>이에요.' },
         { t: 4.5, text: '<em>피사체·카메라·조명·분위기·움직임</em>, 이 다섯 가지를 채워 보세요.' },
@@ -218,7 +218,7 @@ export default {
         },
         {
           lang: '오늘 실제 예시',
-          text: '쿼카가 브루 화면을 가리키며 설명하는 모습.\n낮은 각도에서 카메라가 다가가고, 따뜻한 조명 아래 차분한 분위기로.',
+          text: '쿼카가 화면을 가리키며 설명하는 모습.\n낮은 각도에서 카메라가 다가가고, 따뜻한 조명 아래 차분한 분위기로.',
           elems: { subject: true, camera: true, light: true, mood: true, move: true },
           improved: '오늘 실제로 이렇게 써서 결과가 좋았어요. 다섯 요소가 이미 다 들어 있었어요.'
         }
@@ -285,7 +285,7 @@ export default {
     '그래도 한국어로 충분히 되니, 중요한 건 언어보다 <b>얼마나 구체적으로</b> 쓰느냐예요.'
   ],
   tip: {
-    body: '카메라 워크 같은 전문 용어는 영어를 함께 적어 주면(예: "낮은 각도, low angle") 인식이 더 잘 될 때가 있어요. 도구마다 차이가 있으니 같은 장면을 한국어·영어로 각각 만들어 비교해 보는 것도 방법이에요.',
+    body: '카메라 워크 같은 전문 용어는 영어를 함께 적어 주면(예: "낮은 각도, low angle") 인식이 더 잘 될 때가 있어요. 서비스마다 차이가 있으니 같은 장면을 한국어·영어로 각각 만들어 비교해 보는 것도 방법이에요.',
     extra: '무엇보다 <b>피사체·카메라·조명·분위기·움직임</b> 다섯 가지를 채워서 쓰면, 어느 언어든 결과가 좋아져요.'
   },
   myth: {
@@ -297,7 +297,7 @@ export default {
     { title: 'Common Crawl — 언어별 통계', url: 'https://commoncrawl.github.io/cc-crawl-statistics/plots/languages', note: '웹 텍스트에서 영어 비중이 다른 언어보다 훨씬 크다는 걸 보여주는 통계.' },
     { title: '오늘의 사례 — 브루 대본 비교(vrew-talk)', url: 'https://gottkf1208.github.io/vrew-talk/', note: '같은 장면을 한국어·영어 프롬프트로 만들어 본 오늘 기록.' }
   ],
-  script: `오늘 같은 장면을 한국어와 영어 프롬프트로 각각 만들어 봤는데, 카메라 연출 표현은 영어 쪽이 조금 더 정확했어요. 왜 이런 차이가 날까요.
+  script: `같은 장면을 한국어와 영어 프롬프트로 각각 만들어 봤는데, 카메라 연출 표현은 영어 쪽이 조금 더 정확했어요. 왜 이런 차이가 날까요.
 
 많은 이미지·영상 생성 모델은 인터넷에 있는 이미지와 글 설명을 짝지어 학습해요(CLIP 같은 연구가 대표적이에요). 그런데 인터넷 텍스트 통계를 보면 영어 비중이 압도적으로 크고, 한국어는 1% 안팎이에요. 그러니 카메라 워크처럼 전문 용어가 많은 표현은 영어 자료를 더 많이 봤을 가능성이 높아요.
 

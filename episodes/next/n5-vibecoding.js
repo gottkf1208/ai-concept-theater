@@ -9,9 +9,9 @@ export default {
 
   scenes: [
     {
-      title: '오늘 있었던 일', dur: 13,
+      title: '프롬프트 한 장으로 생긴 일', dur: 13,
       captions: [
-        { t: 0, text: '오늘 이 개념극장도 <em>프롬프트 한 장</em>으로 만들어졌어요.' },
+        { t: 0, text: '이 개념극장도 <em>프롬프트 한 장</em>으로 만들어졌어요.' },
         { t: 5, text: '말로 요청하고 나서 몇 분 뒤, <em>주소</em>가 하나 생겼어요.' },
         { t: 9.5, text: '그 사이에 무슨 일이 있었던 걸까요?' }
       ],
@@ -135,7 +135,7 @@ export default {
       }
     },
     {
-      title: '오늘의 할 일', dur: 13,
+      title: '파일로 남는다는 것', dur: 13,
       captions: [
         { t: 0, text: '말로 만들되, 결과는 <em>파일로 남는다</em>는 걸 기억해요.' },
         { t: 5, text: '저장소와 권한은 <em>좁게</em>, 실수해도 <em>되돌릴 수 있게</em> 해요.' },
@@ -282,7 +282,7 @@ export default {
     { title: 'GitHub REST API — Repository contents', url: 'https://docs.github.com/en/rest/repos/contents', note: '화면에서 고친 내용을 저장소 파일에 다시 저장할 때 쓰는 API.' },
     { title: 'Managing your personal access tokens (fine-grained)', url: 'https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens', note: '저장소·권한 범위를 좁게 설정하는 fine-grained 토큰 안내.' }
   ],
-  script: `말 한마디로 웹앱을 만들었는데, 그게 어떻게 깃허브에 올라가고 화면에서 편집까지 될까요. 오늘 이 개념극장도 그렇게 만들어졌어요. 순서를 따라가 볼게요.
+  script: `말 한마디로 웹앱을 만들었는데, 그게 어떻게 깃허브에 올라가고 화면에서 편집까지 될까요. 순서를 따라가 볼게요.
 
 먼저 말이 코드(HTML, CSS, JS 파일)로 바뀌고, 그 코드가 깃허브라는 저장소에 저장돼요. 그다음 깃허브 페이지스라는 서비스가 그 저장소 내용을 그대로 인터넷에 띄워요. 그래서 별도의 서버 프로그램 없이도, 정적 사이트만으로 누구나 그 주소로 들어갈 수 있어요.
 

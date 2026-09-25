@@ -51,7 +51,7 @@ export default {
       captions: [
         { t: 0, text: '글을 쓰는 AI(언어모델)는 숫자도 <em>글자 토큰</em>으로 봐요.' },
         { t: 5, text: '계산 규칙을 <em>실행</em>하는 게 아니라, "이런 숫자열 뒤엔 이런 숫자열이 자주 왔다"는 <em>패턴</em>을 맞혀요.' },
-        { t: 10, text: '조합이 많은 여러 자릿수 곱셈일수록 <em>패턴이 부족</em>해요(Dziri 외, 2023).' }
+        { t: 10, text: '조합이 많은 여러 자릿수 곱셈일수록 <em>패턴이 부족</em>해요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 40, y: 440, size: 250, pose: 'think' });
@@ -74,7 +74,7 @@ export default {
         tl.at(stage.appendChild(outBox.el), 6.4, { from: 'right' });
         const toOut = P.arrow(lines, { x1: 810, y1: 300, x2: 950, y2: 400, color: '#F2812D', width: 4, curve: 20 });
 
-        const capLbl = P.text({ x: 60, y: 610, w: 1160, text: '조합이 많을수록 <i>본 적 있는 패턴</i>이 부족해져요(Dziri 외, "Faith and Fate", 2023)', size: 20, weight: 700, cls: 'muted' });
+        const capLbl = P.text({ x: 60, y: 610, w: 1160, text: '조합이 많을수록 <i>본 적 있는 패턴</i>이 부족해져요.', size: 20, weight: 700, cls: 'muted' });
         tl.at(stage.appendChild(capLbl.el), 10, { from: 'up' });
 
         return {
@@ -92,7 +92,7 @@ export default {
       captions: [
         { t: 0, text: '자릿수가 <em>작을 때</em>는 비슷한 예를 많이 봐서 잘 맞혀요.' },
         { t: 5, text: '자릿수가 <em>커질수록</em> 조합이 폭발적으로 늘어서, 그럴듯하지만 <em>틀린 답</em>이 나오기 쉬워요.' },
-        { t: 9.5, text: 'E4에서 본 <em>"그럴듯함"</em>과 같은 원리예요. 숫자에서도 똑같이 나타나요.' }
+        { t: 9.5, text: '그럴듯하지만 틀린 답, 숫자에서도 똑같이 나타나요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 40, y: 420, size: 260, pose: 'point' });
@@ -110,7 +110,7 @@ export default {
           tl.at(stage.appendChild(capt.el), .7 + i * .5, { from: 'up' });
           return { bar, capt };
         });
-        const last = P.text({ x: 340, y: 640, w: 860, text: 'E4의 <em>그럴듯함</em>과 같은 원리예요. 숫자도 똑같이 나타나요.', size: 26, weight: 800 });
+        const last = P.text({ x: 340, y: 640, w: 860, text: '<em>그럴듯함</em>은 숫자에서도 똑같이 나타나요.', size: 26, weight: 800 });
         tl.at(stage.appendChild(last.el), 9.7, { from: 'up' });
         return {
           tick(t) {
@@ -122,8 +122,8 @@ export default {
     {
       title: '해법은 도구예요', dur: 13,
       captions: [
-        { t: 0, text: '해법은 간단해요. <em>계산은 계산기·코드</em>에 맡기는 거예요.' },
-        { t: 5, text: '모델은 "언제 무엇을 계산할지"만 <em>정하고</em>, 실제 계산은 도구가 해요(Toolformer, Schick 외 2023).' },
+        { t: 0, text: '계산은 <em>계산기·코드</em>에 맡기면 해결돼요.' },
+        { t: 5, text: '모델은 "언제 무엇을 계산할지"만 <em>정하고</em>, 실제 계산은 도구가 해요.' },
         { t: 9.5, text: 'E1에서 본 <em>도구 호출</em>과 똑같은 원리예요. 계산도 도구를 불러서 시켜요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -160,7 +160,7 @@ export default {
       captions: [
         { t: 0, text: '정산·통계는 <em>표로 만들어</em> 계산기(스프레드시트)로 검산하세요.' },
         { t: 5, text: '또는 <em>코드 실행 기능</em>이 있는 도구를 골라, 계산은 도구에게 맡기세요.' },
-        { t: 9.5, text: '학생에게는 "AI는 수학을 <em>외운 패턴</em>으로 풀어. 계산기는 <em>규칙</em>으로 풀어"라고 말해 주세요.' }
+        { t: 9.5, text: 'AI는 <em>외운 패턴</em>으로 풀고, 계산기는 <em>규칙</em>대로 풀어요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 320, size: 340, pose: 'wave' });
@@ -322,9 +322,9 @@ export default {
   ],
   script: `학급비 정산을 AI에게 맡겼는데 합계가 살짝 틀렸던 적 있으신가요? 작은 곱셈은 다 맞는데, 자릿수가 큰 곱셈에서만 어긋나요.
 
-이유는 이래요. 언어모델은 숫자도 글자 토큰으로 봐요. 계산 규칙을 실행하는 게 아니라 "이런 숫자열 뒤엔 이런 숫자열이 자주 왔다"는 패턴을 맞히는 거예요(Dziri 외, 2023). 자릿수가 커질수록 조합이 늘어나, 그럴듯하지만 틀린 답이 나오기 쉬워요.
+이유는 이래요. 언어모델은 숫자도 글자 토큰으로 봐요. 계산 규칙을 실행하는 게 아니라 "이런 숫자열 뒤엔 이런 숫자열이 자주 왔다"는 패턴을 맞히는 거예요. 자릿수가 커질수록 조합이 늘어나, 그럴듯하지만 틀린 답이 나오기 쉬워요.
 
-물론 요즘 모델은 많이 좋아졌고, 도구를 붙이면 훨씬 정확해져요. 계산은 계산기·코드에 맡기고 모델은 언제 무엇을 계산할지만 정하는 방식이에요(Toolformer). 앞서 본 도구 호출과 같은 원리예요.
+물론 요즘 모델은 많이 좋아졌고, 도구를 붙이면 훨씬 정확해져요. 계산은 계산기·코드에 맡기고 모델은 언제 무엇을 계산할지만 정하는 방식이에요. 앞서 본 도구 호출과 같은 원리예요.
 
-그러니 정산·통계는 표로 만들어 스프레드시트로 검산하거나, 코드 실행 기능이 있는 도구를 골라 주세요. 학생에게는 이렇게 말해 주세요. "AI는 수학을 외운 패턴으로 풀어. 계산기는 규칙으로 풀어."`
+그러니 정산·통계는 표로 만들어 스프레드시트로 검산하거나, 코드 실행 기능이 있는 도구를 골라 주세요. 계산기는 규칙대로 풀고, AI는 외운 패턴으로 푼다는 차이만 기억해두면 충분해요.`
 };

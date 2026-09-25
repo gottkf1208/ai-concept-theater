@@ -4,7 +4,7 @@ export default {
   track: 'B',
   title: '학생 이름, AI에 넣어도 될까',
   subtitle: '개인정보와 학습 데이터',
-  summary: '생활기록부 문구를 AI에게 다듬어 달라다가 손이 멈칫해요. 이름·성적 같은 학생 정보를 AI에 넣기 전에 무엇을 확인해야 할지 3분에 정리해요.',
+  summary: '생활기록부 문구를 AI에게 다듬어 달라고 하다가 손이 멈칫해요. 이름·성적 같은 학생 정보, AI에 넣기 전에 뭘 확인해야 할지 정리해봤어요.',
   keywords: ['개인정보', '학생 정보', '생활기록부', '비식별화', '학습에 사용 안 함', '개인정보보호법'],
 
   scenes: [
@@ -13,7 +13,7 @@ export default {
       captions: [
         { t: 0, text: '학생 생활기록부 문구를 AI에게 다듬어 달라고 하려던 참이에요.' },
         { t: 5, text: '그런데 손이 멈칫해요. <em>"이름이랑 성적, 넣어도 되나?"</em>' },
-        { t: 9.5, text: '오늘은 그 답을 같이 찾아봐요.' }
+        { t: 9.5, text: '그 답, 하나씩 짚어볼게요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 60, y: 300, size: 360, pose: 'oops' });
@@ -24,7 +24,7 @@ export default {
         tl.at(stage.appendChild(preview.el), 1.2, { from: 'up' });
         const b = P.bubble({ x: 380, y: 320, w: 620, text: '"<b>이름이랑 성적</b>, 넣어도 되나?"', tail: 'left', tone: 'orange', size: 27 });
         tl.at(stage.appendChild(b.el), 5, { from: 'up' });
-        const qq = P.text({ x: 380, y: 560, w: 760, text: '오늘은 그 답을 같이 찾아봐요.', size: 30, weight: 800 });
+        const qq = P.text({ x: 380, y: 560, w: 760, text: '그 답, 하나씩 짚어볼게요.', size: 30, weight: 800 });
         tl.at(stage.appendChild(qq.el), 9.6, { from: 'up' });
         return {
           tick(t) {
@@ -38,7 +38,7 @@ export default {
       captions: [
         { t: 0, text: '채팅창에 넣은 글은 <em>내 컴퓨터 안</em>에만 머무르지 않아요.' },
         { t: 5, text: '서비스 <em>서버</em>로 가서, 약관에 따라 저장·검토·학습에 쓰일 수도 있어요.' },
-        { t: 9.5, text: '도구·요금제마다 달라요. <em>"학습에 사용 안 함"</em> 설정이 있는 서비스도 있어요.' }
+        { t: 9.5, text: '서비스나 요금제에 따라 갈려요. <em>"학습에 사용 안 함"</em> 설정이 있는 곳도 있어요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 420, size: 260, pose: 'point' });
@@ -50,7 +50,7 @@ export default {
         tl.at(stage.appendChild(box2.el), 1.6, { from: 'right' });
         const note1 = P.text({ x: 780, y: 270, w: 460, text: '저장 · 검토 · 학습에 쓰일 수도 있어요', size: 22, weight: 700, cls: 'muted' });
         tl.at(stage.appendChild(note1.el), 5, { from: 'up' });
-        const note2 = P.text({ x: 380, y: 400, w: 800, text: '도구 · 요금제마다 달라요.', size: 24, weight: 700 });
+        const note2 = P.text({ x: 380, y: 400, w: 800, text: '서비스마다 조금씩 달라요.', size: 24, weight: 700 });
         tl.at(stage.appendChild(note2.el), 6.4, { from: 'up' });
         const chip = P.chip({ x: 380, y: 470, text: '"학습에 사용 안 함" 설정도 있어요', color: 'aqua', size: 22 });
         tl.at(stage.appendChild(chip.el), 9.6, { from: 'pop' });
@@ -278,7 +278,7 @@ export default {
   ],
   script: `생활기록부 문구를 AI에게 다듬어 달라고 하려다가 손이 멈칫해요. 이름이랑 성적, 넣어도 될까요?
 
-AI 채팅창에 넣은 글은 내 컴퓨터 안에만 머무르지 않아요. 서비스 서버로 가서, 약관에 따라 저장되거나 검토·학습에 쓰일 수도 있어요. 도구와 요금제마다 다르고, '학습에 사용 안 함' 설정이 있는 서비스도 있어요.
+AI 채팅창에 넣은 글은 내 컴퓨터 안에만 머무르지 않아요. 서비스 서버로 가서, 약관에 따라 저장되거나 검토·학습에 쓰일 수도 있어요. 서비스와 요금제에 따라 다르고, '학습에 사용 안 함' 설정이 있는 곳도 있어요.
 
 이름·사진·학번·성적·건강·가정 사정 같은 정보는 개인정보예요. 개인정보 보호법이 지키고 있고, 학교가 이런 정보를 쓰려면 처리 근거와 동의가 필요해요.
 

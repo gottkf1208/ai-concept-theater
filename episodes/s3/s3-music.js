@@ -4,23 +4,23 @@ export default {
   track: 'A',
   title: '배경음악은 어떻게 만들어질까',
   subtitle: '음악 생성과 저작권',
-  summary: "브루 영상에 배경음악을 넣으려다 '저작권 무료'가 헷갈렸던 경험에서 시작해, 소리를 토큰으로 바꿔 음악을 만드는 원리와 약관 확인·기록 습관까지 살펴봐요.",
+  summary: "영상에 배경음악을 넣으려다 '저작권 무료'가 헷갈렸던 경험에서 시작해, 소리를 토큰으로 바꿔 음악을 만드는 원리와 약관 확인·기록 습관까지 살펴봐요.",
   keywords: ['음악 생성', '코덱 토큰', 'MusicGen', '저작권', '약관', '상업적 이용', '출처 표시', 'CREDITS'],
 
   scenes: [
     {
       title: '이 곡, 써도 될까요', dur: 13,
       captions: [
-        { t: 0, text: '오늘 브루 영상에 <em>배경음악</em>을 넣으려 했어요.' },
+        { t: 0, text: '영상에 <em>배경음악</em>을 넣으려 했어요.' },
         { t: 5, text: '그런데 <em>저작권 무료</em>라는 말이 정확히 뭔지 헷갈렸어요.' },
-        { t: 9.5, text: '이 곡, 그냥 써도 될까요? 오늘은 <em>음악 생성</em> 원리부터 살펴봐요.' }
+        { t: 9.5, text: '이 곡, 그냥 써도 될까요? <em>음악 생성</em> 원리부터 살펴봐요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 320, size: 320, pose: 'oops' });
         stage.append(q.el);
-        const b = P.bubble({ x: 300, y: 100, w: 480, text: '브루 영상에 배경음악을 넣고 싶은데...', tail: 'left' });
+        const b = P.bubble({ x: 300, y: 100, w: 480, text: '영상에 배경음악을 넣고 싶은데...', tail: 'left' });
         tl.at(stage.appendChild(b.el), .3, { from: 'left' });
-        const videoBox = P.box({ x: 830, y: 100, w: 380, h: 160, label: '브루 영상', sub: '배경음악 없음', accent: 'ink', icon: P.ICON.video });
+        const videoBox = P.box({ x: 830, y: 100, w: 380, h: 160, label: '내 영상', sub: '배경음악 없음', accent: 'ink', icon: P.ICON.video });
         tl.at(stage.appendChild(videoBox.el), 1.4, { from: 'right' });
         const qBox = P.box({ x: 830, y: 310, w: 380, h: 160, label: '저작권 무료?', sub: '이 곡, 써도 될까요', accent: 'orange' });
         tl.at(stage.appendChild(qBox.el), 3.0, { from: 'right' });
@@ -153,8 +153,8 @@ export default {
     {
       title: '그래서 할 일', dur: 13,
       captions: [
-        { t: 0, text: '그래서 할 일은 간단해요.' },
-        { t: 5, text: '도구 <em>약관을 스크린샷</em>으로 남기고, 생성한 곡도 <em>CREDITS에 기록</em>해요.' },
+        { t: 0, text: '도구 <em>약관을 스크린샷</em>으로 남겨 두세요.' },
+        { t: 5, text: '생성한 곡은 <em>CREDITS에 기록</em>해요.' },
         { t: 9.5, text: '약관 확인과 기록, 이 두 가지만 <em>습관</em>으로 만들면 돼요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -338,17 +338,17 @@ export default {
   },
   myth: {
     myth: 'AI가 만든 곡은 아무 데나 써도 된다.',
-    fact: '도구마다, 나라마다 약관과 법이 달라요. 약관을 확인하고, 어디서 만들었는지 기록해 두세요.'
+    fact: '쓰는 도구와 나라에 따라 약관과 법이 달라요. 약관을 확인하고, 어디서 만들었는지 기록해 두세요.'
   },
   sources: [
     { title: 'MusicGen: Simple and Controllable Music Generation (arXiv, 2023)', url: 'https://arxiv.org/abs/2306.05284', note: '소리를 압축된 토큰으로 바꾸고, 트랜스포머로 다음 토큰을 이어 붙여 음악을 만드는 방식을 보여주는 연구예요.' },
     { title: '한국저작권위원회', url: 'https://www.copyright.or.kr/', note: 'AI 학습 자료와 생성물의 저작권 관련 안내 자료를 확인할 수 있어요.' }
   ],
-  script: `오늘 브루로 만든 영상에 배경음악을 넣으려다가, '저작권 무료'라는 말이 정확히 뭔지 헷갈렸어요. 이 곡, 그냥 써도 될까요?
+  script: `영상 편집 사이트로 만든 영상에 배경음악을 넣으려다가, '저작권 무료'라는 말이 정확히 뭔지 헷갈렸어요. 이 곡, 그냥 써도 될까요?
 
 음악을 만드는 AI는 소리를 잘게 압축한 코덱 토큰으로 바꾸고, 글 쓰는 모델처럼 다음 소리 토큰을 확률로 이어 붙여요. MusicGen 같은 연구가 이 방식을 보여줘요. 그래서 '잔잔한 피아노, 90 BPM'처럼 장르·분위기·템포로 시키면 그럴듯한 곡이 나와요. 다만 특정 가수의 스타일을 콕 집어 시키면 학습 자료를 닮을 위험이 있어요.
 
-학습 자료와 생성물의 권리는 나라마다, 도구마다 약관이 달라요. 한국저작권위원회 같은 곳의 안내를 확인해요. 학교 영상에 쓸 땐 '상업적 이용 가능'과 '출처 표시' 조건을 꼭 읽어요.
+학습 자료와 생성물의 권리는 쓰는 도구와 나라에 따라 약관이 갈려요. 한국저작권위원회 같은 곳의 안내를 확인해요. 학교 영상에 쓸 땐 '상업적 이용 가능'과 '출처 표시' 조건을 꼭 읽어요.
 
 그러니 도구 약관은 스크린샷으로 남기고, 생성한 곡도 CREDITS에 기록해 두세요. 확인하고 기록하는 습관, 그게 전부예요.`
 };

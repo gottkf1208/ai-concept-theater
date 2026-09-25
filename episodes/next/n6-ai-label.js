@@ -9,11 +9,11 @@ export default {
 
   scenes: [
     {
-      title: '오늘 있었던 일', dur: 13,
+      title: '업로드 버튼 앞에서', dur: 13,
       captions: [
-        { t: 0, text: '오늘 AI로 짧은 영상을 만들어서, 학교 유튜브에 올리려던 참이에요.' },
+        { t: 0, text: 'AI로 짧은 영상을 만들어서, 학교 유튜브에 올리려던 참이에요.' },
         { t: 5, text: '업로드 버튼 앞에서 문득, <em>"이거 AI로 만든 거 표시해야 하나?"</em> 싶었어요.' },
-        { t: 9.5, text: '오늘은 그 답을 같이 찾아봐요.' }
+        { t: 9.5, text: '이 질문, 답을 한번 찾아볼게요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 380, size: 300, pose: 'think' });
@@ -103,11 +103,11 @@ export default {
       }
     },
     {
-      title: '할 일', dur: 13,
+      title: '먼저 표시하기', dur: 13,
       captions: [
-        { t: 0, text: '그래서 우리는 <em>먼저 표시하기</em>로 했어요.' },
-        { t: 5, text: '화면 라벨 + 설명란 문구 + <em>제작 기록</em>(CREDITS.md 같은 파일), 이 세 가지예요.' },
-        { t: 9, text: '이 극장도 사이트 하단과 <em>CREDITS.md</em>에 표시해 두었어요.' }
+        { t: 0, text: '<em>먼저 표시하기</em>로 했어요.' },
+        { t: 5, text: '화면 라벨, 설명란 문구, <em>제작 기록</em>(CREDITS.md 같은 파일)까지요.' },
+        { t: 9, text: '이 사이트도 <em>하단</em>에 표시해 두었어요.' }
       ],
       build({ stage, lines, P, tl }) {
         const rows = [
@@ -122,7 +122,7 @@ export default {
         });
         const q = P.quokka({ x: 40, y: 460, size: 220, pose: 'wave' });
         stage.append(q.el);
-        const b = P.bubble({ x: 300, y: 540, w: 640, text: '이 극장도 사이트 하단과 <b>CREDITS.md</b>에 표시해 뒀어요.', tail: 'left', size: 22, tone: 'soft' });
+        const b = P.bubble({ x: 300, y: 540, w: 640, text: '사이트 하단과 <b>CREDITS.md</b>에 표시해 뒀어요.', tail: 'left', size: 22, tone: 'soft' });
         tl.at(stage.appendChild(b.el), 9, { from: 'up' });
         return { tick(t) { q.tick(t, t > 9); } };
       }
@@ -252,5 +252,5 @@ export default {
 
 우리나라는 2026년 1월 22일 시행된 AI 기본법 제31조에서, 생성형 AI 결과물에 AI로 만들었다는 사실을 표시하도록 정하고 있어요. 다만 무엇을 어떻게 표시할지 세부 기준은 시행령과 고시로 정해지니, 단정하기보다 국가법령정보센터에서 최신 내용을 확인하는 게 좋아요.
 
-그래서 우리는 일단 먼저 표시하기로 했어요. 화면 라벨과 설명란 문구, 그리고 CREDITS.md 같은 제작 기록까지요. 이 극장도 사이트 하단과 CREDITS.md에 표시를 넣어 두었어요.`
+먼저 표시하기로 했어요. 화면 라벨과 설명란 문구, 그리고 CREDITS.md 같은 제작 기록까지요. 이 사이트도 하단에 표시를 넣어 두었어요.`
 };

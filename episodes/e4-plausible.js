@@ -4,19 +4,19 @@ export default {
   track: 'A',
   title: 'AI는 왜 없는 숫자를 그려 넣을까',
   subtitle: '그럴듯함과 사실',
-  summary: '브루가 기후변화 영상에 그린 계기판 숫자가 4초 만에 423ppm에서 420ppm으로 바뀌었어요. 생성 AI가 왜 없는 숫자를 그럴듯하게 채워 넣는지, 그리고 무엇을 확인해야 하는지 3분에 담았어요.',
-  keywords: ['할루시네이션', '환각', '사실확인', '그럴듯함', '생성AI', '팩트체크', '브루'],
+  summary: 'AI 영상 도구가 기후변화 영상에 그린 계기판 숫자가 4초 만에 423ppm에서 420ppm으로 바뀌었어요. 생성 AI가 왜 없는 숫자를 그럴듯하게 채워 넣는지, 그리고 무엇을 확인해야 하는지 3분에 담았어요.',
+  keywords: ['할루시네이션', '환각', '사실확인', '그럴듯함', '생성AI', '팩트체크'],
 
   scenes: [
     {
       title: '오늘 있었던 일', dur: 13,
       captions: [
-        { t: 0, text: '오늘 브루가 \'기후변화\' 한 단어로 만든 AI 영상, 두 장면이에요.' },
+        { t: 0, text: 'AI 영상 도구가 \'기후변화\' 한 단어로 만든 영상, 두 장면이에요.' },
         { t: 5, text: '<em>4초 사이</em>에 계기판 숫자가 423ppm에서 420ppm으로 바뀌었어요.' },
         { t: 9.5, text: '어느 쪽 숫자를 믿어야 할까요?' }
       ],
       build({ stage, lines, P, tl, base }) {
-        const img1 = P.h('img', { src: `${base}assets/frames/v1-07s.webp`, alt: '브루가 만든 기후 계기판 영상 7초 장면. CO2 423ppm', draggable: 'false', style: 'left:70px;top:100px;width:480px;height:270px;object-fit:cover;border-radius:14px;border:2px solid #E4E8EC' });
+        const img1 = P.h('img', { src: `${base}assets/frames/v1-07s.webp`, alt: 'AI가 만든 기후 계기판 영상 7초 장면. CO2 423ppm', draggable: 'false', style: 'left:70px;top:100px;width:480px;height:270px;object-fit:cover;border-radius:14px;border:2px solid #E4E8EC' });
         tl.at(stage.appendChild(img1), .2, { from: 'left' });
         const img2 = P.h('img', { src: `${base}assets/frames/v1-11s.webp`, alt: '같은 영상 11초 장면. CO2 420 PPM', draggable: 'false', style: 'left:730px;top:100px;width:480px;height:270px;object-fit:cover;border-radius:14px;border:2px solid #E4E8EC' });
         tl.at(stage.appendChild(img2), .6, { from: 'right' });
@@ -182,7 +182,7 @@ export default {
 
   interaction: {
     title: '가짜 단서 찾기',
-    desc: '오늘 브루가 만든 두 장면 위에 숨은 <b>가짜 단서 5개</b>를 찾아보세요. 눌러 보면 원이 표시되고 설명 카드가 열려요.',
+    desc: 'AI 영상 도구가 만든 두 장면 위에 숨은 <b>가짜 단서 5개</b>를 찾아보세요. 눌러 보면 원이 표시되고 설명 카드가 열려요.',
     mount(el, P) {
       const CLUES = [
         { id: 'f1-co2', frame: 1, x: 80.2, y: 11.1, w: 13.5, h: 16.7, label: '423ppm 패널',
@@ -226,7 +226,7 @@ export default {
       el.append(style);
 
       const frameImgs = {
-        1: { src: 'assets/frames/v1-07s.webp', alt: '브루가 만든 기후 계기판 영상 7초 장면' },
+        1: { src: 'assets/frames/v1-07s.webp', alt: 'AI가 만든 기후 계기판 영상 7초 장면' },
         2: { src: 'assets/frames/v1-11s.webp', alt: '같은 영상 11초 장면' }
       };
       const hotspotEls = {};
@@ -269,7 +269,7 @@ export default {
   ],
   tip: {
     body: '숫자, 날짜, 고유명사는 <b>1차 출처</b>로 확인하고, 이미지 속 숫자는 쓰지 마세요. 필요한 숫자는 편집 단계에서 자막으로 넣어요.',
-    extra: '브루 같은 도구가 만든 계기판·표·그래프 속 숫자는 전부 "확인 대상"이라고 생각하면 안전해요.'
+    extra: 'AI 영상 도구가 만든 계기판·표·그래프 속 숫자는 전부 "확인 대상"이라고 생각하면 안전해요.'
   },
   myth: {
     myth: 'AI가 거짓말을 한다.',
@@ -281,7 +281,7 @@ export default {
     { title: '오늘 사례 영상 — 브루 특강 강의안 (vrew-talk)', url: 'https://gottkf1208.github.io/vrew-talk/', note: 'v1.mp4의 7초·11초 부근 장면. 423ppm → 420ppm 변화와 뭉개진 제목을 직접 확인할 수 있어요.' }
   ],
   script: `
-오늘 브루로 만든 기후변화 영상을 보다가 이상한 걸 발견했어요. 7초 장면에서는 이산화탄소가 423ppm이었는데, 11초 장면에서는 420ppm으로 바뀌어 있었어요. 겨우 4초 사이에 숫자가 달라진 거예요.
+AI 영상 도구로 만든 기후변화 영상을 보다가 이상한 걸 발견했어요. 7초 장면에서는 이산화탄소가 423ppm이었는데, 11초 장면에서는 420ppm으로 바뀌어 있었어요. 겨우 4초 사이에 숫자가 달라진 거예요.
 
 이유는 간단해요. 생성 AI는 사실을 확인해 주는 기계가 아니라, '다음 말·다음 모양'을 확률로 이어 붙이는 기계예요. 계기판을 그리라고 하면 빈칸에 그럴듯한 숫자를 채워 넣어요. 두 장면이 각각 따로 그려졌으니 숫자가 달라도 이상할 게 없어요.
 

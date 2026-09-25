@@ -41,8 +41,8 @@ export default {
       title: '토큰: 조각으로 쪼개요', dur: 13,
       captions: [
         { t: 0, text: 'AI에게는 글이 통째로 들어가지 않아요. <em>토큰</em>이라는 조각으로 쪼개져 들어가요.' },
-        { t: 5, text: '영어는 대략 3~4글자에 토큰 하나예요(Claude 용어집 기준 약 3.5자). 한국어는 도구마다 다르고, 보통 더 잘게 쪼개져요.' },
-        { t: 9.5, text: '이건 <em>대략적인 예시</em>예요. 실제로 쪼개는 방식은 도구마다 달라요.' }
+        { t: 5, text: '영어는 대략 3~4글자에 토큰 하나예요. 한국어는 보통 더 잘게 쪼개져요.' },
+        { t: 9.5, text: '이건 <em>대략적인 예시</em>예요. 실제 토큰 수는 도구 안에서 세어 봐야 해요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 420, size: 260, pose: 'point' });
@@ -60,9 +60,9 @@ export default {
         });
         const countTxt = P.text({ x: 300, y: 360, w: 760, text: '', size: 24, weight: 700, align: 'center', color: '#127E90' });
         tl.at(stage.appendChild(countTxt.el), 6.2, { from: 'up' });
-        const noteTxt = P.text({ x: 300, y: 430, w: 760, text: '영어: 약 3.5자에 토큰 1개(대략) · 한국어: 도구마다 다르고 더 잘게', size: 20, weight: 600, align: 'center', cls: 'muted' });
+        const noteTxt = P.text({ x: 300, y: 430, w: 760, text: '영어: 약 3.5자에 토큰 1개(대략) · 한국어: 보통 더 잘게', size: 20, weight: 600, align: 'center', cls: 'muted' });
         tl.at(stage.appendChild(noteTxt.el), 6.9, { from: 'up' });
-        const bigNote = P.text({ x: 300, y: 560, w: 760, text: '<em>대략적인 예시</em>예요. 실제 방식은 도구마다 달라요.', size: 28, weight: 800, align: 'center' });
+        const bigNote = P.text({ x: 300, y: 560, w: 760, text: '<em>대략적인 예시</em>예요. 정확한 개수는 도구 안에서 확인해요.', size: 28, weight: 800, align: 'center' });
         tl.at(stage.appendChild(bigNote.el), 9.7, { from: 'up' });
         return {
           tick(t) {

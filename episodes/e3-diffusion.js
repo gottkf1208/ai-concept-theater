@@ -19,16 +19,16 @@ export default {
     {
       title: '오늘 있었던 일', dur: 13,
       captions: [
-        { t: 0, text: '오늘 브루로 만든 영상, 제목 자막을 확대해 봤더니 이렇게 나왔어요.' },
-        { t: 5, text: '<em>TEMPERATURE</em> 부분이 뭉개졌어요. 다른 글자는 멀쩡한데 말이죠.' },
+        { t: 0, text: '영상 제목 자막, 확대해 보면 뭐가 보일까요?' },
+        { t: 5, text: '<em>TEMPERATURE</em> 부분만 뭉개졌어요. 다른 글자는 멀쩡한데 말이죠.' },
         { t: 9.5, text: '글자가 왜 이럴까요?' }
       ],
       build({ stage, lines, P, tl, base }) {
         const q = P.quokka({ x: 50, y: 340, size: 300, pose: 'oops' });
         stage.append(q.el);
-        const tag = P.chip({ x: 340, y: 46, text: '오늘 브루로 만든 영상', color: 'ink' });
+        const tag = P.chip({ x: 340, y: 46, text: 'AI로 만든 영상', color: 'ink' });
         tl.at(stage.appendChild(tag.el), .3, { from: 'up', dist: 12 });
-        const frame = P.h('img', { src: `${base}assets/frames/v1-07s.webp`, alt: '브루로 만든 영상 한 장면', style: 'left:340px;top:86px;width:300px;height:169px;object-fit:cover;border-radius:14px;border:2px solid var(--line);background:#fff' });
+        const frame = P.h('img', { src: `${base}assets/frames/v1-07s.webp`, alt: 'AI 영상 도구로 만든 영상 한 장면', style: 'left:340px;top:86px;width:300px;height:169px;object-fit:cover;border-radius:14px;border:2px solid var(--line);background:#fff' });
         tl.at(stage.appendChild(frame), .5, { from: 'up' });
         const crop = P.h('img', { src: `${base}assets/frames/v1-07s-title.webp`, alt: '제목 자막 확대. TEMPERATURE 부분이 뭉개져 보임', style: 'left:330px;top:350px;width:820px;height:143px;object-fit:cover;border-radius:12px;border:3px solid var(--orange);background:#000' });
         tl.at(stage.appendChild(crop), 3.6, { from: 'up' });
@@ -161,8 +161,8 @@ export default {
       title: '요즘은 많이 좋아졌어요', dur: 12,
       captions: [
         { t: 0, text: '요즘 모델은 글꼴 표현이 많이 좋아졌어요. Stable Diffusion 3 논문도 이 부분 개선을 밝혔어요.' },
-        { t: 5, text: '그래도 자막·안내문처럼 정확해야 하는 글자는 편집 단계(브루·캔바 등)에서 넣는 게 안전해요.' },
-        { t: 8.5, text: "이미지 프롬프트에 <em>'no text'</em>라고 적어 보는 것도 방법이에요. 도구마다 달라요." }
+        { t: 5, text: '그래도 자막·안내문처럼 정확해야 하는 글자는 영상 편집 단계에서 넣는 게 안전해요.' },
+        { t: 8.5, text: "이미지 프롬프트에 <em>'no text'</em>라고 적어 보는 것도 방법이에요. 안 통하는 도구도 있고요." }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 20, y: 500, size: 170, pose: 'wave' });
@@ -176,7 +176,7 @@ export default {
         const arr = P.arrow(lines, { x1: 400, y1: 270, x2: 560, y2: 300, curve: 30, width: 4, color: '#127E90' });
         const arrChip = P.chip({ x: 410, y: 315, text: 'SD3 논문: 개선 확인', color: 'aqua' });
         tl.at(stage.appendChild(arrChip.el), 3.6, { from: 'pop' });
-        const tipA = P.box({ x: 200, y: 430, w: 430, h: 150, label: '자막은 편집 단계에서', sub: '브루·캔바 등에서 텍스트로 넣기', accent: 'orange', icon: P.ICON.key });
+        const tipA = P.box({ x: 200, y: 430, w: 430, h: 150, label: '자막은 편집 단계에서', sub: '영상 편집 사이트에서 텍스트로 넣기', accent: 'orange', icon: P.ICON.key });
         tl.at(stage.appendChild(tipA.el), 5.2, { from: 'up' });
         const tipB = P.box({ x: 680, y: 430, w: 430, h: 150, label: "프롬프트에 'no text'", sub: '이미지 생성 요청에 적어 보기', accent: 'orange', icon: P.ICON.doc });
         tl.at(stage.appendChild(tipB.el), 8.5, { from: 'up' });
@@ -212,7 +212,7 @@ export default {
       secA.append(P.h('div', { class: 'sim-sectiontitle' }, '① 잡음 제거 단계'), noiseWrap, rangeRow, stepLabel, stepDesc);
 
       const secB = P.h('div', { class: 'sim-divider2' });
-      const frameImg = P.h('img', { src: 'assets/frames/v1-07s.webp', alt: '브루로 만든 영상 한 장면', class: 'sim-frame' });
+      const frameImg = P.h('img', { src: 'assets/frames/v1-07s.webp', alt: 'AI 영상 도구로 만든 영상 한 장면', class: 'sim-frame' });
       const zoomBtn = P.h('button', { class: 'btn primary', type: 'button' }, '제목 확대');
       const titleImg = P.h('img', { src: 'assets/frames/v1-07s-title.webp', alt: '제목 글자 확대. TEMPERATURE 부분이 뭉개짐', class: 'sim-title', hidden: '' });
       const zoomNote = P.h('p', { class: 'sim-zoomnote', hidden: '' }, 'TEMPERATURE의 가운데 글자들이 서로 겹치고 뭉개졌어요.');
@@ -260,7 +260,7 @@ export default {
     '글자랑 손가락은 정확해야 해서, <b>대충 그리면 금방 티가 나요</b>.'
   ],
   tip: {
-    body: '글자는 이미지 안에 넣지 말고 편집 단계(브루·캔바 등)에서 <b>자막·텍스트</b>로 넣어요. 이미지 프롬프트에는 <b>"no text"</b>라고 적어 보세요.',
+    body: '글자는 이미지 안에 넣지 말고 영상 편집 단계에서 <b>자막·텍스트</b>로 넣어요. 이미지 프롬프트에는 <b>"no text"</b>라고 적어 보세요.',
     extra: '요즘 모델은 글꼴 표현이 좋아졌지만, 그래도 편집 전에 한 번 확대해서 확인하는 습관이 안전해요.'
   },
   myth: {

@@ -11,8 +11,8 @@ export default {
     {
       title: '크레딧 창을 보고 놀랐어요', dur: 13,
       captions: [
-        { t: 0, text: '오늘 이미지 한 장을 만들고, 영상 5초짜리도 만들어 봤어요.' },
-        { t: 5, text: '크레딧 창을 보니 <em>영상 쪽이 훨씬 많이</em> 깎여 있었어요.' },
+        { t: 0, text: '이미지 한 장과 영상 5초, 크레딧 창을 보고 눈이 커졌어요.' },
+        { t: 5, text: '<em>영상 쪽이 훨씬 많이</em> 깎여 있었거든요.' },
         { t: 9.5, text: '똑같은 도구인데, 왜 이렇게 차이가 날까요? <em>정확한 배수는 도구마다 달라요.</em>' }
       ],
       build({ stage, lines, P, tl }) {
@@ -35,7 +35,7 @@ export default {
         const fill2 = P.h('div', { style: 'position:absolute;left:0;top:0;height:100%;width:0%;background:#F2812D;border-radius:10px' });
         track2.append(fill2); tl.at(stage.appendChild(track2), .9, { from: 'left' });
 
-        const noteChip = P.chip({ x: barX, y: row2Y + 70, text: '정확한 배수는 도구마다 달라요', color: 'ink', size: 20 });
+        const noteChip = P.chip({ x: barX, y: row2Y + 70, text: '배수는 서비스마다 달라요', color: 'ink', size: 20 });
         tl.at(stage.appendChild(noteChip.el), 9.8, { from: 'pop' });
 
         return {
@@ -176,11 +176,11 @@ export default {
       }
     },
     {
-      title: '그래서 할 일', dur: 13,
+      title: '짧게 여러 번, 마지막만 크게', dur: 13,
       captions: [
-        { t: 0, text: '그래서 할 일은 간단해요.' },
-        { t: 5, text: '<em>짧게 여러 번</em> 시도해서 마음에 드는 걸 고르고, <em>최종 한 편만</em> 고화질로 만들어요.' },
-        { t: 9.5, text: '길이·해상도 제한은 <em>도구마다 달라요</em>.' }
+        { t: 0, text: '짧게 여러 번 시도해서 마음에 드는 걸 고르세요.' },
+        { t: 5, text: '<em>최종 한 편만</em> 고화질로 만들면 크레딧을 아낄 수 있어요.' },
+        { t: 9.5, text: '길이·해상도 제한은 <em>서비스마다 달라요</em>.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 300, size: 330, pose: 'wave' });
@@ -194,7 +194,7 @@ export default {
         const chips = ['해상도', '길이', '프레임률'].map((c, i) => tl.at(stage.appendChild(P.chip({ x: 430 + i * 170, y: 320, text: c, color: i % 2 ? 'orange' : 'aqua', size: 22 }).el), 2.4 + i * .3, { from: 'pop' }));
         const final = P.text({ x: 430, y: 420, w: 790, text: '<em>짧게 여러 번</em> 시도하고,<br>마음에 드는 걸 골라 <i>최종 한 편만</i> 크게 만들어요.', size: 28, weight: 800 });
         tl.at(stage.appendChild(final.el), 5.4, { from: 'up' });
-        const last = P.text({ x: 430, y: 570, w: 790, text: '길이·해상도 제한은 도구마다 달라요.', size: 28, weight: 800, color: '#B3520F' });
+        const last = P.text({ x: 430, y: 570, w: 790, text: '길이·해상도 제한은 서비스마다 달라요.', size: 28, weight: 800, color: '#B3520F' });
         tl.at(stage.appendChild(last.el), 9.3, { from: 'up' });
         return {
           tick(t) {
@@ -290,12 +290,12 @@ export default {
     '게다가 장면 사이가 <b>자연스럽게 이어지도록</b>까지 계산해야 해서 비용이 훨씬 커요.'
   ],
   tip: {
-    body: '영상 생성은 이미지보다 크레딧이 많이 드는 게 보통이에요(정확한 배율은 도구마다 달라요). 짧게 여러 번 나눠 만들고 마음에 드는 것만 이어 붙이는 방식이 비용을 아끼는 데 도움이 돼요.',
+    body: '영상 생성은 이미지보다 크레딧이 많이 드는 게 보통이에요(정확한 배율은 서비스마다 달라요). 짧게 여러 번 나눠 만들고 마음에 드는 것만 이어 붙이는 방식이 비용을 아끼는 데 도움이 돼요.',
     extra: '해상도·길이를 낮춰 먼저 시험해 보고, 마음에 드는 설정을 찾은 뒤에만 최종본을 고화질로 만들면 크레딧을 아낄 수 있어요.'
   },
   myth: {
     myth: '영상도 이미지 생성기를 한 번 더 돌리는 정도다.',
-    fact: '영상은 프레임 수만큼 그림을 그리고, 그 사이의 움직임(시간 축)까지 자연스럽게 이어지도록 계산해요. 그래서 연산량이 이미지 한 장보다 훨씬 많이 늘어나요(정확한 배수는 도구마다 달라요).'
+    fact: '영상은 프레임 수만큼 그림을 그리고, 그 사이의 움직임(시간 축)까지 자연스럽게 이어지도록 계산해요. 연산량이 이미지 한 장보다 훨씬 많이 늘어나요(정확한 배수는 서비스마다 달라요).'
   },
   sources: [
     { title: 'Stable Video Diffusion: Scaling Latent Video Diffusion Models to Large Datasets (arXiv, 2023)', url: 'https://arxiv.org/abs/2311.15127', note: '영상 생성이 프레임과 시간 축을 함께 다뤄야 하는 이유를 보여주는 연구.' },
@@ -305,5 +305,5 @@ export default {
 
 거기다 영상은 장면과 장면 사이가 자연스럽게 이어져야 해요. 사람이 움직이는데 갑자기 옷이 바뀌면 어색하잖아요. 그래서 시간 축까지 함께 계산하는 모델(Stable Video Diffusion 같은 연구)을 써요. 계산량이 이미지보다 수십 배 이상 늘어날 수 있어요.
 
-그래서 도구들은 비용을 줄이려고 원본 화면 그대로가 아니라 압축된 '잠재 공간'에서 계산해요. 그래도 영상은 이미지보다 비싸고, 만들 수 있는 길이에도 제한이 있어요. 이 배율과 제한은 도구마다 다르니, 짧게 여러 번 시도해 보는 게 좋아요.`
+도구들은 비용을 줄이려고 원본 화면 그대로가 아니라 압축된 '잠재 공간'에서 계산해요. 그래도 영상은 이미지보다 비싸고, 만들 수 있는 길이에도 제한이 있어요. 배율과 제한은 서비스마다 다르니, 짧게 여러 번 시도해 보는 게 좋아요.`
 };

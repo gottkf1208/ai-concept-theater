@@ -40,7 +40,7 @@ export default {
       captions: [
         { t: 0, text: '사진을 통째로 보는 게 아니에요. 작은 조각, <em>패치</em>로 잘라서 봐요.' },
         { t: 5.5, text: 'Claude 문서 기준 <em>28×28픽셀</em> 한 조각이 토큰 하나예요. ViT 논문은 이걸 "이미지는 16×16 단어"라고 불러요.' },
-        { t: 10.5, text: '그래서 이미지도 글처럼 <em>토큰 열</em>이 돼요. E5에서 본 그 토큰이에요.' }
+        { t: 10.5, text: '그래서 이미지도 글처럼 <em>토큰 열</em>이 돼요.' }
       ],
       build({ stage, lines, P, tl, base }) {
         const q = P.quokka({ x: 30, y: 470, size: 220, pose: 'point' });
@@ -67,7 +67,7 @@ export default {
         tl.at(stage.appendChild(note1.el), 5.8, { from: 'up' });
         const note2 = P.text({ x: 110, y: 500, w: 900, text: 'ViT 논문: "이미지는 16×16 단어"', size: 22, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(note2.el), 6.6, { from: 'up' });
-        const note3 = P.text({ x: 110, y: 570, w: 900, text: '이미지도 글처럼 <em>토큰 열</em>이 돼요. (E5에서 본 그 토큰이에요)', size: 26, weight: 800 });
+        const note3 = P.text({ x: 110, y: 570, w: 900, text: '이미지도 글처럼 <em>토큰 열</em>이 돼요. E5에서 본 그 토큰과 같아요.', size: 26, weight: 800 });
         tl.at(stage.appendChild(note3.el), 10.7, { from: 'up' });
         return {
           tick(t) {
@@ -154,7 +154,7 @@ export default {
         stage.append(q.el);
         const b1 = P.box({ x: 330, y: 110, w: 280, h: 160, label: '크고 똑바로 찍기', sub: '작은 글자·회전 실수를 줄여요', accent: 'aqua', icon: P.ICON.eye });
         tl.at(stage.appendChild(b1.el), .3, { from: 'up' });
-        const b2 = P.box({ x: 650, y: 110, w: 280, h: 160, label: '학생 얼굴 가리기', sub: '개인정보(E21에서 더 자세히)', accent: 'orange', icon: P.ICON.hand });
+        const b2 = P.box({ x: 650, y: 110, w: 280, h: 160, label: '학생 얼굴 가리기', sub: '개인정보 보호를 위해', accent: 'orange', icon: P.ICON.hand });
         tl.at(stage.appendChild(b2.el), 4.6, { from: 'up' });
         const b3 = P.box({ x: 970, y: 110, w: 260, h: 160, label: '사람이 확인', sub: '개수·점수처럼 정확해야 하는 것', accent: 'ink', icon: P.ICON.check });
         tl.at(stage.appendChild(b3.el), 9.2, { from: 'up' });

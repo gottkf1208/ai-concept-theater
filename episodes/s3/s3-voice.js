@@ -4,14 +4,14 @@ export default {
   track: 'A',
   title: '목소리는 어떻게 만들어질까',
   subtitle: 'TTS와 음성 복제',
-  summary: '브루 자막을 AI 목소리가 읽어 줬는데 사람 목소리랑 구분이 안 됐어요. 글자가 소리가 되는 과정과, 목소리 복제 전에 꼭 챙겨야 할 동의까지 3분에.',
+  summary: '자막 프로그램이 붙여 준 AI 목소리가 사람 목소리랑 구분이 안 됐어요. 글자가 소리가 되는 과정과, 목소리 복제 전에 꼭 챙겨야 할 동의까지 3분에.',
   keywords: ['TTS', '음성합성', '음성복제', 'VALL-E', 'Web Speech API', '개인정보', '동의'],
 
   scenes: [
     {
       title: '이 목소리, 사람인가요?', dur: 13,
       captions: [
-        { t: 0, text: '브루 영상에 자막을 넣었더니 <em>AI 목소리</em>가 읽어 줬어요.' },
+        { t: 0, text: '영상 편집 사이트에 자막을 넣었더니 <em>AI 목소리</em>가 읽어 줬어요.' },
         { t: 5, text: '그런데 사람 목소리랑 <em>구분이 안 됐어요</em>.' },
         { t: 9.5, text: '이 목소리는 대체 어떻게 만들어진 걸까요?' }
       ],
@@ -20,7 +20,7 @@ export default {
         stage.append(q.el);
         const b = P.bubble({ x: 300, y: 140, w: 470, text: '자막: "3교시는 과학실에서 진행합니다."', tail: 'left' });
         tl.at(stage.appendChild(b.el), .3, { from: 'left' });
-        const screen = P.box({ x: 830, y: 130, w: 380, h: 190, label: '브루 (자막→소리)', sub: '자동으로 읽어 줘요', accent: 'aqua', icon: P.ICON.video });
+        const screen = P.box({ x: 830, y: 130, w: 380, h: 190, label: '자막 프로그램', sub: '자동으로 읽어 줘요', accent: 'aqua', icon: P.ICON.video });
         tl.at(stage.appendChild(screen.el), 1.6, { from: 'right' });
         const a1 = P.arrow(lines, { x1: 590, y1: 205, x2: 830, y2: 220, curve: -10, width: 4, color: '#127E90' });
         const chip = P.chip({ x: 830, y: 360, text: '사람 목소리 같아요', color: 'gray', size: 22 });
@@ -74,7 +74,7 @@ export default {
       captions: [
         { t: 0, text: '몇 초 녹음만 있으면 그 목소리를 <em>흉내</em> 낼 수 있어요.' },
         { t: 5, text: '한 연구(VALL-E)는 <em>3초 녹음</em>만으로 시연했어요.' },
-        { t: 9.5, text: '다만 <em>도구마다</em> 가능 여부와 품질이 달라요.' }
+        { t: 9.5, text: '서비스에 따라 <em>가능 여부와 품질</em>이 달라요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 60, y: 330, size: 300, pose: 'point' });
@@ -84,7 +84,7 @@ export default {
         tl.at(stage.appendChild(box1.el), .5, { from: 'up' });
         tl.at(stage.appendChild(box2.el), 2.4, { from: 'right' });
         const arr = P.arrow(lines, { x1: 740, y1: 195, x2: 850, y2: 195, width: 4, color: '#B3520F' });
-        const chip = P.chip({ x: 420, y: 320, text: '도구마다 가능 여부·품질이 달라요', color: 'gray', size: 20 });
+        const chip = P.chip({ x: 420, y: 320, text: '복제 여부는 서비스마다 달라요', color: 'gray', size: 20 });
         tl.at(stage.appendChild(chip.el), 9.8, { from: 'pop' });
         const warn = P.text({ x: 420, y: 400, w: 760, text: '누구 목소리든 <em>허락 없이</em> 복제하면 안 돼요.', size: 26, weight: 800 });
         tl.at(stage.appendChild(warn.el), 5.4, { from: 'up' });
@@ -157,7 +157,7 @@ export default {
 
   interaction: {
     title: '브라우저 낭독기',
-    desc: '아래 문장을 <b>속도</b>·<b>높낮이</b>를 바꿔 가며 브라우저 목소리로 들어 보세요. 이건 이 브라우저(운영체제)에 내장된 목소리라, 도구마다 목소리와 품질이 달라요. 아래 체크리스트로 목소리 복제 전에 무엇을 챙겨야 하는지도 확인해 보세요.',
+    desc: '아래 문장을 <b>속도</b>·<b>높낮이</b>를 바꿔 가며 브라우저 목소리로 들어 보세요. 이건 이 브라우저(운영체제)에 내장된 목소리예요. 아래 체크리스트로 목소리 복제 전에 무엇을 챙겨야 하는지도 확인해 보세요.',
     mount(el, P) {
       const DEFAULT_TEXT = '3교시 수업은 과학실에서 진행합니다. 실험복을 챙겨 오세요.';
       const supported = typeof window !== 'undefined' && 'speechSynthesis' in window;
@@ -286,9 +286,9 @@ export default {
     { title: '개인정보보호위원회', url: 'https://www.pipc.go.kr/', note: '목소리 등 생체·개인정보 보호에 관한 안내는 이 기관 자료를 확인하세요.' }
   ],
   script: `
-브루 영상에 자막을 넣었더니 AI 목소리가 읽어 줬는데, 사람 목소리랑 거의 구분이 안 됐어요. 이 목소리는 어떻게 만들어질까요?
+영상 편집 사이트에 자막을 넣었더니 AI 목소리가 읽어 줬는데, 사람 목소리랑 거의 구분이 안 됐어요. 이 목소리는 어떻게 만들어질까요?
 
-글자는 먼저 음소로 쪼개지고, 억양과 길이 같은 운율이 붙어요. 옛날 TTS는 녹음 조각을 이어 붙여서 말이 딱딱했지만, 요즘은 신경망이 소리 파형을 통째로 새로 그려요. 몇 초 녹음만 있으면 그 목소리를 흉내 낼 수도 있어요. 한 연구는 3초 녹음만으로 시연했어요. 다만 도구마다 가능 여부와 품질은 달라요.
+글자는 먼저 음소로 쪼개지고, 억양과 길이 같은 운율이 붙어요. 옛날 TTS는 녹음 조각을 이어 붙여서 말이 딱딱했지만, 요즘은 신경망이 소리 파형을 통째로 새로 그려요. 몇 초 녹음만 있으면 그 목소리를 흉내 낼 수도 있어요. 한 연구는 3초 녹음만으로 시연했어요. 다만 서비스에 따라 가능 여부와 품질은 달라요.
 
 목소리는 개인정보예요. 생체정보에 가까워서, 학생이나 동료 목소리를 복제하려면 본인 동의가 필요하고 미성년자는 보호자 동의도 있어야 해요. 학교 방송·수업 영상에는 기본 제공 목소리가 안전해요.
 
