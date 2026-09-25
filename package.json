@@ -1,0 +1,16 @@
+{
+  "name": "ai-concept-theater",
+  "private": true,
+  "type": "module",
+  "description": "쿼카 AI 개념극장 — 선생님을 위한 AI 원리 3분 극장",
+  "scripts": {
+    "serve": "http-server . -p 5310 -c-1",
+    "test": "node test/run.mjs",
+    "links": "node test/links.mjs",
+    "shots": "node test/shots.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0",
+    "sharp": "^0.35.4"
+  }
+}
