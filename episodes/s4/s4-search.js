@@ -81,7 +81,7 @@ export default {
       captions: [
         { t: 0, text: '늘 검색하는 건 아니에요. <em>최신·변하는 정보</em>(공문·일정·가격)는 검색해요.' },
         { t: 5, text: '<em>안정된 지식</em>(수학 개념 같은 것)은 바로 답해요. 공식 문서가 그렇게 안내해요.' },
-        { t: 9.5, text: '이 기준, <em>서비스마다 조금씩 갈려요</em>.' }
+        { t: 9.5, text: '검색할지는 모델이 <em>도구 호출</em>로 스스로 정해요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 400, size: 280, pose: 'point' });
@@ -96,7 +96,7 @@ export default {
         tl.at(stage.appendChild(directOut.el), 3.9, { from: 'right' });
         const arrow1 = P.arrow(lines, { x1: 710, y1: 185, x2: 790, y2: 185, width: 5, color: '#127E90' });
         const arrow2 = P.arrow(lines, { x1: 710, y1: 385, x2: 790, y2: 385, width: 5, color: '#1B1F24' });
-        const note = P.text({ x: 330, y: 560, w: 860, text: '이 기준, <em>서비스마다 갈려요</em>.', size: 28, weight: 800 });
+        const note = P.text({ x: 330, y: 560, w: 860, text: '검색할지는 모델이 <em>도구 호출</em>로 스스로 정해요.', size: 28, weight: 800 });
         tl.at(stage.appendChild(note.el), 9.7, { from: 'up' });
         return {
           tick(t) {
@@ -274,7 +274,7 @@ export default {
 
 모델은 학습이 끝난 시점까지의 지식만 갖고 있어요. 이걸 지식 마감이라고 해요. 검색 도구를 켜면 모델이 "지금은 검색이 필요하다"고 판단해서 검색을 실행하고, 결과를 읽은 뒤 출처를 달아 답해요. 6화에서 본 RAG, 자료를 붙여 답하는 방식의 실시간 판이에요.
 
-그렇다고 늘 검색하는 건 아니에요. 공문·일정·가격처럼 최신·변하는 정보는 검색하고, 수학 개념처럼 안정된 지식은 바로 답해요. 판단 기준은 서비스마다 조금씩 달라요.
+그렇다고 늘 검색하는 건 아니에요. 공문·일정·가격처럼 최신·변하는 정보는 검색하고, 수학 개념처럼 안정된 지식은 바로 답해요. 이 판단은 모델이 검색 도구를 호출할지 스스로 정하는 방식이에요.
 
 검색을 켜도 문제는 남아요. 검색 결과 자체가 광고나 오래된 글, 심지어 잘못된 글일 수 있거든요. 그래서 출처를 볼 때 누가, 언제, 원문(1차)인지를 봐야 해요.
 

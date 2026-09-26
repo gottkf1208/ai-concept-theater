@@ -62,7 +62,7 @@ export default {
         tl.at(stage.appendChild(axis.el), 4, { from: 'up' });
         const final = P.text({ x: 340, y: 430, w: 880, text: '텍스트에 움직임이 없으면 흔한 움직임을 골라요.', size: 28, weight: 800 });
         tl.at(stage.appendChild(final.el), 8.7, { from: 'up' });
-        const small = P.text({ x: 340, y: 490, w: 880, text: '조각으로 나누는 정확한 방식은 모델마다 달라요.', size: 18, weight: 600, cls: 'muted' });
+        const small = P.text({ x: 340, y: 490, w: 880, text: '이 조각을 시공간 패치라고 불러요.', size: 18, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(small.el), 9.3, { from: 'up' });
         return {
           tick(t) {
@@ -93,7 +93,7 @@ export default {
         tl.at(stage.appendChild(c.el), 5.2, { from: 'up' });
         const final = P.text({ x: 300, y: 300, w: 880, text: '방식은 달라도 원리는 같아요. 문장으로 정하지 않으면 <em>흔한 움직임</em>을 골라요.', size: 28, weight: 800 });
         tl.at(stage.appendChild(final.el), 9.7, { from: 'up' });
-        const small = P.text({ x: 300, y: 360, w: 880, text: '조각으로 나누는 방식과 학습 데이터는 도구마다 달라요.', size: 18, weight: 600, cls: 'muted' });
+        const small = P.text({ x: 300, y: 360, w: 880, text: '시공간 패치 크기와 학습 영상이 표현할 수 있는 움직임의 범위를 정해요.', size: 18, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(small.el), 10.3, { from: 'up' });
         return {
           tick(t) {
@@ -143,7 +143,7 @@ export default {
       captions: [
         { t: 0, text: '움직임 한 문장 없이는 <em>정지 사진</em>과 같아요.' },
         { t: 4.5, text: '여섯 축을 채웠는데 안 되면 도구 탓이 아니라 <em>문장 탓</em>일 때가 많아요.' },
-        { t: 8.5, text: '카메라 용어는 도구마다 지원 범위가 <em>달라요</em>.' }
+        { t: 8.5, text: '카메라 용어는 <em>영어 촬영 용어</em>(dolly, pan, orbit)로 쓰면 가장 잘 먹어요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 300, size: 340, pose: 'wave' });
@@ -246,7 +246,7 @@ export default {
   ],
   tip: {
     body: '학급 영상은 <b>주체 동작 + 카메라 + 길이</b> 세 가지만 채워도 훨씬 나아져요. 카메라 용어는 영어를 함께 적어요(dolly in, pan).',
-    extra: '안 움직이는 게 목표면 그것도 문장으로 적어야 해요. "카메라 고정, 배경 고정"처럼요. 지원하는 카메라 용어는 도구마다 달라요.'
+    extra: '안 움직이는 게 목표면 그것도 문장으로 적어야 해요. "카메라 고정, 배경 고정"처럼요. 카메라 용어는 영어 촬영 용어(dolly in, pan left, orbit)가 학습 자료에 가장 많아요.'
   },
   myth: {
     myth: '이미지 프롬프트를 그대로 넣으면 영상도 잘 나온다.',

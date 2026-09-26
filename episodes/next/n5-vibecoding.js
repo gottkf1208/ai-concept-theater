@@ -275,7 +275,7 @@ export default {
   },
   myth: {
     myth: '화면에서 글자를 고치면 그 자리에서 바로 저장된다.',
-    fact: '실제로는 그 순간 깃허브 API로 파일(예: edits.json)을 저장하고, 정적 호스팅이 새 내용을 반영하는 데 1~2분 정도 걸릴 수 있어요(서비스마다 달라요).'
+    fact: '실제로는 그 순간 깃허브 API로 파일(예: edits.json)을 저장하고, 정적 호스팅이 새 내용을 반영하는 데 1~2분 정도 걸릴 수 있어요(깃허브 페이지스는 빌드 큐를 거쳐요).'
   },
   sources: [
     { title: 'GitHub Pages — 공식 문서', url: 'https://docs.github.com/en/pages', note: '저장소 내용을 그대로 인터넷에 띄우는 정적 호스팅 서비스.' },

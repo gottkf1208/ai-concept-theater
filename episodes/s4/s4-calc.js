@@ -238,7 +238,7 @@ export default {
       });
       barsSec.append(barsWrap);
 
-      const disclaimer = P.h('p', { class: 'sim-disclaimer' }, '정답률은 연구 경향을 단순화한 예시예요. 실제 모델·문제마다 달라요. "패턴 흉내" 카드의 오답은 이해를 돕기 위해 만든 예시이며 실제 모델 출력이 아니에요.');
+      const disclaimer = P.h('p', { class: 'sim-disclaimer' }, '정답률은 연구 경향을 단순화한 예시예요. 자릿수가 늘수록 떨어지는 경향만 담았어요. "패턴 흉내" 카드의 오답은 이해를 돕기 위해 만든 예시이며 실제 모델 출력이 아니에요.');
 
       function render() {
         capLabel.textContent = `자릿수: ${digits}자리`;

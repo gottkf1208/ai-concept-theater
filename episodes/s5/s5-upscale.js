@@ -62,7 +62,7 @@ export default {
         const arrow = P.arrow(lines, { x1: 530, y1: 200, x2: 630, y2: 200, width: 4, color: '#1B1F24' });
         const gen = P.text({ x: 340, y: 470, w: 640, text: '그래서 보간으로 키운 사진은 <em>선이 흐릿하고 뭉개져요</em>.', size: 28, weight: 800 });
         tl.at(stage.appendChild(gen.el), 10.2, { from: 'up' });
-        const small2 = P.text({ x: 340, y: 525, w: 640, text: '정확한 계산 방식은 도구마다 달라요.', size: 18, weight: 600, cls: 'muted' });
+        const small2 = P.text({ x: 340, y: 525, w: 640, text: '이웃 2개면 이중선형, 4개면 이중삼차 보간이에요.', size: 18, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(small2.el), 10.8, { from: 'up' });
         return {
           tick(t) {
@@ -90,7 +90,7 @@ export default {
         tl.at(stage.appendChild(c.el), 5.2, { from: 'up' });
         const final = P.text({ x: 360, y: 480, w: 580, text: '선명해졌지만 그 세부는 <i>추정</i>이에요.', size: 28, weight: 800 });
         tl.at(stage.appendChild(final.el), 9.7, { from: 'up' });
-        const small = P.text({ x: 360, y: 540, w: 580, text: '어떤 무늬를 배우는지는 데이터·모델마다 달라요.', size: 18, weight: 600, cls: 'muted' });
+        const small = P.text({ x: 360, y: 540, w: 580, text: '학습 사진에 많던 무늬를 우선해서 채워요.', size: 18, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(small.el), 10.3, { from: 'up' });
         return {
           tick(t) {
@@ -269,7 +269,7 @@ export default {
   ],
   tip: {
     body: '사진을 키우기 전에 원본이 더 큰 파일로 남아 있는지 먼저 찾아보세요. 키운 뒤에는 글자·얼굴·로고를 원본과 대조하세요.',
-    extra: '인쇄용은 배율을 낮게 두 번 나눠 키우는 편이 덜 망가질 때가 있어요. 정확한 정도는 도구마다 달라요.'
+    extra: '인쇄용은 배율을 낮게 두 번 나눠 키우는 편이 덜 망가질 때가 있어요. 한 번에 4배보다 2배씩 두 번이 세부를 덜 지어내요.'
   },
   myth: {
     myth: '업스케일하면 원래 화질이 돌아온다.',

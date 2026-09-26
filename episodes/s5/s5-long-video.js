@@ -95,7 +95,7 @@ export default {
         tl.at(stage.appendChild(lab.el), 9.8, { from: 'up' });
         const final = P.text({ x: 760, y: 300, w: 460, text: '조각이 길어질수록 <em>원본에서 멀어져요</em>.', size: 28, weight: 800 });
         tl.at(stage.appendChild(final.el), 9.7, { from: 'up' });
-        const small = P.text({ x: 760, y: 380, w: 460, text: '막대는 원리를 보여 주는 그림이에요. 실제 정도는 도구·설정마다 달라요.', size: 18, weight: 600, cls: 'muted' });
+        const small = P.text({ x: 760, y: 380, w: 460, text: '막대는 원리를 보여 주는 그림이에요. 드리프트는 조각을 이어 붙인 횟수만큼 쌓여요.', size: 18, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(small.el), 10.3, { from: 'up' });
         return {
           tick(t) {
@@ -241,7 +241,7 @@ export default {
   ],
   tip: {
     body: '학급 영상은 <b>5~10초 조각</b>으로 여러 번 만들고 편집 프로그램에서 이어 붙이세요. 조각마다 <b>정면 레퍼런스</b>를 다시 넣어요.',
-    extra: '"이어서 생성" 기능은 두세 번까지만 쓰고, 그다음엔 레퍼런스로 리셋하세요. 최대 길이와 이어 붙이는 방식은 도구마다 달라요.'
+    extra: '"이어서 생성" 기능은 두세 번까지만 쓰고, 그다음엔 레퍼런스로 리셋하세요. "이어서 생성"은 마지막 프레임을 다음 조각의 조건 이미지로 넣는 자기회귀 확장이라 오차가 그대로 넘어가요.'
   },
   myth: {
     myth: '최대 길이까지 한 번에 뽑는 게 제일 자연스럽다.',

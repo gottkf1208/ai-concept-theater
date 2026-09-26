@@ -84,7 +84,7 @@ export default {
         tl.at(stage.appendChild(box1.el), .5, { from: 'up' });
         tl.at(stage.appendChild(box2.el), 2.4, { from: 'right' });
         const arr = P.arrow(lines, { x1: 740, y1: 195, x2: 850, y2: 195, width: 4, color: '#B3520F' });
-        const chip = P.chip({ x: 420, y: 320, text: '복제 여부는 서비스마다 달라요', color: 'gray', size: 20 });
+        const chip = P.chip({ x: 420, y: 320, text: '복제에는 동의 확인 절차가 붙어요', color: 'gray', size: 20 });
         tl.at(stage.appendChild(chip.el), 9.8, { from: 'pop' });
         const warn = P.text({ x: 420, y: 400, w: 760, text: '누구 목소리든 <em>허락 없이</em> 복제하면 안 돼요.', size: 26, weight: 800 });
         tl.at(stage.appendChild(warn.el), 5.4, { from: 'up' });
@@ -170,7 +170,7 @@ export default {
       const voiceSelect = P.h('select', { class: 'sim-voice', 'aria-label': '목소리 선택' }, P.h('option', { value: '' }, '기본 목소리'));
       const playBtn = P.h('button', { type: 'button', class: 'btn primary' }, '읽어 주기');
       const status = P.h('p', { class: 'sim-status' }, supported ? '문장을 다듬고 읽어 주기를 눌러 보세요.' : '이 브라우저는 음성을 지원하지 않아요.');
-      const note = P.h('p', { class: 'muted sim-note' }, '들었나요? 이건 이 브라우저(운영체제)에 내장된 목소리예요. 도구마다 목소리와 품질이 달라요.');
+      const note = P.h('p', { class: 'muted sim-note' }, '들었나요? 이건 이 브라우저(운영체제)에 내장된 목소리예요. 신경망 합성은 운율과 숨소리까지 만들어서 훨씬 자연스러워요.');
 
       const checkLabels = ['본인 동의를 받았나요', '미성년자면 보호자 동의', '어디에 쓸지 알렸나요'];
       const checkboxes = checkLabels.map((lbl, i) => P.h('input', { type: 'checkbox', id: `s3voiceChk${i}` }));

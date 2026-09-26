@@ -273,7 +273,7 @@ export default {
         zctx.drawImage(off, sx, sy, cw, ch, 0, 0, 120, 120);
 
         const total = gridN * gridN;
-        countLine.innerHTML = `격자 <b>${gridN}×${gridN}</b> = 패치 <b>${total}개</b> = "토큰" <b>${total}개</b>(실제 크기·규칙은 모델마다 달라요)`;
+        countLine.innerHTML = `격자 <b>${gridN}×${gridN}</b> = 패치 <b>${total}개</b> = "토큰" <b>${total}개</b>(ViT 계열은 보통 14~16px 패치를 써요)`;
         sizeLabel.textContent = `격자 크기: ${gridN}×${gridN}`;
         const fx = (sel.col + .5) / gridN, fy = (sel.row + .5) / gridN;
         desc.textContent = describePatch(fx, fy);

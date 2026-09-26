@@ -112,7 +112,7 @@ export default {
       title: '넘치면 생기는 일', dur: 14,
       captions: [
         { t: 0, text: '책상이 넘치면 <em>앞부분이 밀려나거나</em>(채팅 앱에서는 먼저 들어온 것부터 밀어내기도 해요), <em>요약되거나</em>(compaction), <em>오류</em>가 나요.' },
-        { t: 6, text: '이 처리 방식은 <em>제품마다 달라요</em>.' },
+        { t: 6, text: '어느 쪽을 쓸지는 <em>앱의 컨텍스트 관리 설정</em>이 정해요. 요약을 쓰는 쪽이 늘고 있어요.' },
         { t: 10.5, text: '책상이 커도 <em>가운데 있는 내용</em>은 놓치기 쉽다는 연구도 있어요 — "Lost in the Middle".' }
       ],
       build({ stage, lines, P, tl }) {
@@ -139,7 +139,7 @@ export default {
         tl.at(stage.appendChild(lbl.el), 10.7, { from: 'up' });
         const q = P.quokka({ x: 850, y: 400, size: 250, pose: 'oops' });
         tl.at(stage.appendChild(q.el), 10.6, { from: 'up' });
-        const note = P.text({ x: 60, y: 590, w: 500, text: '처리 방식은 <em>제품마다 달라요</em>.', size: 24, weight: 700 });
+        const note = P.text({ x: 60, y: 590, w: 500, text: '어느 쪽일지는 <em>컨텍스트 관리 설정</em>이 정해요.', size: 24, weight: 700 });
         tl.at(stage.appendChild(note.el), 6.2, { from: 'up' });
         return {
           tick(t) {
@@ -221,7 +221,7 @@ export default {
       const renderChips = () => {
         const chips = tokenize(ta.value);
         chipWrap.replaceChildren(...chips.map(c => P.h('span', { class: `p-chip c-${c.c}`, style: 'position:static;margin:3px' }, c.t)));
-        chipNote.innerHTML = `칩 <b>${chips.length}개</b> · 대략적인 예시예요. 실제 토큰 수는 도구마다 달라요.`;
+        chipNote.innerHTML = `칩 <b>${chips.length}개</b> · 대략적인 예시예요. 실제 토큰 수는 모델의 토크나이저(BPE 사전)가 정해요.`;
       };
       ta.addEventListener('input', renderChips);
 
@@ -259,7 +259,7 @@ export default {
         radio.addEventListener('change', () => { if (radio.checked) { mode = val; renderDesk(); } });
       });
       const desk = P.h('div', { class: 'sim-desk', 'aria-live': 'polite' });
-      const errBanner = P.h('p', { class: 'sim-err', role: 'alert', hidden: '' }, '책상 용량을 넘었어요 — 오류가 나요. (제품마다 처리 방식이 달라요)');
+      const errBanner = P.h('p', { class: 'sim-err', role: 'alert', hidden: '' }, '책상 용량을 넘었어요 — 오류가 나요. (컨텍스트 창 초과)');
       secB.append(rangeBar, modeWrap, desk, errBanner);
 
       function renderDesk() {
@@ -339,9 +339,9 @@ export default {
   script: `
 연수 자료를 만들다가 대화를 서른 번쯤 주고받았는데, AI가 갑자기 "아까 말씀하신 학년이 뭐였죠?" 하고 되물어요. 방금 말했는데 왜 잊어버릴까요?
 
-AI에게 글은 통째로 들어가지 않고 '토큰'이라는 조각으로 쪼개져요. 영어는 대략 서너 글자에 토큰 하나(Claude 기준 약 3.5자), 한국어는 도구마다 다르고 보통 더 잘게 쪼개져요. 컨텍스트 창은 이 토큰이 쌓이는 '책상'이에요. 모델은 책상 위에 있는 것만 봐요.
+AI에게 글은 통째로 들어가지 않고 '토큰'이라는 조각으로 쪼개져요. 영어는 대략 서너 글자에 토큰 하나(Claude 기준 약 3.5자), 한국어는 토크나이저 사전에 한글 조각이 적어서 보통 더 잘게 쪼개져요. 컨텍스트 창은 이 토큰이 쌓이는 '책상'이에요. 모델은 책상 위에 있는 것만 봐요.
 
-책상이 넘치면 앞부분이 밀려나거나, 요약되거나, 오류가 나요. 방식은 제품마다 달라요. 책상이 커도 가운데 내용은 놓치기 쉽다는 연구도 있어요.
+책상이 넘치면 앞부분이 밀려나거나, 요약되거나, 오류가 나요. 어느 쪽일지는 앱의 컨텍스트 관리 설정이 정하고, 요즘은 자동 요약을 쓰는 쪽이 늘고 있어요. 책상이 커도 가운데 내용은 놓치기 쉽다는 연구도 있어요.
 
 그러니 긴 작업은 학년·차시·분량 같은 핵심 조건을 새 메시지에 다시 적어 주거나, 요약 메모를 만들고 새 대화에서 이어 가세요. AI가 나를 기억하는 게 아니라, 지금 대화 안에 있는 만큼만 기억한다는 걸 알아 두면 덜 답답해요.
 `

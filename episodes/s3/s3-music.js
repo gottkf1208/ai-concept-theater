@@ -115,9 +115,9 @@ export default {
       }
     },
     {
-      title: '약관은 나라마다, 도구마다', dur: 13,
+      title: '저작권법과 약관은 따로 봐요', dur: 13,
       captions: [
-        { t: 0, text: '학습 자료와 생성물의 권리는 <em>나라마다, 도구마다</em> 약관이 달라요.' },
+        { t: 0, text: '생성물의 권리는 <em>저작권법</em>이, 쓸 수 있는 범위는 <em>서비스 약관</em>이 정해요. 둘을 따로 봐야 해요.' },
         { t: 5, text: '그래서 <em>한국저작권위원회</em> 같은 곳의 안내를 확인해요.' },
         { t: 9, text: "학교 영상에 쓸 땐 <em>'상업적 이용 가능'</em>과 <em>'출처 표시'</em> 조건을 읽고 써요." }
       ],
@@ -130,7 +130,7 @@ export default {
         tl.at(stage.appendChild(boxB.el), .5, { from: 'right' });
         const arrA = P.arrow(lines, { x1: 505, y1: 250, x2: 560, y2: 320, width: 4, color: '#127E90' });
         const arrB = P.arrow(lines, { x1: 875, y1: 250, x2: 820, y2: 320, width: 4, color: '#B3520F' });
-        const resultBox = P.box({ x: 490, y: 320, w: 340, h: 120, label: '나라마다, 도구마다 달라요', accent: 'ink' });
+        const resultBox = P.box({ x: 490, y: 320, w: 340, h: 120, label: '저작권법 + 서비스 약관', accent: 'ink' });
         tl.at(stage.appendChild(resultBox.el), 1.8, { from: 'pop' });
 
         const chip1 = P.chip({ x: 340, y: 480, text: '한국저작권위원회 안내 확인', color: 'ink', size: 22 });

@@ -115,7 +115,7 @@ export default {
       captions: [
         { t: 0, text: '자막을 다른 언어로 옮기는 <em>번역</em>도 한 단계 더 있어요.' },
         { t: 5, text: '문장을 통째로 안 보고 <em>짧게 끊어서</em> 번역하면 뜻이 엉뚱해지기 쉬워요.' },
-        { t: 9, text: '번역 방식은 <em>도구마다 달라요</em>.' }
+        { t: 9, text: '번역은 <em>음성 인식 뒤에 따로</em> 붙어요. 앞 단계 오타가 그대로 번역돼요.' }
       ],
       build({ stage, lines, P, tl }) {
         const box1 = P.box({ x: 60, y: 260, w: 300, h: 140, label: '음성', sub: '원래 말소리', accent: 'ink' });
@@ -130,7 +130,7 @@ export default {
         tl.at(stage.appendChild(ex.el), 6, { from: 'up' });
         const q = P.quokka({ x: 40, y: 480, size: 180, pose: 'think' });
         stage.append(q.el);
-        const finalNote = P.text({ x: 210, y: 560, w: 1000, text: '번역 방식은 <em>도구마다 달라요</em>.', size: 28, weight: 800 });
+        const finalNote = P.text({ x: 210, y: 560, w: 1000, text: '번역은 <em>인식 뒤에 따로</em> 붙어서, 앞 단계 오타가 그대로 번역돼요.', size: 26, weight: 800 });
         tl.at(stage.appendChild(finalNote.el), 9, { from: 'up' });
         return {
           tick(t) {
@@ -153,7 +153,7 @@ export default {
         tl.at(stage.appendChild(box1.el), .3, { from: 'up' });
         const box2 = P.box({ x: 140, y: 230, w: 1000, h: 100, label: '2) 숫자·날짜 확인', sub: '자릿수가 맞는지', accent: 'aqua', icon: P.ICON.check });
         tl.at(stage.appendChild(box2.el), 2, { from: 'up' });
-        const box3 = P.box({ x: 140, y: 360, w: 1000, h: 100, label: '브라우저 음성 인식도 있어요', sub: 'Web Speech API(브라우저마다 지원이 달라요)', accent: 'ink', icon: P.ICON.search });
+        const box3 = P.box({ x: 140, y: 360, w: 1000, h: 100, label: '브라우저 음성 인식도 있어요', sub: 'Web Speech API(크롬·엣지·사파리 지원)', accent: 'ink', icon: P.ICON.search });
         tl.at(stage.appendChild(box3.el), 5, { from: 'up' });
         const q = P.quokka({ x: 40, y: 480, size: 180, pose: 'wave' });
         stage.append(q.el);
@@ -248,7 +248,7 @@ export default {
   ],
   tip: {
     body: '자막 검수는 <b>고유명사 → 숫자 → 동음이의어</b> 순서로 보면 놓치는 게 줄어요.',
-    extra: '낯선 이름을 미리 단어장으로 등록해 두는 도구도 있어요. 다만 있고 없고는 서비스마다 갈려요.'
+    extra: '낯선 이름은 미리 단어장(커스텀 보캐뷸러리)에 등록해 두면 인식률이 올라가요. 자막 편집기의 용어집 기능이 그거예요.'
   },
   myth: {
     myth: '자막 AI는 소리를 그대로 받아 적는다.',

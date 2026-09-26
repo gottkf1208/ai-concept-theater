@@ -100,7 +100,7 @@ export default {
         tl.at(stage.appendChild(lab.el), 5.5, { from: 'up' });
         const final = P.text({ x: 760, y: 290, w: 460, text: '늦게 넣으면 <em>거의 안 먹혀요</em>.', size: 28, weight: 800 });
         tl.at(stage.appendChild(final.el), 9.7, { from: 'up' });
-        const small = P.text({ x: 760, y: 390, w: 460, text: '효과 크기는 도구·설정마다 달라요(2024년 분석).', size: 18, weight: 600, cls: 'muted' });
+        const small = P.text({ x: 760, y: 390, w: 460, text: '효과는 초반 단계에 몰리고 늦게 넣으면 약해져요(2024년 분석).', size: 18, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(small.el), 10.2, { from: 'up' });
         return {
           tick(t) {
@@ -115,7 +115,7 @@ export default {
       title: '강도 스펙트럼: 낮음·적당·높음', dur: 14,
       captions: [
         { t: 0, text: '강도를 낮게 두면 <em>프롬프트를 잘 안 따르고</em> 다양하게 나와요.' },
-        { t: 5.5, text: '적당히(보통 <em>5~9</em> 근처, 도구마다 달라요) 두면 따르면서도 다양해요.' },
+        { t: 5.5, text: '적당히(CFG scale <em>5~9</em> 근처) 두면 따르면서도 다양해요.' },
         { t: 10.5, text: '너무 높이면 색이 <em>타고 과포화</em>되고, 그림이 <em>경직</em>돼요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -127,7 +127,7 @@ export default {
         tl.at(stage.appendChild(card1.el), .3, { from: 'up' });
         tl.at(stage.appendChild(card2.el), 5.6, { from: 'up' });
         tl.at(stage.appendChild(card3.el), 10.6, { from: 'up' });
-        const final = P.text({ x: 330, y: 390, w: 830, text: '적당한 강도는 도구마다 달라요. <em>기본값 근처</em>에서 시작하세요.', size: 25, weight: 800 });
+        const final = P.text({ x: 330, y: 390, w: 830, text: 'CFG scale은 <em>기본값 근처</em>에서 시작해 2씩 움직여 보세요.', size: 25, weight: 800 });
         tl.at(stage.appendChild(final.el), 11.0, { from: 'up' });
         return {
           tick(t) {
@@ -280,7 +280,7 @@ export default {
   ],
   tip: {
     body: '강도는 도구 기본값에서 시작해 <b>±2씩</b> 조절하세요. 네거티브에는 흐림·워터마크·글자처럼 뚜렷한 개념만 넣어요. 손가락·개수는 네거티브로 잘 안 잡혀요.',
-    extra: '도구가 강도 슬라이더를 안 보여 주면 이미 적당히 잡혀 있는 경우가 많아요. 이름과 기본값은 도구마다 달라요.'
+    extra: '도구가 강도 슬라이더를 안 보여 주면 이미 적당히 잡혀 있는 경우가 많아요. CFG scale, guidance scale, 프롬프트 충실도가 모두 같은 손잡이예요.'
   },
   myth: {
     myth: '네거티브에 쓰면 무조건 사라진다.',

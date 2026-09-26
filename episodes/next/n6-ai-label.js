@@ -68,7 +68,7 @@ export default {
         const c2paBox = P.box({ x: 460, y: 110, w: 360, h: 150, label: 'C2PA 서명', sub: '출처 + 편집 이력을 파일에 담아요', accent: 'aqua', icon: P.ICON.key });
         tl.at(stage.appendChild(c2paBox.el), 1.8, { from: 'pop' });
         const arrow2 = P.arrow(lines, { x1: 820, y1: 185, x2: 920, y2: 185, width: 4, color: '#127E90' });
-        const platBox = P.box({ x: 920, y: 110, w: 280, h: 150, label: '지원 플랫폼에서 확인', sub: '도구마다 달라요', accent: 'orange', icon: P.ICON.eye });
+        const platBox = P.box({ x: 920, y: 110, w: 280, h: 150, label: '지원 플랫폼에서 확인', sub: 'C2PA 지원 여부를 봐요', accent: 'orange', icon: P.ICON.eye });
         tl.at(stage.appendChild(platBox.el), 5.2, { from: 'right' });
         const note = P.text({ x: 80, y: 320, w: 1120, text: '공개 표준이지만, <em>모든 도구 · 플랫폼이 지원하진 않아요</em>.', size: 26, weight: 700 });
         tl.at(stage.appendChild(note.el), 10, { from: 'up' });
@@ -172,7 +172,7 @@ export default {
       const c2paRow = P.h('div', { class: 'sim-n6-row' });
       const recordRow = P.h('div', { class: 'sim-n6-row' });
       card.append(labelRow, c2paRow, recordRow);
-      const lawNote = P.h('p', { class: 'sim-n6-note' }, '법 조항이 실제로 적용되는지는 상황마다 달라요. 문구를 정하기 전에 국가법령정보센터에서 최신 고시를 확인하세요.');
+      const lawNote = P.h('p', { class: 'sim-n6-note' }, '법 조항이 실제로 적용되는지는 시행령과 고시의 기준을 봐야 해요. 문구를 정하기 전에 국가법령정보센터에서 최신 고시를 확인하세요.');
       wrap.append(
         P.h('h4', { class: 'sim-n6-h' }, '무엇을 만들었나요?'), outGroup,
         P.h('h4', { class: 'sim-n6-h' }, '어디까지 공개하나요?'), scopeGroup,

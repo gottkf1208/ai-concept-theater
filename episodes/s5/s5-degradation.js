@@ -76,7 +76,7 @@ export default {
         tl.at(stage.appendChild(loopLab.el), 5.2, { from: 'pop' });
         const gen = P.text({ x: 340, y: 400, w: 880, text: '한 바퀴마다 조금씩 깎여요. 이걸 <i>세대 손실</i>이라고 불러요.', size: 28, weight: 800 });
         tl.at(stage.appendChild(gen.el), 10.2, { from: 'up' });
-        const small = P.text({ x: 340, y: 460, w: 880, text: '압축·복원의 정확한 방식과 손실 정도는 도구마다 달라요.', size: 20, weight: 600, cls: 'muted' });
+        const small = P.text({ x: 340, y: 460, w: 880, text: '압축·복원은 VAE라는 부품이 맡아요. 한 번 왕복할 때마다 미세한 정보가 깎여요.', size: 20, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(small.el), 10.8, { from: 'up' });
         return {
           tick(t) {
@@ -111,7 +111,7 @@ export default {
         tl.at(stage.appendChild(lab.el), 9.8, { from: 'up' });
         const final = P.text({ x: 760, y: 300, w: 460, text: '원본에서 멀어질수록 <em>정보가 사라져요</em>.', size: 28, weight: 800 });
         tl.at(stage.appendChild(final.el), 9.7, { from: 'up' });
-        const small = P.text({ x: 760, y: 380, w: 460, text: '막대는 원리를 보여 주는 그림이에요. 실제 수치는 모델·설정마다 달라요.', size: 18, weight: 600, cls: 'muted' });
+        const small = P.text({ x: 760, y: 380, w: 460, text: '막대는 원리를 보여 주는 그림이에요. 세대가 지날수록 드물던 특징부터 사라져요.', size: 18, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(small.el), 10.3, { from: 'up' });
         return {
           tick(t) {
@@ -256,7 +256,7 @@ export default {
   ],
   tip: {
     body: '로고처럼 정확해야 하는 건 AI에게 "빼 줘·키워 줘"를 시키지 말고 <b>원본 파일(벡터·원본 PNG)</b>에서 고치세요. 캐릭터 그림은 처음 만든 <b>원본, 프롬프트, 시드</b>를 한 폴더에 같이 보관하고, 수정은 그 원본에서 다시 시작해요.',
-    extra: '부분만 바꾸고 싶으면 그 부분만 마스크로 지정하는 편집 기능을 찾으세요. 전체를 다시 그리는 편집보다 원본이 덜 깎여요. 이름과 효과는 도구마다 달라요.'
+    extra: '부분만 바꾸고 싶으면 그 부분만 마스크로 지정하는 편집 기능을 찾으세요. 전체를 다시 그리는 편집보다 원본이 덜 깎여요. 이걸 인페인팅이라고 불러요.'
   },
   myth: {
     myth: '"여기만 빼 줘"라고 하면 그 부분만 바뀐다.',

@@ -44,7 +44,7 @@ export default {
       title: '잡음에서 그림으로', dur: 14,
       captions: [
         { t: 0, text: '생성은 <em>무작위 시작점</em>, 시드에서 출발해요. 주사위를 던지는 것과 비슷해요.' },
-        { t: 5.5, text: '많은 이미지·영상 모델이 <em>잡음</em>에서 출발해 조금씩 그림을 만들어요. (모델마다 방식은 달라요)' },
+        { t: 5.5, text: '이미지·영상 모델은 <em>잡음</em>에서 출발해 여러 단계에 걸쳐 그림을 걷어 내요. 이걸 <em>확산 모델</em>이라고 불러요.' },
         { t: 10.5, text: '시드가 다르면 잡음도 달라서, 결과도 달라져요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -53,7 +53,7 @@ export default {
         const noiseEl = P.noise({ x: 460, y: 110, w: 340, h: 340, seed: 82 });
         tl.at(stage.appendChild(noiseEl.el), 1.4, { from: 'pop' });
         const arr = P.arrow(lines, { x1: 320, y1: 210, x2: 460, y2: 250, width: 4, color: '#1B1F24' });
-        const label = P.text({ x: 460, y: 470, w: 340, text: '잡음이 줄면서 그림이 드러나요.<br><span class="p-text muted" style="position:static;display:inline">(모델마다 방식은 달라요)</span>', size: 20, weight: 600, align: 'center' });
+        const label = P.text({ x: 460, y: 470, w: 340, text: '잡음이 줄면서 그림이 드러나요.<br><span class="p-text muted" style="position:static;display:inline">(확산 모델의 잡음 제거 과정)</span>', size: 20, weight: 600, align: 'center' });
         tl.at(stage.appendChild(label.el), 5.7, { from: 'up' });
         const scopeChip = P.chip({ x: 850, y: 150, text: '확산 모델 등', color: 'gray', size: 20 });
         tl.at(stage.appendChild(scopeChip.el), 6.2, { from: 'pop' });
@@ -370,7 +370,7 @@ export default {
   script: `
 같은 프롬프트를 두 번 넣었는데 나온 영상이 조금씩 달랐어요. 배경도 다르고 움직임도 달랐죠. 왜 이런 일이 생길까요?
 
-생성은 무작위 시작점, 시드에서 출발해요. 많은 이미지·영상 모델은 잡음에서 시작해서 조금씩 그림을 만들어 가요. 모델마다 방식은 달라요. 글을 쓰는 모델은 다음에 올 단어를 확률로 골라요. '창의성(온도)'을 올리면 확률이 평평해져서 다양한 말이 나오고, 내리면 뾰족해져서 비슷한 말이 나와요.
+생성은 무작위 시작점, 시드에서 출발해요. 이미지·영상 모델은 잡음에서 시작해서 여러 단계에 걸쳐 그림을 걷어 내요. 이 방식을 확산 모델이라고 불러요. 글을 쓰는 모델은 다음에 올 단어를 확률로 골라요. '창의성(온도)'을 올리면 확률이 평평해져서 다양한 말이 나오고, 내리면 뾰족해져서 비슷한 말이 나와요.
 
 시드와 설정이 같으면 대체로 비슷한 결과가 나와요. 시드 항목이 아예 없는 도구도 있고, 하드웨어나 버전이 달라지면 같은 시드라도 결과가 바뀔 수 있어요. 온도를 0으로 둬도 완전히 똑같지는 않을 수 있다고 해요.
 

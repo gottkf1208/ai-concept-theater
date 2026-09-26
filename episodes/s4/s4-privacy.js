@@ -50,7 +50,7 @@ export default {
         tl.at(stage.appendChild(box2.el), 1.6, { from: 'right' });
         const note1 = P.text({ x: 780, y: 270, w: 460, text: '저장 · 검토 · 학습에 쓰일 수도 있어요', size: 22, weight: 700, cls: 'muted' });
         tl.at(stage.appendChild(note1.el), 5, { from: 'up' });
-        const note2 = P.text({ x: 380, y: 400, w: 800, text: '서비스마다 조금씩 달라요.', size: 24, weight: 700 });
+        const note2 = P.text({ x: 380, y: 400, w: 800, text: '학습 사용 여부는 <em>설정과 약관</em>에 적혀 있어요.', size: 24, weight: 700 });
         tl.at(stage.appendChild(note2.el), 6.4, { from: 'up' });
         const chip = P.chip({ x: 380, y: 470, text: '"학습에 사용 안 함" 설정도 있어요', color: 'aqua', size: 22 });
         tl.at(stage.appendChild(chip.el), 9.6, { from: 'pop' });
@@ -274,7 +274,7 @@ export default {
   sources: [
     { title: '개인정보보호위원회', url: 'https://www.pipc.go.kr/', note: '공공 · 교육 분야를 포함한 개인정보 처리 기준과 안내를 확인할 수 있어요.' },
     { title: '국가법령정보센터', url: 'https://www.law.go.kr/', note: '"개인정보 보호법"으로 검색하면 조문과 최신 개정 내용을 확인할 수 있어요.' },
-    { title: 'Claude 문서 — Vision', url: 'https://platform.claude.com/docs/en/build-with-claude/vision', note: '예시로, 서비스 문서에는 업로드한 이미지를 어떻게 처리하는지가 적혀 있어요. 도구마다 방침이 다르니 확인해요.' }
+    { title: 'Claude 문서 — Vision', url: 'https://platform.claude.com/docs/en/build-with-claude/vision', note: '예시로, 서비스 문서에는 업로드한 이미지를 어떻게 처리하는지가 적혀 있어요. 개인정보 처리방침에서 학습 사용 여부와 보관 기간을 확인해요.' }
   ],
   script: `생활기록부 문구를 AI에게 다듬어 달라고 하려다가 손이 멈칫해요. 이름이랑 성적, 넣어도 될까요?
 

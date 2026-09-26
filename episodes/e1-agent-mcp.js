@@ -122,7 +122,7 @@ export default {
     {
       title: 'MCP는 연결 규격', dur: 13,
       captions: [
-        { t: 0, text: '도구가 많아지면 골치 아파요. AI 앱마다, 도구마다 <em>연결 방식이 제각각</em>이었거든요.' },
+        { t: 0, text: '도구가 많아지면 골치 아파요. MCP 전에는 앱과 도구를 잇는 <em>연결 코드를 짝마다 따로</em> 짜야 했거든요.' },
         { t: 4.5, text: 'MCP(Model Context Protocol)는 AI 앱과 도구를 잇는 <em>공개 표준 규격</em>이에요. 공식 문서 표현으로는 AI의 USB-C 단자.' },
         { t: 9.5, text: '규격이 같으면 도구를 한 번 만들어 여러 AI 앱에 <em>꽂아</em> 쓸 수 있어요.' }
       ],
