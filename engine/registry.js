@@ -34,7 +34,12 @@ export const EPISODES = [
   { no: 23, slug: 's4-search', file: 'episodes/s4/s4-search.js', status: 'ready' },
   { no: 24, slug: 's4-choose', file: 'episodes/s4/s4-choose.js', status: 'ready' },
   /* 시즌 5: 깊이 파기(심화) */
-  { no: 25, slug: 's5-degradation', file: 'episodes/s5/s5-degradation.js', status: 'ready' }
+  { no: 25, slug: 's5-degradation', file: 'episodes/s5/s5-degradation.js', status: 'ready' },
+  { no: 26, slug: 's5-motion-prompt', file: 'episodes/s5/s5-motion-prompt.js', status: 'ready' },
+  { no: 27, slug: 's5-upscale', file: 'episodes/s5/s5-upscale.js', status: 'ready' },
+  { no: 28, slug: 's5-guidance', file: 'episodes/s5/s5-guidance.js', status: 'ready' },
+  { no: 29, slug: 's5-controlnet', file: 'episodes/s5/s5-controlnet.js', status: 'ready' },
+  { no: 30, slug: 's5-long-video', file: 'episodes/s5/s5-long-video.js', status: 'ready' }
 ];
 
 export async function loadEpisode(slug, base = '') {

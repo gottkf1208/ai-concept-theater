@@ -4,46 +4,47 @@ export default {
   track: 'C',
   title: '고칠수록 이상해지는 그림, 왜 그럴까',
   subtitle: '편집 사슬과 열화',
-  summary: 'AI 그림을 "여기만 고쳐 줘"로 서너 번 다듬었더니 얼굴이 뭉개지고 색이 탁해졌어요. 편집을 거듭할수록 정보가 깎이는 원리와, 원본 레퍼런스·프롬프트·시드로 되돌아가 다시 만드는 해소법을 파고들어요.',
+  summary: '해커톤 로고에서 "왼쪽 원형 A만 빼고 초고화질로" 부탁했더니 얼룩이 생기고 4K도 아니었어요. 다시 시켰더니 글자가 뭉툭해졌고요. 편집을 거듭할수록 정보가 깎이는 원리와, 원본에서 다시 시작하는 해소법을 실제 사례로 파고들어요.',
   keywords: ['열화', '편집 사슬', '세대 손실', 'img2img', 'SDEdit', '잠재 공간', '재생성', '모델 붕괴', '레퍼런스'],
 
   scenes: [
     {
-      title: '세 번 고쳤더니', dur: 13,
+      title: '원형 A만 빼 달랬는데', dur: 14,
       captions: [
-        { t: 0, text: '캐릭터 그림을 만들고 "모자만 바꿔 줘", "배경도", "표정도" 하고 <em>세 번</em> 고쳤어요.' },
-        { t: 5, text: '그런데 고칠수록 얼굴이 <em>뭉개지고</em> 색이 탁해졌어요.' },
-        { t: 9.5, text: '고친 건 모자·배경·표정인데, 왜 얼굴까지 망가질까요?' }
+        { t: 0, text: '해커톤 로고를 주고 "왼쪽 원형 A만 빼고 <em>초고화질</em>로 뽑아 줘"라고 했어요.' },
+        { t: 5, text: '돌아온 건 <em>얼룩덜룩한</em> 배경에, 크기는 4K가 아니라 1749×899. 다시 시켰더니 이번엔 글자가 <em>뭉툭</em>해졌어요.' },
+        { t: 10, text: '뺀 건 동그라미 하나인데, 왜 배경과 글자까지 달라질까요?' }
       ],
       build({ stage, lines, P, tl }) {
-        const q = P.quokka({ x: 50, y: 330, size: 320, pose: 'oops' });
+        const q = P.quokka({ x: 50, y: 340, size: 300, pose: 'oops' });
         stage.append(q.el);
-        const steps = ['원본', '1차 수정', '2차 수정', '3차 수정'];
-        const levels = [0, .18, .38, .62];
-        /* 잡음 캔버스에 원본 그림을 깔려면 이미지 요소가 필요해요. 로드 전엔 순수 잡음, 로드 후 다시 그려요. */
+        const ask = P.bubble({ x: 330, y: 70, w: 560, text: '여기서 왼쪽 원형 A는 빼고 <b>초고화질</b>로 이미지 뽑아봐', tail: 'left', size: 22 });
+        tl.at(stage.appendChild(ask.el), .3, { from: 'left' });
+        const cards = [
+          ['1차 결과', '배경 얼룩 · 1749×899<br>4K 아님', 'orange'],
+          ['2차 결과', '벡터로 다시 그림 · 3840×1976<br>글자 윤곽이 둥글고 뭉툭', 'orange']
+        ].map(([label, sub, acc], i) => {
+          const b = P.box({ x: 330 + i * 460, y: 250, w: 430, h: 140, label, sub, accent: acc, icon: P.ICON.x });
+          tl.at(stage.appendChild(b.el), 5.2 + i * 2.2, { from: 'up' });
+          return b;
+        });
+        /* 얼룩 시연: 로고 대신 공용 쿼카 그림에 잡음을 얹어 보여 줘요 */
         const srcImg = new Image(); srcImg.src = P.charSrc('base');
-        const noises = steps.map((label, i) => {
-          const n = P.noise({ x: 330 + i * 230, y: 120, w: 190, h: 190, seed: 11 + i });
-          n.set(levels[i]);
-          srcImg.addEventListener('load', () => { n.source(srcImg); n.set(levels[i]); }, { once: true });
-          if (srcImg.complete && srcImg.naturalWidth) { n.source(srcImg); n.set(levels[i]); }
-          tl.at(stage.appendChild(n.el), .3 + i * 1.3, { from: 'up' });
-          const lab = P.text({ x: 330 + i * 230, y: 322, w: 190, text: label, size: 20, weight: 800, align: 'center', color: i === 3 ? '#F2812D' : '#1B1F24' });
-          tl.at(stage.appendChild(lab.el), .3 + i * 1.3, { from: 'up' });
-          return n;
-        });
-        const arrows = [0, 1, 2].map(i => P.arrow(lines, { x1: 520 + i * 230, y1: 215, x2: 560 + i * 230, y2: 215, width: 4, color: '#1B1F24' }));
-        const chips = ['모자 바꾸기', '배경 바꾸기', '표정 바꾸기'].map((c, i) => {
-          const chip = P.chip({ x: 575 + i * 230, y: 354, text: c, color: 'gray', size: 17 });
-          tl.at(stage.appendChild(chip.el), 1.6 + i * 1.3, { from: 'pop' });
-          return chip;
-        });
-        const note = P.text({ x: 330, y: 420, w: 880, text: '고친 곳은 세 군데인데, <em>얼굴</em>까지 같이 흐려졌어요.', size: 28, weight: 800 });
-        tl.at(stage.appendChild(note.el), 9.7, { from: 'up' });
+        const n = P.noise({ x: 960, y: 50, w: 150, h: 150, seed: 23 });
+        n.set(.35);
+        srcImg.addEventListener('load', () => { n.source(srcImg); n.set(.35); }, { once: true });
+        if (srcImg.complete && srcImg.naturalWidth) { n.source(srcImg); n.set(.35); }
+        tl.at(stage.appendChild(n.el), 5.2, { from: 'pop' });
+        const nlab = P.text({ x: 930, y: 204, w: 210, text: '얼룩 = 다시 그린 흔적', size: 16, weight: 700, align: 'center', cls: 'muted' });
+        tl.at(stage.appendChild(nlab.el), 5.6, { from: 'up' });
+        const chip = P.chip({ x: 330, y: 420, text: '"왜 4K 아닌데 얼룩덜룩하노"', color: 'gray', size: 20 });
+        tl.at(stage.appendChild(chip.el), 7.2, { from: 'pop' });
+        const note = P.text({ x: 330, y: 480, w: 880, text: '뺀 건 <em>동그라미 하나</em>인데, 배경과 글자까지 달라졌어요.', size: 28, weight: 800 });
+        tl.at(stage.appendChild(note.el), 10.2, { from: 'up' });
         return {
           tick(t) {
-            q.tick(t, t > 9.5);
-            arrows.forEach((a, i) => a.draw(P.clamp((t - (1.4 + i * 1.3)) / .5, 0, 1)));
+            q.tick(t, t < 5 || t > 10);
+            cards.forEach((c, i) => c.on(t > 5.2 + i * 2.2));
           }
         };
       }
@@ -51,7 +52,7 @@ export default {
     {
       title: '복사본의 복사본', dur: 14,
       captions: [
-        { t: 0, text: '"여기만 고쳐 줘"는 사실 <em>다시 그리기</em>예요. 이전 결과에 잡음을 섞고 통째로 새로 그려요.' },
+        { t: 0, text: '"여기만 빼 줘", "더 크게"는 사실 <em>다시 그리기</em>예요. 이전 결과에 잡음을 섞고 통째로 새로 그려요.' },
         { t: 5, text: '게다가 그림은 매번 <em>압축</em>됐다가 <em>복원</em>돼요. 복사기로 복사본을 또 복사하는 것과 같아요.' },
         { t: 10, text: '한 번은 티가 안 나도, 사슬처럼 이어지면 손실이 <em>쌓여요</em>.' }
       ],
@@ -119,15 +120,15 @@ export default {
     {
       title: '해소법: 원본으로 돌아가기', dur: 14,
       captions: [
-        { t: 0, text: '해법은 사슬을 끊는 거예요. 수정본을 또 고치지 말고, <em>원본 레퍼런스</em>에서 매번 새로 만들어요.' },
+        { t: 0, text: '해법은 사슬을 끊는 거예요. 로고라면 <em>원본 파일</em>에서 고치고, 그림이라면 <em>원본 레퍼런스</em>에서 매번 새로 만들어요.' },
         { t: 5, text: '바꿀 점은 프롬프트에 <em>전부</em> 적어요. "모자, 배경, 표정을 이렇게"처럼 한 번에요.' },
         { t: 9.5, text: '<em>시드</em>를 같이 적어 두면 마음에 든 결과를 다시 불러올 수 있어요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 330, size: 320, pose: 'point' });
         stage.append(q.el);
-        const src = P.box({ x: 340, y: 100, w: 260, h: 150, label: '원본 레퍼런스', sub: '처음 만든 정면 이미지<br>따로 보관', accent: 'aqua', icon: P.ICON.save });
-        const pr = P.box({ x: 640, y: 100, w: 260, h: 150, label: '프롬프트', sub: '"모자 파랑, 배경 교실,<br>웃는 표정" 한 번에', accent: 'ink', icon: P.ICON.doc });
+        const src = P.box({ x: 340, y: 100, w: 260, h: 150, label: '원본 파일·레퍼런스', sub: '로고는 벡터 원본에서<br>그림은 처음 이미지에서', accent: 'aqua', icon: P.ICON.save });
+        const pr = P.box({ x: 640, y: 100, w: 260, h: 150, label: '프롬프트', sub: '"원형 A 제거, 나머지 유지,<br>3840px" 한 번에', accent: 'ink', icon: P.ICON.doc });
         const sd = P.box({ x: 940, y: 100, w: 260, h: 150, label: '시드', sub: '재현용 번호<br>기록해 두기', accent: '', icon: P.ICON.dice });
         [src, pr, sd].forEach((b, i) => tl.at(stage.appendChild(b.el), .3 + i * .8, { from: 'up' }));
         const out = P.box({ x: 640, y: 330, w: 260, h: 120, label: '새로 생성', sub: '매번 원본에서 출발', accent: 'orange', icon: P.ICON.check });
@@ -164,7 +165,7 @@ export default {
         const q = P.quokka({ x: 50, y: 300, size: 340, pose: 'wave' });
         stage.append(q.el);
         const items = [
-          ['① 원본 보관', '마스터 이미지 + 프롬프트 + 시드'],
+          ['① 원본 보관', '로고는 벡터 파일, 그림은 마스터 + 프롬프트 + 시드'],
           ['② 원본에서 재생성', '수정 2회부터는 사슬 끊기'],
           ['③ 나란히 비교', '원본과 결과를 같이 놓고'],
           ['④ 확대 확인', '글자·손·눈부터']
@@ -250,11 +251,11 @@ export default {
     '고치고 싶으면 수정본 말고 <b>처음 그림</b>을 다시 넣고 바꿀 점을 한 번에 말해 줘요.'
   ],
   tip: {
-    body: '캐릭터나 로고처럼 오래 쓸 그림은 처음 만든 <b>원본, 프롬프트, 시드</b>를 한 폴더에 같이 보관하세요. 수정은 그 원본에서 다시 시작하고, 바꿀 점은 프롬프트에 한꺼번에 적어요.',
-    extra: '편집 기능에 "원본 유지 정도"나 "변경 강도" 같은 슬라이더가 있으면 낮게 두고 시작하세요. 잡음을 적게 섞을수록 원본이 덜 깎여요. 이름과 효과는 도구마다 달라요.'
+    body: '로고처럼 정확해야 하는 건 AI에게 "빼 줘·키워 줘"를 시키지 말고 <b>원본 파일(벡터·원본 PNG)</b>에서 고치세요. 캐릭터 그림은 처음 만든 <b>원본, 프롬프트, 시드</b>를 한 폴더에 같이 보관하고, 수정은 그 원본에서 다시 시작해요.',
+    extra: '부분만 바꾸고 싶으면 그 부분만 마스크로 지정하는 편집 기능을 찾으세요. 전체를 다시 그리는 편집보다 원본이 덜 깎여요. 이름과 효과는 도구마다 달라요.'
   },
   myth: {
-    myth: '"여기만 고쳐 줘"라고 하면 그 부분만 바뀐다.',
+    myth: '"여기만 빼 줘"라고 하면 그 부분만 바뀐다.',
     fact: '대부분의 편집은 이전 결과에 잡음을 섞어 그림 전체를 다시 그려요. 그래서 고치지 않은 부분도 조금씩 달라지고, 반복하면 손실이 <b>누적</b>돼요.'
   },
   sources: [
@@ -263,9 +264,9 @@ export default {
     { title: 'AI models collapse when trained on recursively generated data (Nature, 2024)', url: 'https://www.nature.com/articles/s41586-024-07566-y', note: 'AI 생성물로 AI를 거듭 학습시키면 세대가 지날수록 무너진다는 연구.' },
     { title: 'Self-Consuming Generative Models Go MAD (arXiv, 2023)', url: 'https://arxiv.org/abs/2307.01850', note: '생성물을 다시 먹이는 자기 소비 고리에서 품질과 다양성이 함께 떨어진다는 분석.' }
   ],
-  script: `AI로 만든 캐릭터 그림을 "모자만 바꿔 줘", "배경도", "표정도" 하고 세 번 고쳤더니 얼굴이 뭉개지고 색이 탁해진 적 있으시죠. 고친 건 세 군데인데 왜 얼굴까지 망가질까요.
+  script: `해커톤 로고를 AI에게 주고 "왼쪽 원형 A만 빼고 초고화질로 뽑아 줘"라고 한 적이 있어요. 돌아온 건 얼룩덜룩한 배경에, 크기도 4K가 아니라 1749×899였어요. 다시 시켰더니 이번엔 벡터로 새로 그려서 4K는 맞췄는데 글자 윤곽이 원본보다 둥글고 뭉툭해졌고요. 뺀 건 동그라미 하나인데 왜 배경과 글자까지 달라졌을까요.
 
-"여기만 고쳐 줘"는 사실 다시 그리기예요. 도구는 이전 결과에 잡음을 조금 섞고 그림 전체를 새로 그려요. 게다가 그림은 매번 압축됐다가 복원돼요. 복사기로 복사본을 또 복사하는 것과 같아서, 한 번은 티가 안 나도 사슬처럼 이어지면 손실이 쌓여요. 연구에서는 이런 편집 방식을 SDEdit이라고 부르고, AI 결과물로 AI를 거듭 학습시키면 무너진다는 모델 붕괴 연구도 2024년 네이처에 실렸어요. 원본에서 멀어질수록 정보가 사라진다는 점은 같아요.
+"여기만 빼 줘"도 "더 크게"도 사실 다시 그리기예요. 도구는 이전 결과에 잡음을 조금 섞고 그림 전체를 새로 그려요. 게다가 그림은 매번 압축됐다가 복원돼요. 복사기로 복사본을 또 복사하는 것과 같아서 한 번은 티가 안 나도 사슬처럼 이어지면 손실이 쌓여요. 연구에서는 이런 편집 방식을 SDEdit이라고 부르고, AI 결과물로 AI를 거듭 학습시키면 무너진다는 모델 붕괴 연구도 2024년 네이처에 실렸어요. 원본에서 멀어질수록 정보가 사라진다는 점은 같아요.
 
-해법은 사슬을 끊는 거예요. 수정본을 또 고치지 말고 원본 레퍼런스에서 매번 새로 만들어요. 바꿀 점은 프롬프트에 한 번에 다 적고, 시드를 같이 적어 두면 마음에 든 결과를 다시 불러올 수 있어요. 원본은 마스터로 따로 보관하고, 결과는 나란히 비교하고, 글자와 손은 확대해서 확인하세요.`
+해법은 사슬을 끊는 거예요. 로고처럼 정확해야 하는 건 원본 파일에서 고치고, 그림은 원본 레퍼런스에서 매번 새로 만들어요. 바꿀 점은 프롬프트에 한 번에 다 적고 시드를 같이 적어 두면 마음에 든 결과를 다시 불러올 수 있어요. 결과는 나란히 비교하고, 글자와 손은 확대해서 확인하세요.`
 };

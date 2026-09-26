@@ -6,7 +6,7 @@ import { mkdirSync } from 'node:fs';
 const BASE = process.argv[2] || 'http://localhost:5310/';
 const OUT = 'test/screens';
 mkdirSync(OUT, { recursive: true });
-const SLUGS = (process.env.SLUGS || 'e1-agent-mcp,e2-seed,e3-diffusion,e4-plausible,e5-context,e6-rag,n1-consistency,n2-video-cost,n3-english-prompt,n4-reasoning,n5-vibecoding,n6-ai-label,s3-voice,s3-avatar,s3-music,s3-subtitle,s3-vision,s3-role,s4-grading,s4-sycophancy,s4-privacy,s4-calc,s4-search,s4-choose,s5-degradation').split(',');
+const SLUGS = (process.env.SLUGS || 'e1-agent-mcp,e2-seed,e3-diffusion,e4-plausible,e5-context,e6-rag,n1-consistency,n2-video-cost,n3-english-prompt,n4-reasoning,n5-vibecoding,n6-ai-label,s3-voice,s3-avatar,s3-music,s3-subtitle,s3-vision,s3-role,s4-grading,s4-sycophancy,s4-privacy,s4-calc,s4-search,s4-choose,s5-degradation,s5-motion-prompt,s5-upscale,s5-guidance,s5-controlnet,s5-long-video').split(',');
 const VIEWPORTS = [{ name: 'desk', width: 1440, height: 900 }, { name: 'phone', width: 390, height: 844 }];
 let fails = 0;
 const ok = (cond, msg) => { if (cond) console.log('  ✓', msg); else { fails++; console.log('  ✗', msg); } };

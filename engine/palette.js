@@ -25,7 +25,12 @@ export const PALETTES = {
   's4-calc':          { a1: '#0369A1', a2: '#475569', name: '하늘색 셔츠' },
   's4-search':        { a1: '#92400E', a2: '#0284C7', name: '기자 조끼' },
   's4-choose':        { a1: '#1E3A8A', a2: '#059669', name: '남색 재킷' },
-  's5-degradation':   { a1: '#0F766E', a2: '#B45309', name: '심화 · 청록과 구리' }
+  's5-degradation':   { a1: '#0F766E', a2: '#B45309', name: '복원가 앞치마' },
+  's5-motion-prompt': { a1: '#6D28D9', a2: '#D97706', name: '모션 디자이너 후드' },
+  's5-upscale':       { a1: '#0284C7', a2: '#DB2777', name: '픽셀 머플러 가운' },
+  's5-guidance':      { a1: '#111827', a2: '#E11D48', name: '지휘자 연미복' },
+  's5-controlnet':    { a1: '#9F1239', a2: '#0D9488', name: '인형극 조끼' },
+  's5-long-video':    { a1: '#EA580C', a2: '#1D4ED8', name: '마라톤 러너' }
 };
 export const DEFAULT_PALETTE = { a1: '#2563EB', a2: '#EA580C', name: '기본' };
 

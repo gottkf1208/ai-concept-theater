@@ -30,7 +30,19 @@ export default {
     's4-privacy': 'webp',
     's4-calc': 'webp',
     's4-search': 'webp',
-    's4-choose': 'webp'
+    's4-choose': 'webp',
+    'w6-skater': 'webp',
+    'w5-baker': 'webp',
+    'w4-elf': 'webp',
+    'w3-snow': 'webp',
+    'w2-reindeer': 'webp',
+    'w1-santa': 'webp',
+    's5-long-video': 'webp',
+    's5-controlnet': 'webp',
+    's5-guidance': 'webp',
+    's5-upscale': 'webp',
+    's5-motion-prompt': 'webp',
+    's5-degradation': 'webp'
   },
   outfits: {
     'e1-agent-mcp': ['point', 'tablet'],
@@ -56,6 +68,18 @@ export default {
     's4-privacy': ['point', 'think', 'oops', 'wave'],
     's4-calc': ['point', 'think', 'oops', 'wave'],
     's4-search': ['point', 'think', 'oops', 'wave'],
-    's4-choose': ['point', 'think', 'oops', 'wave']
+    's4-choose': ['point', 'think', 'oops', 'wave'],
+    'w6-skater': ['point', 'think', 'oops', 'wave'],
+    'w5-baker': ['point', 'think', 'oops', 'wave'],
+    'w4-elf': ['point', 'think', 'oops', 'wave'],
+    'w3-snow': ['point', 'think', 'oops', 'wave'],
+    'w2-reindeer': ['point', 'think', 'oops', 'wave'],
+    'w1-santa': ['point', 'think', 'oops', 'wave'],
+    's5-long-video': ['point', 'think', 'oops', 'wave'],
+    's5-controlnet': ['point', 'think', 'oops', 'wave'],
+    's5-guidance': ['point', 'think', 'oops', 'wave'],
+    's5-upscale': ['point', 'think', 'oops', 'wave'],
+    's5-motion-prompt': ['point', 'think', 'oops', 'wave'],
+    's5-degradation': ['point', 'think', 'oops', 'wave']
   }
 };
