@@ -226,7 +226,8 @@ const kvSrc = P.keySrc(slug); if (kvSrc) { $('#kv').src = kvSrc; $('#kv').hidden
 $('#btnRec').href = `watch.html?ep=${slug}&mode=rec`;
 
 /* 극장 */
-const theater = mountTheater($('#theater'), ep, { mode });
+const theater = mountTheater($("#theater"), ep, { mode });
+window.__theater = theater; /* 테스트용: 장면/시각으로 바로 이동 */
 
 /* 만져 보기 */
 $('#iTitle').textContent = ep.interaction.title;

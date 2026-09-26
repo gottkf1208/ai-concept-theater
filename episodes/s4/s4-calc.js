@@ -74,7 +74,7 @@ export default {
         tl.at(stage.appendChild(outBox.el), 6.4, { from: 'right' });
         const toOut = P.arrow(lines, { x1: 810, y1: 300, x2: 950, y2: 400, color: '#F2812D', width: 4, curve: 20 });
 
-        const capLbl = P.text({ x: 60, y: 610, w: 1160, text: '조합이 많을수록 <i>본 적 있는 패턴</i>이 부족해져요.', size: 20, weight: 700, cls: 'muted' });
+        const capLbl = P.text({ x: 250, y: 610, w: 970, text: '조합이 많을수록 <i>본 적 있는 패턴</i>이 부족해져요.', size: 20, weight: 700, cls: 'muted' });
         tl.at(stage.appendChild(capLbl.el), 10, { from: 'up' });
 
         return {

@@ -61,7 +61,7 @@ export default {
           return b;
         });
         const arrows = boxes.map((b, i) => P.arrow(lines, { x1: 640, y1: 200, x2: 280 + i * 350, y2: 300, width: 3, color: '#9AA5AF', curve: (i - 1) * 20 }));
-        const note = P.chip({ x: 130, y: 460, text: '공개하는 도구를 먼저 눈여겨봐요', color: 'aqua', size: 24 });
+        const note = P.chip({ x: 250, y: 470, text: '공개하는 도구를 먼저 눈여겨봐요', color: 'aqua', size: 24 });
         tl.at(stage.appendChild(note.el), 10, { from: 'pop' });
         return {
           tick(t) {

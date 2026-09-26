@@ -20,13 +20,14 @@ export default {
         stage.append(q.el);
         const b = P.bubble({ x: 330, y: 180, w: 470, text: '<b>영상 여섯 편</b> 만들어 줘. 대본은 이 파일대로.', tail: 'left' });
         tl.at(stage.appendChild(b.el), .4, { from: 'left' });
-        const screen = P.box({ x: 820, y: 150, w: 380, h: 420, label: '영상 편집 사이트', sub: '', accent: '' });
+        const screen = P.box({ x: 820, y: 130, w: 380, h: 470, label: '영상 편집 사이트', sub: '', accent: '' });
+        screen.el.style.justifyContent = 'flex-start'; screen.el.style.paddingTop = '18px';
         tl.at(stage.appendChild(screen.el), 1.2, { from: 'up' });
         const rows = ['영상 1 · 기후변화', '영상 2 · 검증 편', '영상 3 · 생성 편', '영상 4 · 편집 편', '영상 5 · 공유 편', '영상 6 · 9:16 판'];
-        const rowEls = rows.map((r, i) => tl.at(stage.appendChild(P.text({ x: 850, y: 230 + i * 44, w: 320, text: r, size: 20, weight: 600, cls: 'muted' }).el), 1.8 + i * 1.05, { from: 'left', dist: 16 }));
+        const rowEls = rows.map((r, i) => tl.at(stage.appendChild(P.text({ x: 850, y: 200 + i * 40, w: 320, text: r, size: 19, weight: 600, cls: 'muted' }).el), 1.8 + i * 1.05, { from: 'left', dist: 16 }));
         const cursor = P.h('div', { class: 'p-box-icon', style: 'position:absolute;width:38px;height:38px;color:#F2812D;z-index:3', html: P.ICON.click });
         tl.at(stage.appendChild(cursor), 1.6, { from: 'pop' });
-        const gate = P.box({ x: 840, y: 460, w: 340, h: 90, label: '파일 저장 창', sub: '사람이 직접 눌러요', accent: 'orange', icon: P.ICON.hand });
+        const gate = P.box({ x: 840, y: 460, w: 340, h: 120, label: '파일 저장 창', sub: '사람이 직접 눌러요', accent: 'orange', icon: P.ICON.hand });
         tl.at(stage.appendChild(gate.el), 6.2, { from: 'pop' });
         const qq = P.text({ x: 330, y: 470, w: 460, text: '화면을 <i>보고</i> · <i>누르고</i> · <i>글자를 치는</i> AI?', size: 30, weight: 800 });
         tl.at(stage.appendChild(qq.el), 9.8, { from: 'up' });
@@ -35,7 +36,7 @@ export default {
             q.tick(t, t < 5);
             const k = P.clamp((t - 1.8) / 6.3, 0, 1);
             const i = Math.min(5, Math.floor(k * 6));
-            cursor.style.left = `${1150 - (t * 40 % 20)}px`; cursor.style.top = `${226 + i * 44}px`;
+            cursor.style.left = `${1150 - (t * 40 % 20)}px`; cursor.style.top = `${196 + i * 40}px`;
             rowEls.forEach((r, j) => r.style.color = j <= i && t > 1.8 ? '#127E90' : '');
           }
         };

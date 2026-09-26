@@ -68,7 +68,7 @@ export default {
         tl.at(stage.appendChild(out.el), 8.6, { from: 'pop' });
         const q = P.quokka({ x: 40, y: 440, size: 220, pose: 'idea' });
         stage.append(q.el);
-        const b = P.bubble({ x: 200, y: 470, w: 640, text: '그럴듯한 다음 조각을 고르는 거예요. <b>맞는지는 안 봐요</b>.', tail: 'left', size: 22, tone: 'soft' });
+        const b = P.bubble({ x: 200, y: 500, w: 640, text: '그럴듯한 다음 조각을 고르는 거예요. <b>맞는지는 안 봐요</b>.', tail: 'left', size: 22, tone: 'soft' });
         tl.at(stage.appendChild(b.el), 10, { from: 'up' });
         return {
           tick(t) {

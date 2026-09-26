@@ -43,7 +43,7 @@ export default {
         { t: 10.5, text: '그래서 이미지도 글처럼 <em>토큰 열</em>이 돼요.' }
       ],
       build({ stage, lines, P, tl, base }) {
-        const q = P.quokka({ x: 30, y: 470, size: 220, pose: 'point' });
+        const q = P.quokka({ x: 960, y: 330, size: 320, pose: 'point', flip: true });
         stage.append(q.el);
         const photo = P.h('img', { src: `${base}assets/char/base.webp`, alt: '쿼카 캐릭터 사진', style: 'left:110px;top:70px;width:230px;height:350px;object-fit:cover;border-radius:10px;background:#F2F5F7' });
         tl.at(stage.appendChild(photo), .3, { from: 'up' });
