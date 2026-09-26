@@ -28,16 +28,20 @@ export default {
           tl.at(stage.appendChild(b.el), 5.2 + i * 2.2, { from: 'up' });
           return b;
         });
-        /* 얼룩 시연: 로고 대신 공용 쿼카 그림에 잡음을 얹어 보여 줘요 */
+        /* 얼룩 시연: 원본과 다시 그린 결과를 나란히. 그 편 의상 쿼카 그림을 쓰고, 결과 쪽에만 잡음을 얹어요 */
         const srcImg = new Image(); srcImg.src = P.charSrc('base');
-        const n = P.noise({ x: 960, y: 50, w: 150, h: 150, seed: 23 });
-        n.set(.35);
-        srcImg.addEventListener('load', () => { n.source(srcImg); n.set(.35); }, { once: true });
-        if (srcImg.complete && srcImg.naturalWidth) { n.source(srcImg); n.set(.35); }
-        tl.at(stage.appendChild(n.el), 5.2, { from: 'pop' });
-        const nlab = P.text({ x: 930, y: 204, w: 210, text: '얼룩 = 다시 그린 흔적', size: 16, weight: 700, align: 'center', cls: 'muted' });
-        tl.at(stage.appendChild(nlab.el), 5.6, { from: 'up' });
-        const chip = P.chip({ x: 330, y: 420, text: '"왜 4K 아닌데 얼룩덜룩하노"', color: 'gray', size: 20 });
+        const pair = [['원본', 0], ['결과 · 얼룩', .28]].map(([label, lv], i) => {
+          const n = P.noise({ x: 930 + i * 150, y: 50, w: 130, h: 130, seed: 23 + i });
+          n.set(lv);
+          const draw = () => { n.source(srcImg); n.set(lv); };
+          srcImg.addEventListener('load', draw, { once: true });
+          if (srcImg.complete && srcImg.naturalWidth) draw();
+          tl.at(stage.appendChild(n.el), 5.2 + i * .6, { from: 'pop' });
+          const lab = P.text({ x: 920 + i * 150, y: 184, w: 150, text: label, size: 16, weight: 700, align: 'center', color: i ? '#F2812D' : '#1B1F24' });
+          tl.at(stage.appendChild(lab.el), 5.4 + i * .6, { from: 'up' });
+          return n;
+        });
+        const chip = P.chip({ x: 330, y: 420, text: '"4K도 아닌데 왜 얼룩덜룩하지?"', color: 'gray', size: 20 });
         tl.at(stage.appendChild(chip.el), 7.2, { from: 'pop' });
         const note = P.text({ x: 330, y: 480, w: 880, text: '뺀 건 <em>동그라미 하나</em>인데, 배경과 글자까지 달라졌어요.', size: 28, weight: 800 });
         tl.at(stage.appendChild(note.el), 10.2, { from: 'up' });
