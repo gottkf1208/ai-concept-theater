@@ -45,7 +45,7 @@
 - `P.noise({x, y, w, h, seed})` → `{el, source(img), set(level 0~1)}` 잡음 캔버스(1=완전 잡음)
 - `P.ICON.{eye,click,key,doc,save,hand,search,plug,brain,check,x,dice,video,desk}` 선 아이콘 SVG 문자열
 - `P.h(tag, attrs, ...kids)` / `P.s(svgTag, attrs)` DOM 헬퍼. `P.rng(seed)` 결정적 난수. `P.clamp`, `P.lerp`, `P.easeOut`
-- 무대 배경은 거의 흰색. 색은 아쿠아 `#2BB3C9`/`#127E90`, 오렌지 `#F2812D`/`#B3520F`, 잉크 `#1B1F24`, 브라운 `#6B4A2E`, 회색 `#9AA5AF`만.
+- 색은 직접 정하지 말고 `accent: 'aqua'|'orange'|'ink'`와 `color: '#127E90'`(주 강조), `'#F2812D'`(보조 강조), `'#1B1F24'`(잉크)만 쓰세요. 엔진이 그 편 팔레트(`engine/palette.js`)의 색으로 바꿔 그려요. 새 편은 팔레트에 slug 한 줄을 추가하세요.
 
 ## 화면 구성 원칙
 

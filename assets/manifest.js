@@ -3,7 +3,7 @@
    key : assets/key/{slug}.webp  — 편별 의상(기본 포즈)과 첫 화면 히어로
    outfits: assets/char/{slug}/{pose}.webp — 그 편 의상으로 만든 포즈들. 없는 포즈는 key(기본) → 공용 포즈 순서로 대체돼요. */
 export default {
-  char: { base: 'webp', point: 'webp', think: 'webp', oops: 'webp', tablet: 'webp', wave: 'webp', dice: 'webp', glass: 'webp', idea: 'webp', globe: 'webp' },
+  char: { base: 'webp', point: 'webp', think: 'webp', oops: 'webp', tablet: 'webp', wave: 'webp', dice: 'webp', glass: 'webp' },
   key: {
     'hero': 'webp',
     'hero-wide': 'webp',

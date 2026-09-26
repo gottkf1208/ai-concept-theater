@@ -3,7 +3,7 @@ import { chromium } from 'playwright';
 import { mkdirSync } from 'node:fs';
 mkdirSync('test/mid', { recursive: true });
 const BASE = 'http://localhost:5310/';
-const want = { 's3-voice': [2], 's3-avatar': [3], 's3-music': [2], 's3-subtitle': [3], 's3-vision': [2], 's3-role': [4], 's4-grading': [3], 's4-sycophancy': [3], 's4-privacy': [4], 's4-calc': [3], 's4-search': [2], 's4-choose': [4] };
+const want = { 'e1-agent-mcp': [2, 4], 'e3-diffusion': [4], 'e5-context': [4], 'n4-reasoning': [4], 's3-avatar': [3], 's4-grading': [3], 's4-choose': [4], 'e6-rag': [2] };
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 for (const [slug, scenes] of Object.entries(want)) {

@@ -1,5 +1,6 @@
 /* 타임라인 플레이어: 장면 목록을 순서대로 재생하고, 자막·음성·조작을 담당해요. */
 import * as P from './parts.js';
+import { applyPalette } from './palette.js';
 
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fmt = sec => `${Math.floor(sec / 60)}:${String(Math.floor(sec % 60)).padStart(2, '0')}`;
@@ -24,6 +25,7 @@ export function mountTheater(container, ep, { mode = 'watch', base = '' } = {}) 
   const sceneList = P.h('div', { class: 'scene-list', role: 'group', 'aria-label': '장면 이동' });
   const root = P.h('div', { class: `theater mode-${mode}`, tabindex: '0', 'aria-label': `${ep.title} 애니메이션` }, stageWrap, caption, scrub, controls, sceneList);
   container.append(root);
+  applyPalette(root, ep.slug);
 
   const btnPlay = P.h('button', { class: 'btn primary', type: 'button', 'aria-label': '재생', html: SVG_PLAY + '<span>재생</span>' });
   const btnPrev = P.h('button', { class: 'btn', type: 'button', 'aria-label': '이전 장면', html: SVG_PREV });
@@ -59,6 +61,7 @@ export function mountTheater(container, ep, { mode = 'watch', base = '' } = {}) 
     tl.at(stage.lastElementChild, 0, { from: 'none', dur: .3 });
     const r = sc.build({ stage, lines, P, tl, dur: sc.dur, reduced: REDUCED, base }) || {};
     tick = r.tick || null;
+    P.remapInlineColors(stage);
     curCap = -1;
     segs.forEach((b, j) => b.setAttribute('aria-current', j === i ? 'true' : 'false'));
     chips.forEach((b, j) => b.setAttribute('aria-current', j === i ? 'true' : 'false'));

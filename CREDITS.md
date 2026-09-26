@@ -9,7 +9,8 @@
 | assets/char/idea.webp | 쿼카연구회 캐릭터 "보라 전구를 든 쿼카.png" | 연구회 오리지널 캐릭터 자산(연구회가 보유한 원본을 webp로 변환) | 해설자 기본 포즈 |
 | assets/char/globe.webp | 쿼카연구회 캐릭터 "글로벌 쿼카.png" | 연구회 오리지널 캐릭터 자산(webp 변환) | 해설자 보조 포즈 |
 | assets/frames/v1-07s.webp, v1-11s.webp, v1-07s-title.webp | https://gottkf1208.github.io/vrew-talk/v1.mp4 의 7초·11초 프레임 | **AI 생성**(브루 AI 이미지 기능으로 만든 영상의 정지 화면) | E3·E4에서 '뭉개진 글자', '없는 숫자' 사례로 씀. 화면 속 숫자는 근거 없는 생성 값이에요 |
-| assets/favicon.svg | 직접 그림(코드) | 아니요 | |
+| assets/favicon.png | assets/char/base.webp의 얼굴 부분을 잘라 만듦 | **AI 생성**(원본이 AI 생성) | 브라우저 탭 아이콘 |
+| assets/favicon.svg | 직접 그림(코드) | 아니요 | 예전 아이콘, 지금은 안 씀 |
 | assets/char/base.webp, dice.webp, glass.webp, oops.webp, point.webp | 의뢰인이 GPT(이미지 생성)로 만들어 전달한 쿼카 캐릭터 5종 | **AI 생성**(GPT) | 2026-09-25 교체. 해설자 기본 포즈 |
 | assets/char/think.webp, tablet.webp, wave.webp | Higgsfield · GPT Image 2.5, 위 base를 참조 이미지로 | **AI 생성** | 생각·태블릿·인사 포즈 |
 | assets/key/e1-agent-mcp.webp … s4-choose.webp (24장) | Higgsfield · GPT Image 2.5, base 참조 | **AI 생성** | 편별 의상 변형(기본 포즈). 시즌 1·2 12종 + 시즌 3·4 12종(성우·촬영 스태프·DJ·통역사·연구원·연출가·심판·치어리더·보안 요원·회계사·기자·심사위원) |

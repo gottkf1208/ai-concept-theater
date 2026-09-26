@@ -12,11 +12,29 @@ export function rng(seed) {
   return () => { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; return (s >>> 0) / 4294967296; };
 }
 
+/* 예전 브랜드 색을 편별 팔레트 변수로 바꿔요. 에피소드 파일을 고치지 않고 색을 갈아입히기 위한 매핑. */
+const COLOR_MAP = {
+  '#127e90': 'var(--acc1)', '#2bb3c9': 'var(--acc1)', '#bfe3e9': 'var(--acc1-pale)', '#eaf7fa': 'var(--acc1-pale)',
+  '#f2812d': 'var(--acc2)', '#b3520f': 'var(--acc2)', '#f9d3b8': 'var(--acc2-pale)', '#7a3b10': 'var(--acc2)',
+  '#1b1f24': 'var(--ink-soft)', '#9aa5af': 'var(--muted2)', '#6b4a2e': 'var(--acc2)'
+};
+export function mapColor(c) {
+  if (!c || typeof c !== 'string') return c;
+  const k = c.trim().toLowerCase();
+  return COLOR_MAP[k] || c;
+}
+const mapStyle = css => css.replace(/#[0-9a-fA-F]{6}/g, m => mapColor(m));
+/* 장면을 다 만든 뒤, 코드가 직접 박아 넣은 인라인 색까지 팔레트 변수로 바꿔요. */
+export function remapInlineColors(root) {
+  root.querySelectorAll('[style]').forEach(el => { const c = el.style.cssText; if (/#[0-9a-fA-F]{6}/.test(c)) { const m = mapStyle(c); if (m !== c) el.style.cssText = m; } });
+  root.querySelectorAll('[fill],[stroke]').forEach(el => { for (const a of ['fill', 'stroke']) { const v = el.getAttribute(a); if (v && /^#[0-9a-fA-F]{6}$/.test(v)) { const m = mapColor(v); if (m !== v) el.setAttribute(a, m); } } });
+}
+
 export function h(tag, attrs = {}, ...kids) {
   const el = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs)) {
     if (k === 'class') el.className = v;
-    else if (k === 'style') el.style.cssText = v;
+    else if (k === 'style') el.style.cssText = mapStyle(v);
     else if (k === 'html') el.innerHTML = v;
     else if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
     else if (v !== null && v !== undefined) el.setAttribute(k, v);
@@ -60,11 +78,11 @@ export function outfitSrc(pose, base = '') {
   if (pose === 'base' || pose === 'idea') return keySrc(OUTFIT, base);
   return null;
 }
-const FALLBACK = { idea: 'base', globe: 'point', think: 'base', oops: 'base', tablet: 'base', wave: 'base', dice: 'base', glass: 'point', point: 'base' };
+const FALLBACK = { idea: 'base', globe: 'base', think: 'base', oops: 'base', tablet: 'base', wave: 'base', dice: 'base', glass: 'point', point: 'base' };
 export function charSrc(pose = 'base', base = '') {
   const o = outfitSrc(pose, base) || (FALLBACK[pose] ? outfitSrc(FALLBACK[pose], base) : null);
   if (o) return o;
-  return charMap.get(pose) || charMap.get(FALLBACK[pose] || 'base') || charMap.get('base') || charMap.get('idea') || `${base}assets/char/base.webp`;
+  return charMap.get(pose) || charMap.get(FALLBACK[pose] || 'base') || charMap.get('base') || `${base}assets/char/base.webp`;
 }
 
 export function quokka({ x = 80, y = 380, size = 240, flip = false, pose = 'base', base = '' } = {}) {
@@ -105,7 +123,7 @@ export function box({ x, y, w = 220, h: hh = 90, label = '', sub = '', accent = 
 
 /* ── 글자 ─────────────────────────────────── */
 export function text({ x, y, w = 600, text = '', size = 28, weight = 600, color = '', align = 'left', cls = '' } = {}) {
-  const el = h('div', { class: `p-text ${cls}`, style: `left:${x}px;top:${y}px;width:${w}px;font-size:${size}px;font-weight:${weight};text-align:${align};${color ? 'color:' + color : ''}` });
+  const el = h('div', { class: `p-text ${cls}`, style: `left:${x}px;top:${y}px;width:${w}px;font-size:${size}px;font-weight:${weight};text-align:${align};${color ? 'color:' + mapColor(color) : ''}` });
   el.innerHTML = text;
   return { el, set(t) { el.innerHTML = t; } };
 }
@@ -122,6 +140,7 @@ export function arrow(lines, { x1, y1, x2, y2, curve = 0, dashed = false, color 
   const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1;
   const nx = -dy / len * curve, ny = dx / len * curve;
   const d = curve ? `M${x1} ${y1} Q${mx + nx} ${my + ny} ${x2} ${y2}` : `M${x1} ${y1} L${x2} ${y2}`;
+  color = mapColor(color);
   const path = s('path', { d, fill: 'none', stroke: color, 'stroke-width': width, 'stroke-linecap': 'round', class: 'p-arrow' });
   if (dashed) path.setAttribute('stroke-dasharray', '10 10');
   const g = s('g', { class: 'p-arrow-g' }, path);
