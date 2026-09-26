@@ -22,7 +22,7 @@ for (const e of EPISODES) {
     const buf = await page.locator('.stage-wrap').screenshot();
     tiles.push(await sharp(buf).resize(560, 315).png().toBuffer());
   }
-  const season = e.no > 18 ? 'S4' : e.no > 12 ? 'S3' : e.no > 6 ? 'S2' : 'S1';
+  const season = e.no > 24 ? 'S5' : e.no > 18 ? 'S4' : e.no > 12 ? 'S3' : e.no > 6 ? 'S2' : 'S1';
   (groups[season] ??= []).push({ slug: e.slug, no: e.no, tiles });
   console.log('captured', e.slug);
 }

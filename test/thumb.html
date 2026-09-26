@@ -83,7 +83,7 @@
   /* 'AI' 글자만 강조색 */
   t.innerHTML = ep.title.replace(/AI/g, '<em>AI</em>');
   document.getElementById('sub').textContent = ep.subtitle;
-  document.getElementById('track').textContent = ep.track === 'A' ? '트랙 A · 영상 만들기' : '트랙 B · AI와 대화';
+  document.getElementById('track').textContent = ep.track === 'A' ? '트랙 A · 영상 만들기' : ep.track === 'C' ? '트랙 C · 심화' : '트랙 B · AI와 대화';
   const img = document.getElementById('char');
   img.src = new URL(`../assets/key/${slug}.webp`, import.meta.url);
   await img.decode().catch(() => {});

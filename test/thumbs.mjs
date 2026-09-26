@@ -8,7 +8,7 @@ const only = process.argv[2] ? process.argv[2].split(',') : null;
 const FMTS = { yt: ['youtube', 1920, 1080], ig: ['instagram-feed', 1080, 1350], rl: ['instagram-reels', 1080, 1920] };
 for (const d of Object.values(FMTS)) fs.mkdirSync(`thumbnails/${d[0]}`, { recursive: true });
 const safe = t => t.replace(/[\\/:*?"<>|]/g, '').replace(/\s+/g, '_');
-const season = n => n > 18 ? 'S4' : n > 12 ? 'S3' : n > 6 ? 'S2' : 'S1';
+const season = n => n > 24 ? 'S5' : n > 18 ? 'S4' : n > 12 ? 'S3' : n > 6 ? 'S2' : 'S1';
 const browser = await chromium.launch();
 let index = '| 파일 이름(세 폴더 공통) | 편 | 시즌 |\n|---|---|---|\n';
 for (const e of EPISODES) {

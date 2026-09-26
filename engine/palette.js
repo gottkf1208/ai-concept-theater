@@ -24,7 +24,8 @@ export const PALETTES = {
   's4-privacy':       { a1: '#EA580C', a2: '#1E40AF', name: '형광 조끼' },
   's4-calc':          { a1: '#0369A1', a2: '#475569', name: '하늘색 셔츠' },
   's4-search':        { a1: '#92400E', a2: '#0284C7', name: '기자 조끼' },
-  's4-choose':        { a1: '#1E3A8A', a2: '#059669', name: '남색 재킷' }
+  's4-choose':        { a1: '#1E3A8A', a2: '#059669', name: '남색 재킷' },
+  's5-degradation':   { a1: '#0F766E', a2: '#B45309', name: '심화 · 청록과 구리' }
 };
 export const DEFAULT_PALETTE = { a1: '#2563EB', a2: '#EA580C', name: '기본' };
 

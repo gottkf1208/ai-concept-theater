@@ -9,7 +9,7 @@ const { EPISODES } = await import('../engine/registry.js');
 const strip = t => t.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 const ts = s => { const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), sec = Math.floor(s % 60), ms = Math.round((s - Math.floor(s)) * 1000); return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')},${String(ms).padStart(3, '0')}`; };
 const safe = t => t.replace(/[\\/:*?"<>|]/g, '').replace(/\s+/g, '_');
-const season = n => n > 18 ? 'S4' : n > 12 ? 'S3' : n > 6 ? 'S2' : 'S1';
+const season = n => n > 24 ? 'S5' : n > 18 ? 'S4' : n > 12 ? 'S3' : n > 6 ? 'S2' : 'S1';
 
 fs.rmSync('subtitles', { recursive: true, force: true });
 fs.mkdirSync('subtitles/srt', { recursive: true }); fs.mkdirSync('subtitles/txt', { recursive: true });

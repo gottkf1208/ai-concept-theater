@@ -1,7 +1,8 @@
 /* 에피소드 목록. 새 편은 episodes/에 파일을 만들고 여기에 한 줄 추가하면 끝이에요. */
 export const TRACKS = {
   A: { label: '트랙 A', desc: 'AI 영상을 만들다 생기는 "왜?"' },
-  B: { label: '트랙 B', desc: '요즘 AI를 따라잡는 필수 개념' }
+  B: { label: '트랙 B', desc: '요즘 AI를 따라잡는 필수 개념' },
+  C: { label: '트랙 C', desc: '원리를 끝까지 파고드는 심화편' }
 };
 
 export const EPISODES = [
@@ -31,7 +32,9 @@ export const EPISODES = [
   { no: 21, slug: 's4-privacy', file: 'episodes/s4/s4-privacy.js', status: 'ready' },
   { no: 22, slug: 's4-calc', file: 'episodes/s4/s4-calc.js', status: 'ready' },
   { no: 23, slug: 's4-search', file: 'episodes/s4/s4-search.js', status: 'ready' },
-  { no: 24, slug: 's4-choose', file: 'episodes/s4/s4-choose.js', status: 'ready' }
+  { no: 24, slug: 's4-choose', file: 'episodes/s4/s4-choose.js', status: 'ready' },
+  /* 시즌 5: 깊이 파기(심화) */
+  { no: 25, slug: 's5-degradation', file: 'episodes/s5/s5-degradation.js', status: 'ready' }
 ];
 
 export async function loadEpisode(slug, base = '') {
