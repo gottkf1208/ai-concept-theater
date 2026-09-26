@@ -10,3 +10,5 @@ test/overlap.json
 test/sweep.log
 test/run-final.log
 test/ep-meta.*
+thumbnails.zip
+*.zip
