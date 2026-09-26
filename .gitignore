@@ -12,3 +12,4 @@ test/run-final.log
 test/ep-meta.*
 thumbnails.zip
 *.zip
+cards/
