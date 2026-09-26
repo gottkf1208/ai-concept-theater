@@ -108,6 +108,9 @@ for (const vp of VIEWPORTS) {
     await page.click('.start-card');
     await page.waitForTimeout(3600);
     ok(await page.locator('.theater.playing').count() === 1, 'rec: 카운트다운 후 자동 재생');
+    await page.goto(`${BASE}watch.html?ep=${slug}&mode=rec`, { waitUntil: 'networkidle' }); await page.waitForTimeout(300);
+    await page.keyboard.press('Space'); await page.waitForTimeout(400);
+    ok(await page.locator('.theater.playing').count() === 1 && await page.locator('.start-card').count() === 0, 'rec: Space 즉시 재생');
     await page.screenshot({ path: `${OUT}/${slug}-rec-${vp.name}.png` });
   }
   ok(errors.length === 0, `콘솔 오류 ${errors.length}개`);

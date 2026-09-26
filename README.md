@@ -64,7 +64,7 @@
 
 - **혼자 3분:** `watch.html?ep=e1-agent-mcp`. 자막은 항상 켜져 있어서 소리 없이 봐요.
 - **연수 모드:** `watch.html?ep=e1-agent-mcp&mode=train`. 큰 글씨 슬라이드. 제목 → 애니메이션 → 만져 보기 → 학생에게 이렇게 → 팁·오해 → 출처 순서로 넘어가요.
-- **녹화 모드:** `watch.html?ep=e1-agent-mcp&mode=rec`. 조작 버튼을 숨기고 16:9로 3초 카운트다운 뒤 자동 재생. 화면 녹화(Windows `Win+Alt+R`, macOS `Shift+Cmd+5`)로 영상 파일을 뜨세요.
+- **녹화 모드:** `watch.html?ep=e1-agent-mcp&mode=rec`. 조작 버튼을 숨기고 16:9로 재생해요. 클릭하면 3초 카운트다운 뒤 시작, `Space`를 누르면 바로 시작. 화면 녹화(Windows `Win+Alt+R`, macOS `Shift+Cmd+5`)로 영상 파일을 뜨세요.
 
 ### 단축키
 
@@ -90,7 +90,8 @@ episodes/next/*.js    시즌 2 (E7~E12)
 episodes/s3/*.js      시즌 3 (E13~E18)
 episodes/s4/*.js      시즌 4 (E19~E24)
 assets/char, key      쿼카 포즈·편별 의상 변형·히어로 (assets/manifest.js에 목록)
-test/run.mjs          Playwright 자동 검사 / test/links.mjs 출처 링크 검사
+test/run.mjs          Playwright 자동 검사 / test/links.mjs 출처 링크 검사 / test/subs.mjs 자막 뽑기
+subtitles/            24편 자막(srt·txt). 편집 앱 자막 작업용
 ```
 
 빌드 없는 정적 사이트예요. HTML, CSS, ES 모듈만 쓰고 외부 라이브러리는 Pretendard 글꼴(jsdelivr) 하나예요. 로그인·분석·추적·개인정보 수집이 없어요.

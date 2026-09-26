@@ -303,7 +303,14 @@ if (mode === 'rec') {
     let n = 3;
     const iv = setInterval(() => { n--; if (n > 0) cd.textContent = String(n); else { clearInterval(iv); cd.remove(); origPlay(); } }, 1000);
   };
-  theater.startCard('녹화 시작');
+  const card = theater.startCard('녹화 시작 (클릭: 3초 카운트다운 · Space: 바로 재생)');
+  /* Space 또는 Enter: 카운트다운 없이 바로 재생 */
+  document.addEventListener('keydown', e => {
+    if (e.key !== ' ' && e.key !== 'Enter') return;
+    e.preventDefault(); e.stopPropagation();
+    if (card.isConnected) { card.remove(); counted = true; origPlay(); }
+    else theater.toggle();
+  }, true);
 }
 </script>
 </body>
