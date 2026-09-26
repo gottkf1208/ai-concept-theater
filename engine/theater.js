@@ -124,7 +124,7 @@ export function mountTheater(container, ep, { mode = 'watch', base = '' } = {}) 
     endCard = P.h('div', { class: 'end-card' },
       P.h('img', { class: 'end-char', src: P.charSrc('wave', base), alt: '' }),
       P.h('h3', {}, ep.title),
-      P.h('p', {}, mode === 'rec' ? '경기 AI융합교육연구회 Q.U.O.K.A · 쿼카 AI 개념극장' : '아래에서 직접 만져 보고, 학생에게 할 한 문장을 챙겨 가세요.'),
+      P.h('p', {}, mode === 'rec' ? 'AI융합교육연구회 Q.U.O.K.A · 쿼카 AI 개념극장' : '아래에서 직접 만져 보고, 학생에게 할 한 문장을 챙겨 가세요.'),
       mode === 'rec' ? null : P.h('button', { class: 'btn', type: 'button', onclick: () => play() }, '다시 보기'));
     stageWrap.append(endCard);
     emit('end');
