@@ -1,0 +1,86 @@
+checked v1-next-token
+checked v1-context
+checked v1-prompt-parts
+checked v1-hallucination
+checked v1-rag
+checked v1-reasoning
+checked v1-ai-label
+checked v1-student-privacy
+checked v2-seed
+checked v2-text-render
+checked v2-english-prompt
+checked v2-consistency
+checked v2-motion-prompt
+checked v2-video-cost
+checked v2-voice
+checked v2-subtitle
+checked v3-agent-mcp
+checked v3-computer-use
+checked v3-prompt-injection
+checked v3-tool-use
+checked v3-vibecoding
+checked v3-multimodal
+checked v3-memory
+checked v3-companion
+checked v4-degradation
+checked v4-upscale
+checked v4-guidance
+checked v4-controlnet
+checked v4-long-video
+checked v4-attention
+checked v4-embedding
+checked v4-rlhf
+checked v5-model-collapse
+checked v5-open-weight
+checked v5-on-device
+checked v5-grading
+checked v5-ai-literacy
+checked v5-law-timeline
+checked v5-energy
+checked v5-choose
+[scroll] E4 v1-hallucination s4 (p-box) "틀리면 t/(1−t)점 감점맞으면 +1점" {"dw":0,"dh":6}
+[spill] E4 v1-hallucination s4 (p-box) "틀리면 t/(1−t)점 감점맞으면 +1점" {"r":-197,"b":4,"l":-197,"t":4}
+[child] E4 v1-hallucination s4 (p-box) "틀리면 t/(1−t)점 감점맞으면 +1점" → "맞으면 +1점 · "모르겠어요"는 0점 " {"dr":-197,"db":4}
+[scroll] E5 v1-rag s5 (p-box) "인용 [1] 눌러 원문 확인확인은 여전히" {"dw":0,"dh":6}
+[spill] E5 v1-rag s5 (p-box) "인용 [1] 눌러 원문 확인확인은 여전히" {"r":-94,"b":4,"l":-94,"t":4}
+[child] E5 v1-rag s5 (p-box) "인용 [1] 눌러 원문 확인확인은 여전히" → "확인은 여전히 우리 몫" {"dr":-127,"db":4}
+[scroll] E7 v1-ai-label s5 (p-box) "화면 라벨 넣기영상 처음이나 끝에" {"dw":0,"dh":6}
+[spill] E7 v1-ai-label s5 (p-box) "화면 라벨 넣기영상 처음이나 끝에" {"r":-384,"b":4,"l":-384,"t":4}
+[child] E7 v1-ai-label s5 (p-box) "화면 라벨 넣기영상 처음이나 끝에" → "영상 처음이나 끝에" {"dr":-387,"db":4}
+[scroll] E7 v1-ai-label s5 (p-box) "설명란에 문구 쓰기사용한 도구 · 확인한" {"dw":0,"dh":6}
+[spill] E7 v1-ai-label s5 (p-box) "설명란에 문구 쓰기사용한 도구 · 확인한" {"r":-363,"b":4,"l":-363,"t":4}
+[child] E7 v1-ai-label s5 (p-box) "설명란에 문구 쓰기사용한 도구 · 확인한" → "사용한 도구 · 확인한 교사" {"dr":-366,"db":4}
+[scroll] E7 v1-ai-label s5 (p-box) "제작 기록 남기기날짜 · 도구 · 검수자" {"dw":0,"dh":6}
+[spill] E7 v1-ai-label s5 (p-box) "제작 기록 남기기날짜 · 도구 · 검수자" {"r":-373,"b":4,"l":-373,"t":4}
+[child] E7 v1-ai-label s5 (p-box) "제작 기록 남기기날짜 · 도구 · 검수자" → "날짜 · 도구 · 검수자" {"dr":-386,"db":4}
+[scroll] E16 v2-subtitle s1 (p-bubble) ""사회시장"이 뭐지? 친구 이름도 다르게" {"dw":0,"dh":14}
+[scroll] E22 v3-multimodal s1 (p-bubble) "폭발음이 나고 거품이 넘쳤어요. 색도 같" {"dw":0,"dh":13}
+[scroll] E23 v3-memory s1 (p-bubble) "26명 기준으로 짰어요" {"dw":0,"dh":13}
+[scroll] E37 v5-ai-literacy s2 (p-box) "인간 중심 사고방식이해 → 적용 → 창조" {"dw":0,"dh":6}
+[spill] E37 v5-ai-literacy s2 (p-box) "인간 중심 사고방식이해 → 적용 → 창조" {"r":-343,"b":4,"l":-343,"t":4}
+[child] E37 v5-ai-literacy s2 (p-box) "인간 중심 사고방식이해 → 적용 → 창조" → "이해 → 적용 → 창조" {"dr":-362,"db":4}
+[scroll] E37 v5-ai-literacy s2 (p-box) "AI 윤리이해 → 적용 → 창조" {"dw":0,"dh":6}
+[spill] E37 v5-ai-literacy s2 (p-box) "AI 윤리이해 → 적용 → 창조" {"r":-362,"b":4,"l":-362,"t":4}
+[child] E37 v5-ai-literacy s2 (p-box) "AI 윤리이해 → 적용 → 창조" → "이해 → 적용 → 창조" {"dr":-362,"db":4}
+[scroll] E37 v5-ai-literacy s2 (p-box) "AI 기법과 응용이해 → 적용 → 창조" {"dw":0,"dh":6}
+[spill] E37 v5-ai-literacy s2 (p-box) "AI 기법과 응용이해 → 적용 → 창조" {"r":-362,"b":4,"l":-362,"t":4}
+[child] E37 v5-ai-literacy s2 (p-box) "AI 기법과 응용이해 → 적용 → 창조" → "이해 → 적용 → 창조" {"dr":-362,"db":4}
+[scroll] E37 v5-ai-literacy s2 (p-box) "AI 시스템 설계이해 → 적용 → 창조" {"dw":0,"dh":6}
+[spill] E37 v5-ai-literacy s2 (p-box) "AI 시스템 설계이해 → 적용 → 창조" {"r":-362,"b":4,"l":-362,"t":4}
+[child] E37 v5-ai-literacy s2 (p-box) "AI 시스템 설계이해 → 적용 → 창조" → "이해 → 적용 → 창조" {"dr":-362,"db":4}
+[scroll] E37 v5-ai-literacy s3 (p-box) "인간 중심 사고방식습득 → 심화 → 창조" {"dw":0,"dh":8}
+[spill] E37 v5-ai-literacy s3 (p-box) "인간 중심 사고방식습득 → 심화 → 창조" {"r":-343,"b":6,"l":-343,"t":6}
+[child] E37 v5-ai-literacy s3 (p-box) "인간 중심 사고방식습득 → 심화 → 창조" → "습득 → 심화 → 창조" {"dr":-362,"db":6}
+[scroll] E37 v5-ai-literacy s3 (p-box) "AI 윤리습득 → 심화 → 창조" {"dw":0,"dh":8}
+[spill] E37 v5-ai-literacy s3 (p-box) "AI 윤리습득 → 심화 → 창조" {"r":-362,"b":6,"l":-362,"t":6}
+[child] E37 v5-ai-literacy s3 (p-box) "AI 윤리습득 → 심화 → 창조" → "습득 → 심화 → 창조" {"dr":-362,"db":6}
+[scroll] E37 v5-ai-literacy s3 (p-box) "AI 기초와 응용습득 → 심화 → 창조" {"dw":0,"dh":8}
+[spill] E37 v5-ai-literacy s3 (p-box) "AI 기초와 응용습득 → 심화 → 창조" {"r":-362,"b":6,"l":-362,"t":6}
+[child] E37 v5-ai-literacy s3 (p-box) "AI 기초와 응용습득 → 심화 → 창조" → "습득 → 심화 → 창조" {"dr":-362,"db":6}
+[scroll] E37 v5-ai-literacy s3 (p-box) "AI 교수법습득 → 심화 → 창조" {"dw":0,"dh":8}
+[spill] E37 v5-ai-literacy s3 (p-box) "AI 교수법습득 → 심화 → 창조" {"r":-362,"b":6,"l":-362,"t":6}
+[child] E37 v5-ai-literacy s3 (p-box) "AI 교수법습득 → 심화 → 창조" → "습득 → 심화 → 창조" {"dr":-362,"db":6}
+[scroll] E37 v5-ai-literacy s3 (p-box) "전문성 학습을 위한 AI습득 → 심화 →" {"dw":0,"dh":8}
+[spill] E37 v5-ai-literacy s3 (p-box) "전문성 학습을 위한 AI습득 → 심화 →" {"r":-329,"b":6,"l":-329,"t":6}
+[child] E37 v5-ai-literacy s3 (p-box) "전문성 학습을 위한 AI습득 → 심화 →" → "습득 → 심화 → 창조" {"dr":-362,"db":6}
+total 45

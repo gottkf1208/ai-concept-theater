@@ -4,16 +4,16 @@ export default {
   track: 'S4',
   title: '네거티브 프롬프트는 정말 빼 줄까',
   subtitle: '안내 강도(CFG)',
-  summary: '"손가락 여섯 개 빼 줘"를 네거티브에 넣었는데 그대로였고, 강도를 15로 올렸더니 색이 타 버렸어요. 확산 모델이 두 번 예측하고 그 차이를 미는 원리와, 네거티브가 언제 먹히는지를 파고들어요.',
+  summary: '"손가락 여섯 개 빼 줘"를 네거티브에 넣었는데 그대로였고, 강도를 15로 올렸더니 색이 타 버렸어요. 확산 모델이 두 번 예측하고 그 차이만큼 미는 원리와 네거티브가 언제 먹히는지를 짚어요.',
   keywords: ['안내 강도', 'CFG scale', '분류기 없는 안내', '네거티브 프롬프트', '역활성화', '과포화', '안내 구간', '확산 모델'],
 
   scenes: [
     {
       title: '네거티브도, 강도도?', dur: 13,
       captions: [
-        { t: 0, text: '"손가락 여섯 개는 빼 줘"를 <em>네거티브</em>에 넣었는데, 여전히 여섯 개였어요.' },
-        { t: 5, text: '그래서 안내 강도를 <em>15</em>까지 올렸더니, 이번엔 색이 타 버렸어요.' },
-        { t: 9.5, text: '네거티브도 강도도, 생각한 대로 움직이지 않았어요.' }
+        { t: 0, text: '"손가락 여섯 개는 빼 줘"를 <em>네거티브</em>에 넣었는데 여전히 여섯 개였어요.' },
+        { t: 5, text: '그래서 안내 강도를 <em>15</em>까지 올렸더니 이번엔 색이 타 버렸어요.' },
+        { t: 9.5, text: '네거티브도 강도도 생각한 대로 움직이지 않았어요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 330, size: 320, pose: 'oops' });
@@ -30,7 +30,7 @@ export default {
         tl.at(stage.appendChild(boxC.el), 5.3, { from: 'up' });
         tl.at(stage.appendChild(boxD.el), 6.6, { from: 'right' });
         const arrow2 = P.arrow(lines, { x1: 610, y1: 435, x2: 650, y2: 435, width: 4, color: '#1B1F24' });
-        const note = P.text({ x: 330, y: 540, w: 760, text: '네거티브도 강도도, <em>생각과 다르게</em> 움직여요.', size: 28, weight: 800 });
+        const note = P.text({ x: 330, y: 540, w: 760, text: '네거티브도 강도도 <em>생각과 다르게</em> 움직여요.', size: 28, weight: 800 });
         tl.at(stage.appendChild(note.el), 9.7, { from: 'up' });
         return {
           tick(t) {
@@ -44,11 +44,11 @@ export default {
       }
     },
     {
-      title: '두 번 예측하고, 그 차이를 밀어요', dur: 14,
+      title: '두 번 예측하고 그 차이를 밀어요', dur: 14,
       captions: [
         { t: 0, text: '확산 모델은 매 단계 그림을 <em>두 번</em> 예측해요. 프롬프트가 있을 때와 없을 때예요.' },
-        { t: 5.5, text: '그 둘의 차이만큼, <em>안내 강도</em>가 정한 크기로 프롬프트 방향으로 밀어요.' },
-        { t: 10, text: '이 방법을 제안한 <em>2022년 연구</em>라 <em>분류기 없는 안내</em>라고 불러요.' }
+        { t: 5.5, text: '두 예측의 차이에 <em>안내 강도</em>를 곱한 만큼 프롬프트 쪽으로 밀어요.' },
+        { t: 10, text: '<em>2022년 연구</em>가 제안한 이 방법을 <em>분류기 없는 안내</em>라고 불러요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 340, size: 300, pose: 'think' });
@@ -65,7 +65,7 @@ export default {
         tl.at(stage.appendChild(boxC.el), 6.0, { from: 'pop' });
         const formula = P.text({ x: 330, y: 490, w: 760, text: '결과 = 빈 프롬프트 예측 + 강도 × (프롬프트 예측 − 빈 프롬프트 예측)', size: 16, weight: 700, cls: 'mono muted' });
         tl.at(stage.appendChild(formula.el), 7.2, { from: 'up' });
-        const final = P.text({ x: 330, y: 560, w: 760, text: '2022년 연구가 제안해서 <em>분류기 없는 안내</em>라고 불러요.', size: 27, weight: 800 });
+        const final = P.text({ x: 330, y: 560, w: 760, text: '2022년 연구가 제안한 이 방법이 <em>분류기 없는 안내</em>예요.', size: 27, weight: 800 });
         tl.at(stage.appendChild(final.el), 10.2, { from: 'up' });
         return {
           tick(t) {
@@ -80,9 +80,9 @@ export default {
     {
       title: '네거티브는 언제 먹힐까', dur: 13,
       captions: [
-        { t: 0, text: '네거티브 프롬프트는 <em>무조건부</em> 자리에 들어가, 그 방향에서 멀어지게 밀어요.' },
-        { t: 4.5, text: '그런데 대상이 아직 안 그려진 <em>처음 몇 단계</em>에 넣으면, 오히려 그 물체가 생겨요. <em>역활성화</em>라고 해요.' },
-        { t: 9.5, text: '대상이 나타난 뒤 <em>중반</em>에 가장 잘 지워지고, 너무 늦으면 안 먹혀요. 2024년 분석 연구예요.' }
+        { t: 0, text: '네거티브 프롬프트는 <em>무조건부</em> 자리에 들어가서 그 방향에서 멀어지게 밀어요.' },
+        { t: 4.5, text: '그런데 대상이 아직 안 그려진 <em>처음 몇 단계</em>에 넣으면 오히려 그 물체가 생겨요. <em>역활성화</em>라고 해요.' },
+        { t: 9.5, text: '대상이 나타난 뒤 <em>중반</em>에 가장 잘 지워지고, 너무 늦으면 안 먹혀요. 2024년 분석 연구 결과예요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 340, size: 300, pose: 'tablet' });
@@ -103,7 +103,7 @@ export default {
         tl.at(stage.appendChild(warn.el), 5.0, { from: 'pop' });
         const lab = P.text({ x: 370, y: 480, w: 420, text: '처음 → 대상 등장 직후~중반 → 늦게', size: 15, weight: 700, cls: 'muted' });
         tl.at(stage.appendChild(lab.el), 5.5, { from: 'up' });
-        const final = P.text({ x: 330, y: 560, w: 760, text: '처음엔 <em>역효과</em>, 중반에 <em>가장 잘 지워져요</em>, 늦으면 안 먹혀요.', size: 26, weight: 800 });
+        const final = P.text({ x: 330, y: 560, w: 760, text: '처음엔 <em>역효과</em>, 중반엔 <em>가장 잘 지워지고</em>, 늦으면 안 먹혀요.', size: 26, weight: 800 });
         tl.at(stage.appendChild(final.el), 9.7, { from: 'up' });
         return {
           tick(t) {
@@ -119,7 +119,7 @@ export default {
       captions: [
         { t: 0, text: '강도를 낮게 두면 <em>프롬프트를 잘 안 따르고</em> 다양하게 나와요.' },
         { t: 5.5, text: '대표 공개 모델의 기본값은 <em>7.5</em>예요. 거기서 조금씩 움직여요.' },
-        { t: 10.5, text: '너무 높이면 색이 <em>타고 과포화</em>돼요. 그 과포화는 미는 힘의 한 성분이 만든다는 2025년 연구가 있어요.' }
+        { t: 10.5, text: '너무 높이면 색이 <em>타고 과포화</em>돼요. 과포화가 미는 힘의 한 성분 때문이라는 2025년 연구가 있어요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 340, size: 300, pose: 'point' });
@@ -130,7 +130,7 @@ export default {
         tl.at(stage.appendChild(card1.el), .3, { from: 'up' });
         tl.at(stage.appendChild(card2.el), 5.6, { from: 'up' });
         tl.at(stage.appendChild(card3.el), 10.6, { from: 'up' });
-        const small = P.text({ x: 330, y: 390, w: 830, text: '과포화는 미는 힘 중 한 성분이 만든다는 2025년 연구가 있어요. 그 성분만 줄이는 방법(APG)도 나왔어요.', size: 17, weight: 600, cls: 'muted' });
+        const small = P.text({ x: 330, y: 390, w: 830, text: '과포화가 미는 힘 중 한 성분 때문이라는 2025년 연구가 있어요. 그 성분만 줄이는 방법(APG)도 나왔어요.', size: 17, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(small.el), 11.0, { from: 'up' });
         const final = P.text({ x: 330, y: 440, w: 830, text: '안내 강도는 <em>기본값 7.5 근처</em>에서 시작해 조금씩 움직여 보세요.', size: 25, weight: 800 });
         tl.at(stage.appendChild(final.el), 5.9, { from: 'up' });
@@ -145,7 +145,7 @@ export default {
     {
       title: '정리: 방향 하나 더, 지우개 아님', dur: 12,
       captions: [
-        { t: 0, text: '네거티브는 <em>지우개</em>가 아니라, <em>반대로 미는 힘</em> 하나예요.' },
+        { t: 0, text: '네거티브는 <em>지우개</em>가 아니라 <em>반대로 미는 힘</em> 하나예요.' },
         { t: 4.5, text: '강도는 <em>기본값 근처</em>에서 조금씩만 조절해요.' },
         { t: 8.5, text: '손가락 개수처럼 <em>정답이 있는 문제</em>는 레퍼런스나 포즈 조건이 나아요.' }
       ],
@@ -162,7 +162,7 @@ export default {
           tl.at(stage.appendChild(b.el), .3 + i * .9, { from: 'up' });
           return b;
         });
-        const final = P.text({ x: 400, y: 430, w: 770, text: '네거티브는 마법이 아니라 <em>방향 하나 더</em>예요.', size: 27, weight: 800 });
+        const final = P.text({ x: 400, y: 430, w: 770, text: '네거티브는 <em>반대 방향 하나</em>를 더 얹을 뿐이에요.', size: 27, weight: 800 });
         tl.at(stage.appendChild(final.el), 8.6, { from: 'up' });
         return {
           tick(t) {
@@ -176,7 +176,7 @@ export default {
 
   interaction: {
     title: '안내 강도 다이얼',
-    desc: '점들은 <b>프롬프트 방향</b>(과녁)을 향해 얼마나 세게 밀리는지를 보여 줘요. 슬라이더로 <b>안내 강도</b>를 올리면 점들이 과녁으로 모이고, 15 이상이면 색이 과포화되고 한 덩어리로 뭉쳐요. "네거티브 켜기"를 누르고 <b>네거티브 시작 단계</b>를 고르면, 넣는 시점에 따라 점들이 반대쪽 원(네거티브 개념)에서 다르게 움직여요. 네거티브를 넣는 시점에 따라 결과가 정반대가 될 수 있어요(2024년 분석).',
+    desc: '점들이 <b>프롬프트 방향</b>(과녁) 쪽으로 밀려가요. 슬라이더로 <b>안내 강도</b>를 올리면 점들이 과녁에 모이고, 15 이상이면 색이 과포화되며 한 덩어리로 뭉쳐요. "네거티브 켜기"를 누르고 <b>네거티브 시작 단계</b>를 고르면 반대쪽 원(네거티브 개념) 근처에서 점들이 단계마다 다르게 움직여요. 넣는 시점에 따라 결과가 정반대가 될 수 있어요(2024년 분석).',
     mount(el, P) {
       const W = 600, H = 340;
       const TX = 440, TY = 165, NX = 150, NY = 165;
@@ -309,8 +309,8 @@ export default {
   },
 
   teacherLines: [
-    'AI 그림은 <b>프롬프트 방향으로 얼마나 세게 미느냐</b>를 정하는 손잡이가 있어요. 너무 세면 색이 타요.',
-    '네거티브 프롬프트는 <b>반대로 미는 힘</b>이지, 지우개가 아니에요.'
+    'AI 그림 도구에는 <b>프롬프트 방향으로 얼마나 세게 미느냐</b>를 정하는 손잡이가 있어요. 너무 세면 색이 타요.',
+    '네거티브 프롬프트는 <b>반대쪽으로 미는 힘</b>이라서 쓴 걸 늘 지워 주지는 않아요.'
   ],
   tip: {
     body: '강도는 기본값(대표 공개 모델 7.5)에서 시작해 <b>±2씩</b> 조절하세요. 네거티브에는 흐림·워터마크·글자처럼 뚜렷한 개념만 넣어요. 손가락 개수는 네거티브로 잘 안 잡혀요.',
@@ -328,9 +328,9 @@ export default {
   ],
   script: `손가락 여섯 개를 네거티브 프롬프트에 넣었는데 여전히 여섯 개였고, 안내 강도를 15까지 올렸더니 이번엔 색이 타 버린 적 있으시죠.
 
-확산 모델은 매 단계 프롬프트가 있을 때와 없을 때, 두 번 예측해요. 그 차이를 안내 강도만큼 키워 프롬프트 방향으로 밀어요. 2022년 연구가 제안한 방법이라 분류기 없는 안내라고 불러요.
+확산 모델은 매 단계 프롬프트가 있을 때와 없을 때, 두 번 예측해요. 그 차이를 안내 강도만큼 키워 프롬프트 방향으로 밀어요. 2022년 연구가 제안한 이 방법을 분류기 없는 안내라고 불러요.
 
 네거티브는 '없음' 자리에서 반대로 밀 뿐이에요. 처음 몇 단계에 넣으면 오히려 물체가 생기고, 중반에 가장 잘 지워지고, 늦으면 안 먹혀요. 2024년 분석 연구예요. 강도는 기본값 7.5 근처에서 시작하세요. 너무 높이면 과포화되는데, 미는 힘의 한 성분이 원인이라는 2025년 연구도 있어요.
 
-네거티브는 지우개가 아니라 방향 하나 더예요. 손가락처럼 정답이 있는 문제는 레퍼런스나 포즈 조건이 낫고, 강도는 기본값 근처에서 조금씩 조절하세요.`
+네거티브는 반대 방향 하나를 더 얹을 뿐이에요. 손가락처럼 정답이 있는 문제는 레퍼런스나 포즈 조건이 낫고, 강도는 기본값 근처에서 조금씩 조절하세요.`
 };

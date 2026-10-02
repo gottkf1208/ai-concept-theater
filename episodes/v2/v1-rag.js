@@ -4,7 +4,7 @@ export default {
   track: 'S1',
   title: '자료를 붙여 주면 왜 덜 틀릴까?',
   subtitle: 'RAG, 청크와 임베딩 검색',
-  summary: '규정 문서를 붙여 주면 AI가 덜 틀려요. 문서를 조각(청크)으로 자르고, 뜻을 숫자 좌표(임베딩)로 바꿔 질문과 가까운 조각을 찾아 함께 넣는 RAG의 원리와, 그래도 출처를 눌러 봐야 하는 이유를 담았어요.',
+  summary: '규정 문서를 붙여 주면 AI가 덜 틀려요. RAG는 문서를 조각(청크)으로 자르고, 뜻을 숫자 좌표(임베딩)로 바꿔 질문과 가까운 조각을 찾아 함께 넣어요. 그 원리와, 그래도 출처를 눌러 봐야 하는 이유를 담았어요.',
   keywords: ['RAG', '검색 증강 생성', '청크', '임베딩', '벡터', '의미 검색', '인용', '근거', '출처 확인'],
 
   scenes: [
@@ -28,7 +28,7 @@ export default {
         const arrowOut = P.arrow(lines, { x1: 620, y1: 350, x2: 680, y2: 355, color: '#F2812D', width: 4 });
         const chip = P.chip({ x: 340, y: 460, text: '할루시네이션', color: 'orange', size: 26 });
         tl.at(stage.appendChild(chip.el), 5.4, { from: 'pop' });
-        const note = P.text({ x: 340, y: 520, w: 700, text: '4편에서 본 그 이유, <em>그럴듯하지만 사실이 아닌</em> 답이에요.', size: 26, weight: 700 });
+        const note = P.text({ x: 340, y: 520, w: 700, text: '4편에서 본 그대로, <em>그럴듯하지만 사실이 아닌</em> 답이에요.', size: 26, weight: 700 });
         tl.at(stage.appendChild(note.el), 6.2, { from: 'up' });
         return {
           tick(t) {
@@ -155,7 +155,7 @@ export default {
       captions: [
         { t: 0, text: '찾은 자료가 틀렸거나 엉뚱한 조각을 찾으면 답도 틀려요. RAG는 실수를 <em>줄일 뿐</em> 없애지 않아요.' },
         { t: 5, text: '2026년엔 지난 대화를 찾아 주는 기능도 같은 원리로 돌아가요.' },
-        { t: 9, text: '그래서 답에 달린 <em>인용을 눌러</em> 원문과 대조하는 습관이 핵심이에요.' }
+        { t: 9, text: '그래서 답에 달린 <em>인용을 눌러</em> 원문과 꼭 대조해 봐야 해요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 340, size: 300, pose: 'point' });
@@ -166,7 +166,7 @@ export default {
         tl.at(stage.appendChild(case2.el), 3, { from: 'left' });
         const memo = P.chip({ x: 380, y: 400, text: '지난 대화 검색도 같은 원리', color: 'gray', size: 20 });
         tl.at(stage.appendChild(memo.el), 5.2, { from: 'pop' });
-        const cite = P.box({ x: 380, y: 450, w: 400, h: 90, label: '인용 [1] 눌러 원문 확인', sub: '확인은 여전히 우리 몫', accent: 'aqua', icon: P.ICON.check });
+        const cite = P.box({ x: 380, y: 450, w: 400, h: 100, label: '인용 [1] 눌러 원문 확인', sub: '확인은 여전히 우리 몫', accent: 'aqua', icon: P.ICON.check });
         tl.at(stage.appendChild(cite.el), 9.2, { from: 'pop' });
         return {
           tick(t) {
@@ -182,7 +182,7 @@ export default {
 
   interaction: {
     title: '규정 조각 찾기',
-    desc: '질문을 고르고 <b>조각에 머리말 붙이기</b>를 눌러 보세요. 오른쪽 평면의 점은 조각, 별은 질문이에요. 질문과 <b>가까운 조각 2개</b>가 결정적으로 뽑혀 답에 쓰여요. 규정은 실제가 아닌 예시예요.',
+    desc: '질문을 고르고 <b>조각에 머리말 붙이기</b>를 눌러 보세요. 오른쪽 평면의 점은 조각, 별은 질문이에요. 질문과 <b>가장 가까운 조각 2개</b>가 뽑혀 답에 쓰여요. 규정은 실제가 아닌 예시예요.',
     mount(el, P) {
       const QUESTIONS = [
         { label: '체험학습 몇 명당 선생님 한 명?', x: 48, y: 50 },
@@ -273,7 +273,7 @@ export default {
 
         cmp.textContent = attached
           ? '머리말이 있을 때: 같은 조항끼리 모여서 정확히 찾아요.'
-          : '머리말이 없을 때: 조각이 외로워져서 다른 조항과 섞일 수 있어요.';
+          : '머리말이 없을 때: 조각만 봐서는 어느 조항인지 몰라 다른 조항과 섞일 수 있어요.';
 
         paraList.replaceChildren(...CHUNKS.map((c, i) => P.h('li', { class: i === hl ? 'hl' : '' }, `${attached ? c.header : ''}${c.text}`)));
       }
@@ -306,5 +306,5 @@ export default {
 
 조각은 문서를 자른 청크, 뜻은 숫자 좌표인 임베딩으로 바뀌어요. 그런데 "15명당 1명"만 떼어 놓으면 어느 규정인지 사라져 검색이 놓쳐요. 머리말을 붙이면 실패가 크게 줄고, 자료가 작으면 통째로 넣는 편이 간단해요.
 
-그래도 RAG는 실수를 줄일 뿐이에요. 자료가 틀렸거나 검색이 엉뚱한 조각을 찾으면 답도 틀려요. 그래서 인용을 눌러 원문과 대조하는 습관이 핵심이에요.`
+그래도 RAG는 실수를 줄일 뿐이에요. 자료가 틀렸거나 검색이 엉뚱한 조각을 찾으면 답도 틀려요. 그래서 인용을 눌러 원문과 꼭 대조해 봐야 해요.`
 };

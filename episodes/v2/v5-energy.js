@@ -12,7 +12,7 @@ export default {
       title: '질문 하나에 물 한 병?', dur: 13,
       captions: [
         { t: 0, text: '학생이 이렇게 물었어요. "AI한테 질문 하나 하면 물 한 병 쓴다던데, 진짜예요?"' },
-        { t: 5, text: '소문이 아니라 공식 측정값으로 확인해 볼게요.' },
+        { t: 5, text: '공식 측정값으로 확인해 볼게요.' },
         { t: 9, text: '2025년 실측 연구와 2026년 국제에너지기구 보고서 숫자예요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -26,7 +26,7 @@ export default {
         tl.at(stage.appendChild(vs.el), 6.2, { from: 'pop' });
         const checkBox = P.box({ x: 760, y: 270, w: 300, h: 220, label: '공식 측정값', sub: '2025년 구글 실측 연구<br>2026년 IEA 보고서', accent: 'aqua', icon: P.ICON.doc });
         tl.at(stage.appendChild(checkBox.el), 7, { from: 'pop' });
-        const note = P.text({ x: 340, y: 560, w: 880, text: '숫자 하나씩, 바로 비교해 봐요.', size: 27, weight: 800 });
+        const note = P.text({ x: 340, y: 560, w: 880, text: '숫자로 하나씩 비교해 봐요.', size: 27, weight: 800 });
         tl.at(stage.appendChild(note.el), 9.5, { from: 'up' });
         return {
           tick(t) {
@@ -41,7 +41,7 @@ export default {
       title: '질문 한 번의 크기', dur: 13,
       captions: [
         { t: 0, text: '2025년 구글 실측에서 텍스트 질문 한 번은 전기 <em>0.24 Wh</em>, 물 <em>0.26 mL</em>(약 다섯 방울)였어요.' },
-        { t: 5, text: '같은 시간 텔레비전을 <em>9초</em> 켜 두는 것보다 전기를 덜 써요. 물 한 병과는 거리가 멀어요.' },
+        { t: 5, text: '텔레비전을 <em>9초</em> 켜 두는 것보다 전기를 덜 써요. 물 한 병과는 거리가 멀어요.' },
         { t: 9.5, text: '게다가 12개월 사이 질문 한 번의 전기는 <em>33배</em> 줄었어요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -160,7 +160,7 @@ export default {
           tl.at(stage.appendChild(b.el), .3 + i * 1.1, { from: 'up' });
           return b;
         });
-        const final = P.text({ x: 400, y: 560, w: 780, text: '작업의 <em>크기</em>와 <em>횟수</em>를 같이 보는 게 교실의 판단이에요.', size: 26, weight: 800 });
+        const final = P.text({ x: 400, y: 560, w: 780, text: '교실에서는 작업의 <em>크기</em>와 <em>횟수</em>를 같이 봐요.', size: 26, weight: 800 });
         tl.at(stage.appendChild(final.el), 9, { from: 'up' });
         return {
           tick(t) {
@@ -270,7 +270,7 @@ export default {
     { title: 'Making AI Less "Thirsty": Uncovering and Addressing the Secret Water Footprint of AI Models (arXiv, 2023)', url: 'https://arxiv.org/abs/2304.03271', note: 'AI 학습·사용의 물 발자국과 세계 취수량 전망.' },
     { title: 'IEA Activities on Energy and AI, 2025-2026 (IEA)', url: 'https://iea.blob.core.windows.net/assets/7e263c7b-8dd2-4db3-bfe1-9a439f8a7e34/IEAActivitiesonEnergyandAI.pdf', note: '2025년 "Energy and AI" 보고서 발간 시점과 후속 작업 확인.' }
   ],
-  script: `"AI한테 질문 하나 하면 물 한 병을 쓴대요." 학생이 이렇게 물으면 뭐라고 답해야 할까요. 2025년 구글의 실측 연구를 보면 텍스트 질문 한 번은 전기 0.24 와트시, 물은 0.26밀리리터, 다섯 방울 정도였어요. 같은 시간 텔레비전을 9초 켜 두는 것보다 적어요. 물 한 병과는 거리가 멀고, 12개월 사이 질문당 전기는 33배나 줄었어요.
+  script: `"AI한테 질문 하나 하면 물 한 병을 쓴대요." 학생이 이렇게 물으면 뭐라고 답해야 할까요. 2025년 구글의 실측 연구를 보면 텍스트 질문 한 번은 전기 0.24 와트시, 물은 0.26밀리리터, 다섯 방울 정도였어요. 텔레비전을 9초 켜 두는 것보다 적어요. 물 한 병과는 거리가 멀고, 12개월 사이 질문당 전기는 33배나 줄었어요.
 
 다만 종류가 달라지면 이야기가 달라져요. 오래 생각하는 추론 모델이나 여러 단계를 도는 에이전트는 질문 한 번이 훨씬 커요. 이미지는 텍스트의 약 10배, 영상 생성은 길이와 해상도에 따라 수백에서 수천 배까지 가요. 한 번은 작아도 횟수가 쌓이면 전체가 커져요. 2026년 IEA 보고서를 보면 데이터센터 전력은 2024년 415테라와트시에서 2025년 485테라와트시로, 2030년에는 950테라와트시까지 늘 전망이에요. 효율이 좋아져도 더 많이 쓰게 되는 제번스 역설 때문에 총량은 계속 늘어요.
 

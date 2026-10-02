@@ -13,7 +13,7 @@ export default {
       captions: [
         { t: 0, text: '비행기 모드로 인터넷을 끊었는데, <em>받아쓰기</em>와 <em>요약</em>은 되고 오늘 뉴스는 못 찾아요.' },
         { t: 5, text: '휴대폰 안에서 도는 작은 AI 모델이 이 차이를 만들어요.' },
-        { t: 9.3, text: '오늘은 이 모델이 어떻게 작아졌는지, 무엇이 다른지 살펴봐요.' }
+        { t: 9.3, text: '이 모델은 어떻게 작아졌고 서버 AI와는 무엇이 다를까요?' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 320, size: 320, pose: 'oops' });
@@ -31,7 +31,7 @@ export default {
         });
         const note = P.text({ x: 340, y: 420, w: 880, text: '같은 휴대폰인데, 어떤 일은 인터넷 없이도 되고 어떤 일은 안 돼요.', size: 28, weight: 800 });
         tl.at(stage.appendChild(note.el), 7.6, { from: 'up' });
-        const small = P.text({ x: 340, y: 480, w: 880, text: '기기 안에서 끝나는 처리와, 서버가 있어야 되는 처리가 나뉘어 있어서예요.', size: 20, weight: 600, cls: 'muted' });
+        const small = P.text({ x: 340, y: 480, w: 880, text: '기기 안에서 끝나는 처리와 서버가 있어야 되는 처리가 따로 있어서예요.', size: 20, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(small.el), 8.4, { from: 'up' });
         return {
           tick(t) {
@@ -45,7 +45,7 @@ export default {
       title: '두 갈래 길', dur: 14,
       captions: [
         { t: 0, text: '질문을 서버로 보내면 인터넷을 거쳐 데이터센터까지 가서 답이 와요.' },
-        { t: 5, text: '온디바이스 AI는 질문이 기기 안의 NPU(인공지능 계산 전용 칩)에서 바로 처리돼요.' },
+        { t: 5, text: '온디바이스 AI는 기기 안의 NPU(인공지능 계산 전용 칩)가 질문을 바로 처리해요.' },
         { t: 9.5, text: '2026년 안드로이드 공식 문서는 이 방식이 서버 호출을 없애고 민감한 데이터를 기기 안에 둔다고 설명해요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -90,7 +90,7 @@ export default {
     {
       title: '작게 만드는 세 가지 방법', dur: 14,
       captions: [
-        { t: 0, text: '숫자 하나를 16비트 대신 2비트로 줄이는 <em>양자화</em>예요. 2025년 애플 기기 내 모델이 이 방식으로 압축됐어요.' },
+        { t: 0, text: '첫째는 숫자 하나를 16비트 대신 2비트로 줄이는 <em>양자화</em>예요. 2025년 애플 기기 내 모델을 이 방식으로 압축했어요.' },
         { t: 5, text: '2026년 애플 3세대 모델은 20B 중 <em>1~4B만 깨우고</em> 나머지는 플래시(저장소)에 보관해요.' },
         { t: 9.5, text: 'Gemma 3n은 마트료시카 구조와 층별 임베딩 캐시로, 전체 파라미터는 더 많아도 <em>유효 파라미터 약 2B</em>로 돌아가요.' }
       ],
@@ -106,7 +106,7 @@ export default {
           tl.at(stage.appendChild(b.el), .3 + i * 1.6, { from: 'up' });
           return b;
         });
-        const final = P.text({ x: 340, y: 440, w: 880, text: '작은 모델은 숫자를 줄이고, 필요할 때 일부만 깨워서 휴대폰에 들어가요.', size: 28, weight: 800 });
+        const final = P.text({ x: 340, y: 440, w: 880, text: '작은 모델은 숫자를 줄이고 필요할 때 일부만 깨워서 휴대폰에 들어가요.', size: 28, weight: 800 });
         tl.at(stage.appendChild(final.el), 11, { from: 'up' });
         return {
           tick(t) {
@@ -121,7 +121,7 @@ export default {
       captions: [
         { t: 0, text: '2026년 4월, 구글 Gemma 4의 E2B·E4B가 AICore 개발자 프리뷰로 나왔어요. 이전보다 최대 4배 빠르고 배터리를 최대 60% 덜 써요.' },
         { t: 5.5, text: '2026년 6월, 애플 3세대 모델은 기기 안에 3B 조밀 모델과, 요청에 따라 1~4B만 켜는 20B 희소 모델을 함께 올렸어요.' },
-        { t: 9.8, text: '모바일 칩과 작은 모델이 같이 좋아지면서, 기기 안에서 할 수 있는 일이 늘고 있어요.' }
+        { t: 9.8, text: '모바일 칩과 작은 모델이 같이 좋아지면서 기기 안에서 할 수 있는 일이 늘고 있어요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 330, size: 310, pose: 'wave' });
@@ -131,7 +131,7 @@ export default {
         tl.at(stage.appendChild(a.el), .3, { from: 'up' });
         tl.at(stage.appendChild(b.el), 5.8, { from: 'up' });
         const arrow = P.arrow(lines, { x1: 760, y1: 190, x2: 800, y2: 190, width: 4, color: '#1B1F24' });
-        const final = P.text({ x: 360, y: 400, w: 840, text: '모바일 칩과 작은 모델이 같이 좋아지면서, 기기 안에서 할 수 있는 일이 늘어요.', size: 26, weight: 800 });
+        const final = P.text({ x: 360, y: 400, w: 840, text: '모바일 칩과 작은 모델이 같이 좋아지면서 기기 안에서 할 수 있는 일이 늘어요.', size: 26, weight: 800 });
         tl.at(stage.appendChild(final.el), 9.9, { from: 'up' });
         return {
           tick(t) {
@@ -240,7 +240,7 @@ export default {
           resultText.textContent = '기기 밖으로 나간 글자: 0자';
         } else {
           cloudNode.classList.add('on');
-          resultText.textContent = `${t.chars}자(서버로 전송)`;
+          resultText.textContent = `기기 밖으로 나간 글자: ${t.chars}자(서버로 전송)`;
         }
       }
       sendBtn.addEventListener('click', send);
@@ -262,7 +262,7 @@ export default {
   },
 
   teacherLines: [
-    '온디바이스 AI는 <b>내 글이 기기 밖으로 나가지 않고</b> 처리돼요. 그래서 인터넷이 없어도 돼요.',
+    '온디바이스 AI는 <b>내 글을 기기 밖으로 보내지 않고</b> 처리해요. 그래서 인터넷이 없어도 돼요.',
     '작은 모델은 <b>숫자를 줄이고 필요한 부분만 깨워서</b> 휴대폰에 들어가요.'
   ],
   tip: {

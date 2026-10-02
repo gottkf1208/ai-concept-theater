@@ -44,7 +44,7 @@ export default {
     {
       title: '오픈 웨이트란', dur: 13,
       captions: [
-        { t: 0, text: '닫힌 모델은 질문을 회사 서버로 보내고 답만 받아요. <em>가중치</em>, 학습으로 정해진 수십억 개의 숫자는 안 보여요.' },
+        { t: 0, text: '닫힌 모델은 질문을 회사 서버로 보내고 답만 받아요. <em>가중치</em>(학습으로 정해진 수십억 개의 숫자)는 안 보여요.' },
         { t: 5, text: '오픈 웨이트는 이 가중치 파일을 통째로 내려받아 내 컴퓨터에서 돌려요.' },
         { t: 9, text: '오픈 소스 정의를 만드는 단체는 오픈 소스 AI라면 <em>데이터 정보 · 코드 · 가중치</em> 셋을 다 공개하라고 해요.' }
       ],
@@ -67,7 +67,7 @@ export default {
           tl.at(stage.appendChild(b.el), 8.2 + i * .6, { from: 'up' });
           return b;
         });
-        const final = P.text({ x: 330, y: 500, w: 900, text: '오픈 웨이트는 이 셋 중 <em>가중치 하나만</em> 공개하는 거예요.', size: 27, weight: 800 });
+        const final = P.text({ x: 330, y: 500, w: 900, text: '오픈 웨이트는 이 셋 중 <em>가중치 하나만</em> 공개해요.', size: 27, weight: 800 });
         tl.at(stage.appendChild(final.el), 10.2, { from: 'up' });
         return {
           tick(t) {
@@ -81,9 +81,9 @@ export default {
     {
       title: '라이선스 세 갈래', dur: 14,
       captions: [
-        { t: 0, text: 'Apache-2.0은 gpt-oss-20b · Qwen3-30B-A3B · Gemma 4처럼 사용 · 수정 · 배포가 자유롭고 특허 조항도 있어요.' },
-        { t: 5, text: 'MIT는 DeepSeek-R1처럼 짧고 자유로워요. 이 모델은 다른 모델을 가르치는 <em>증류</em>까지 허용한다고 명시했어요.' },
-        { t: 9.5, text: '커스텀 약관은 Llama 3.1처럼 이용자 수 조건과 표시 의무가 붙어요. 같은 Gemma도 3까지는 커스텀, 4부터는 Apache 2.0이에요.' }
+        { t: 0, text: 'gpt-oss-20b · Qwen3-30B-A3B · Gemma 4가 쓰는 Apache-2.0은 사용 · 수정 · 배포가 자유롭고 특허 조항도 있어요.' },
+        { t: 5, text: 'DeepSeek-R1이 쓰는 MIT는 짧고 자유로워요. 이 모델은 다른 모델을 가르치는 <em>증류</em>까지 허용한다고 카드에 적었어요.' },
+        { t: 9.5, text: 'Llama 3.1 같은 커스텀 약관에는 이용자 수 조건과 표시 의무가 붙어요. 같은 Gemma도 3까지는 커스텀, 4부터는 Apache 2.0이에요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 60, y: 420, size: 260, pose: 'base' });
@@ -112,7 +112,7 @@ export default {
     {
       title: '전문가 혼합(MoE)', dur: 14,
       captions: [
-        { t: 0, text: '전문가 혼합, 영어로 MoE는 층마다 전문가를 여러 개 두고, <em>라우터</em>가 토큰마다 몇 명만 골라 계산해요.' },
+        { t: 0, text: '전문가 혼합(MoE)은 층마다 전문가를 여러 개 두고, <em>라우터</em>가 토큰마다 몇 명만 골라 계산해요.' },
         { t: 5, text: 'Mixtral은 전문가 8개 중 2개를 골라요. 전체 47B 중 일하는 건 13B뿐이에요.' },
         { t: 9.5, text: 'Qwen3-30B-A3B는 전문가 128개 중 8개가 활성이에요. 이름의 <em>A3B</em>는 활성 파라미터가 약 3B라는 뜻이에요.' }
       ],
@@ -142,7 +142,7 @@ export default {
       }
     },
     {
-      title: '학교에서의 의미', dur: 13,
+      title: '학교에서 쓴다면', dur: 13,
       captions: [
         { t: 0, text: '오픈 웨이트를 학교 기기에 내려받으면 좋은 점과 책임이 같이 따라와요.' },
         { t: 5, text: 'gpt-oss-20b는 양자화 덕분에 <em>16GB 메모리 안에서</em> 돌아가요. 학교 컴퓨터실 사양으로도 노려볼 만해요.' },
@@ -194,7 +194,7 @@ export default {
         custom: {
           deploy: ['조건 있음', '금지 용도 정책 준수, 월간 이용자 7억 명 넘으면 Meta에 별도 라이선스, 재배포 시 라이선스 동봉.'],
           rename: ['조건 있음', '이름 앞에 "Llama"를 붙이고 "Built with Llama"를 표시해야 해요.'],
-          distill: ['카드에서 확인 필요', 'Llama 3.1 카드에는 증류에 대한 별도 문장이 없어요. 직접 확인하세요.']
+          distill: ['카드에서 확인 필요', 'Llama 3.1 카드에는 증류를 따로 다룬 문장이 없어요. 직접 확인하세요.']
         }
       };
       const CHECKS = [
@@ -279,7 +279,7 @@ export default {
         }
         if (!m.experts) {
           grid.replaceChildren(); grid.className = 'sim-grid';
-          routerMsg.textContent = '라우터 영역 비활성 · 카드에 전문가 수 미표기';
+          routerMsg.textContent = '카드에 전문가 수가 없어서 라우터를 보여 줄 수 없어요.';
           activeLab.textContent = `전체 ${m.total} / 활성 ${m.active}`;
           return;
         }
@@ -317,7 +317,7 @@ export default {
   },
   myth: {
     myth: '오픈 웨이트 모델은 오픈 소스라서 학습 데이터까지 다 공개돼 있고, 누구나 마음대로 써도 된다.',
-    fact: '대부분 공개된 건 가중치예요. 오픈 소스 AI 정의는 데이터 정보 · 코드 · 가중치 셋을 다 요구해요. 쓰는 조건은 라이선스 칸이 정하고, 커스텀 라이선스에는 금지 용도와 표시 의무가 붙어요.'
+    fact: '대부분은 가중치만 공개해요. 오픈 소스 AI 정의는 데이터 정보 · 코드 · 가중치 셋을 다 요구해요. 쓰는 조건은 라이선스 칸이 정하고, 커스텀 라이선스에는 금지 용도와 표시 의무가 붙어요.'
   },
   sources: [
     { title: 'Qwen3-30B-A3B 공식 모델 카드 (Hugging Face)', url: 'https://huggingface.co/Qwen/Qwen3-30B-A3B', note: '라이선스 apache-2.0, 전체 30.5B · 활성 3.3B, 전문가 128개 중 8개 활성.' },
@@ -327,7 +327,7 @@ export default {
   ],
   script: `무료로 내려받는 모델, 학교 서버에 올려도 되나요? 답은 모델 카드의 라이선스 칸에 있어요. gpt-oss-20b, Qwen3-30B-A3B, Gemma 4는 Apache-2.0이라 사용·수정·배포가 자유로워요. DeepSeek-R1은 MIT라서 증류까지 허용하고요. Llama 3.1은 커스텀 약관이라 이용자 7억 명을 넘으면 별도 라이선스가 필요해요.
 
-가중치 공개가 오픈 소스 AI는 아니에요. 오픈 소스 정의는 데이터 정보·코드·가중치를 다 요구하는데, 대부분은 가중치만 공개해서 오픈 웨이트라고 불러요.
+가중치를 공개했다고 오픈 소스 AI가 되지는 않아요. 오픈 소스 정의는 데이터 정보·코드·가중치를 다 요구하는데, 대부분은 가중치만 공개해서 오픈 웨이트라고 불러요.
 
 구조도 달라요. Qwen3-30B-A3B는 전문가 128개 중 라우터가 토큰마다 8개만 골라요. 전체 30.5B 중 활성은 3.3B고, 이름의 A3B가 그 뜻이에요. 학교 기기에서 돌리면 글이 밖으로 안 나가지만, 라이선스와 안전 장치는 학교가 챙겨야 해요.`
 };

@@ -4,7 +4,7 @@ export default {
   track: 'S4',
   title: '업스케일은 없는 픽셀을 어디서 가져올까',
   subtitle: '초해상도',
-  summary: '학급 사진을 4배로 키웠더니 선명해졌는데 이름표 글자가 다른 글자로 바뀌었어요. 보간과 생성형 업스케일이 없는 픽셀을 채우는 서로 다른 방식과, 업스케일이 복원이 아니라 추정인 이유를 파고들어요.',
+  summary: '학급 사진을 4배로 키웠더니 선명해졌는데 이름표 글자가 다른 글자로 바뀌었어요. 보간과 생성형 업스케일이 없는 픽셀을 채우는 서로 다른 방식과 업스케일 결과를 추정으로 봐야 하는 이유를 짚어요.',
   keywords: ['업스케일', '초해상도', '보간', '생성형 업스케일', 'SRGAN', 'SR3', 'Real-ESRGAN', '환각(hallucination)', '추정'],
 
   scenes: [
@@ -13,7 +13,7 @@ export default {
       captions: [
         { t: 0, text: '학급 사진을 <em>4배</em>로 키웠더니 선명해졌어요.' },
         { t: 5, text: '그런데 확대해서 보니 이름표 <em>글자가 다른 글자로</em> 바뀌었어요.' },
-        { t: 9.5, text: '화질은 좋아졌는데, 왜 없던 글자가 생겼을까요?' }
+        { t: 9.5, text: '화질은 좋아졌는데 왜 없던 글자가 생겼을까요?' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 330, size: 320, pose: 'oops' });
@@ -27,7 +27,7 @@ export default {
         const chipAfter = P.chip({ x: 690, y: 360, text: '이름표: 도훈 (다른 글자)', color: 'orange', size: 18 });
         tl.at(stage.appendChild(chipBefore.el), 4.6, { from: 'pop' });
         tl.at(stage.appendChild(chipAfter.el), 5.4, { from: 'pop' });
-        const note = P.text({ x: 340, y: 460, w: 650, text: '화질은 좋아졌는데, <em>없던 글자</em>가 생겼어요.', size: 30, weight: 800 });
+        const note = P.text({ x: 340, y: 460, w: 650, text: '화질은 좋아졌는데 <em>없던 글자</em>가 생겼어요.', size: 30, weight: 800 });
         tl.at(stage.appendChild(note.el), 9.7, { from: 'up' });
         return {
           tick(t) {
@@ -41,7 +41,7 @@ export default {
       title: '보간: 이웃끼리 평균 내기', dur: 14,
       captions: [
         { t: 0, text: '작은 그림을 키우면 <em>없던 픽셀</em>이 필요해요. 옛 방식은 <em>보간</em>이에요.' },
-        { t: 5, text: '2×2 칸을 4×4로 늘리면, 새 칸은 <em>이웃 색의 평균</em>으로 채워져요.' },
+        { t: 5, text: '2×2 칸을 4×4로 늘리면 새 칸은 <em>이웃 색의 평균</em>으로 채워져요.' },
         { t: 10, text: '평균을 내면 경계가 <em>흐려지고</em> 뭉개져요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -62,7 +62,7 @@ export default {
         const arrow = P.arrow(lines, { x1: 530, y1: 200, x2: 630, y2: 200, width: 4, color: '#1B1F24' });
         const gen = P.text({ x: 340, y: 470, w: 640, text: '그래서 보간으로 키운 사진은 <em>선이 흐릿하고 뭉개져요</em>.', size: 28, weight: 800 });
         tl.at(stage.appendChild(gen.el), 10.2, { from: 'up' });
-        const small2 = P.text({ x: 340, y: 525, w: 640, text: '주변 칸을 더 넓게 볼수록 부드러워지지만, 평균이라 흐린 건 같아요.', size: 18, weight: 600, cls: 'muted' });
+        const small2 = P.text({ x: 340, y: 525, w: 640, text: '주변 칸을 더 넓게 볼수록 부드러워지지만 평균이라 흐린 건 같아요.', size: 18, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(small2.el), 10.8, { from: 'up' });
         return {
           tick(t) {
@@ -76,7 +76,7 @@ export default {
       title: '생성형 업스케일: 그럴듯하게 그려 넣어요', dur: 13,
       captions: [
         { t: 0, text: '다른 방식은 <em>생성형 업스케일</em>이에요. "이런 무늬는 보통 이렇게 생겼다"는 학습된 패턴으로 세부를 <em>그려 넣어요</em>.' },
-        { t: 5, text: '2017년 연구는 진짜 같은 질감을 만드는 법을 제안했고, 2021년 연구들은 확산 모델과 실제 흐림까지 흉내 낸 학습으로 이어졌어요.' },
+        { t: 5, text: '2017년 연구가 진짜 같은 질감을 만드는 법을 내놓았고, 2021년에는 확산 모델을 쓰거나 실제 흐림까지 흉내 내 학습한 연구가 나왔어요.' },
         { t: 9.5, text: '그래서 선명하지만 <em>없던 세부</em>가 생겨요. 연구에서는 이걸 <em>환각</em>이라고 불러요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -103,16 +103,16 @@ export default {
     {
       title: '어디서 틀리나', dur: 14,
       captions: [
-        { t: 0, text: '특히 조심할 곳은 <em>정답이 정해진 곳</em>이에요.' },
+        { t: 0, text: '<em>정답이 정해진 곳</em>을 특히 조심해야 해요.' },
         { t: 4, text: '글자·숫자·얼굴·로고는 추정이 틀리면 <em>바로 드러나요</em>.' },
-        { t: 8, text: '풀잎이나 머리결, 구름처럼 <em>정답이 없는 곳</em>은 그럴듯하면 문제가 적어요.' },
+        { t: 8, text: '풀잎이나 머릿결, 구름처럼 <em>정답이 없는 곳</em>은 그럴듯하면 문제가 적어요.' },
         { t: 11, text: '화질 점수가 높아도 <em>환각</em>은 생길 수 있어요(2025년 연구).' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 330, size: 320, pose: 'point' });
         stage.append(q.el);
         const ans = P.box({ x: 360, y: 110, w: 380, h: 220, label: '정답이 있는 곳', sub: '글자·숫자<br>얼굴·로고', accent: 'orange', icon: P.ICON.doc });
-        const free = P.box({ x: 800, y: 110, w: 380, h: 220, label: '정답이 없는 곳', sub: '풀잎·머리결<br>구름', accent: 'aqua', icon: P.ICON.eye });
+        const free = P.box({ x: 800, y: 110, w: 380, h: 220, label: '정답이 없는 곳', sub: '풀잎·머릿결<br>구름', accent: 'aqua', icon: P.ICON.eye });
         tl.at(stage.appendChild(ans.el), .3, { from: 'up' });
         tl.at(stage.appendChild(free.el), 1.1, { from: 'up' });
         const chipWarn = P.chip({ x: 360, y: 360, text: '추정이 틀리면 바로 보여요', color: 'orange', size: 20 });
@@ -130,7 +130,7 @@ export default {
       }
     },
     {
-      title: '정리: 복원이 아니라 추정이에요', dur: 13,
+      title: '정리: 업스케일은 추정이에요', dur: 13,
       captions: [
         { t: 0, text: '원본이 더 큰 파일로 남아 있는지 <em>먼저</em> 찾아보세요.' },
         { t: 4.5, text: '가능하면 원본 해상도에서 <em>다시 만드는</em> 게 낫고, 키운 뒤엔 확대해서 확인해요.' },
@@ -143,7 +143,7 @@ export default {
           ['① 원본부터 찾기', '더 큰 파일이 남아 있는지 먼저'],
           ['② 가능하면 재생성', '원본 해상도에서 다시 만들기'],
           ['③ 확대 확인', '글자·숫자·얼굴·로고부터'],
-          ['④ 정답 없는 곳은 안심', '풀·머리결·구름은 대체로 무해']
+          ['④ 정답 없는 곳은 안심', '풀·머릿결·구름은 대체로 무해']
         ].map(([label, sub], i) => {
           const b = P.box({ x: 400 + (i % 2) * 400, y: 110 + Math.floor(i / 2) * 150, w: 370, h: 120, label, sub, accent: i === 1 ? 'aqua' : (i === 3 ? 'orange' : '') });
           tl.at(stage.appendChild(b.el), .3 + i * .9, { from: 'up' });
@@ -265,7 +265,7 @@ export default {
   },
 
   teacherLines: [
-    '업스케일은 <b>없던 픽셀을 그럴듯하게 그려 넣는</b> 거예요. 복원이 아니라 추정이에요.',
+    '업스케일은 <b>없던 픽셀을 그럴듯하게 그려 넣는</b> 거예요. 그래서 결과는 추정이에요.',
     '키운 사진의 <b>글자와 얼굴</b>은 꼭 확대해서 확인해요.'
   ],
   tip: {
@@ -284,7 +284,7 @@ export default {
   ],
   script: `학급 사진을 4배로 키웠더니 선명해졌는데, 이름표 글자가 다른 글자로 바뀐 적 있으시죠. 왜 없던 글자가 생길까요.
 
-작은 사진을 키우면 없던 픽셀이 필요해요. 옛 방식인 보간은 2×2 칸을 4×4로 늘릴 때 새 칸을 이웃 색의 평균으로 채워서 경계가 흐려져요. 생성형 업스케일은 흐린 입력을 보고 "보통 이렇게 생겼다"는 학습된 패턴으로 세부를 그려 넣어요. 2017년 연구가 진짜 같은 질감을 만드는 법을 제안했고, 2021년 연구들이 확산 모델과 실제 흐림까지 흉내 낸 학습으로 이어졌어요. 선명하지만 없던 세부가 생길 수 있어요.
+작은 사진을 키우면 없던 픽셀이 필요해요. 옛 방식인 보간은 2×2 칸을 4×4로 늘릴 때 새 칸을 이웃 색의 평균으로 채워서 경계가 흐려져요. 생성형 업스케일은 흐린 입력을 보고 "보통 이렇게 생겼다"는 학습된 패턴으로 세부를 그려 넣어요. 2017년 연구가 진짜 같은 질감을 만드는 법을 내놓았고, 2021년에는 확산 모델을 쓰거나 실제 흐림까지 흉내 내 학습한 연구가 나왔어요. 선명하지만 없던 세부가 생길 수 있어요.
 
-조심할 곳은 정답이 정해진 곳이에요. 글자·숫자·얼굴·로고는 추정이 틀리면 바로 드러나요. 풀잎이나 머리결은 그럴듯하면 괜찮아요. 업스케일은 복원이 아니라 추정이에요. 원본이 더 큰 파일로 남아 있는지 먼저 찾고, 키운 뒤엔 글자와 얼굴부터 확대해서 확인하세요.`
+정답이 정해진 곳을 조심해야 해요. 글자·숫자·얼굴·로고는 추정이 틀리면 바로 드러나요. 풀잎이나 머릿결은 그럴듯하면 괜찮아요. 업스케일은 복원이 아니라 추정이에요. 원본이 더 큰 파일로 남아 있는지 먼저 찾고, 키운 뒤엔 글자와 얼굴부터 확대해서 확인하세요.`
 };

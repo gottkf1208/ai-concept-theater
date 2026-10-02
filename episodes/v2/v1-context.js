@@ -41,7 +41,7 @@ export default {
       title: '토큰과 책상', dur: 13,
       captions: [
         { t: 0, text: 'AI에게 글은 <em>토큰</em>이라는 조각으로 들어가요. 영어는 대략 서너 글자에 하나예요.' },
-        { t: 5, text: '토큰 수는 언어마다 비율이 달라져요. 이 토큰이 쌓이는 곳이 <em>컨텍스트 창</em>, AI의 작업 기억이에요.' },
+        { t: 5, text: '같은 글도 언어마다 토큰 수가 달라요. 이 토큰이 쌓이는 곳이 <em>컨텍스트 창</em>, AI의 작업 기억이에요.' },
         { t: 9.5, text: '책상이라고 생각하면 쉬워요. 토큰 칩이 책상 위로 쌓여 들어가요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -60,7 +60,7 @@ export default {
         });
         const desk = P.box({ x: 430, y: 330, w: 420, h: 150, label: '컨텍스트 창', sub: '= 책상(작업 기억)', accent: '', icon: P.ICON.desk });
         tl.at(stage.appendChild(desk.el), 4.4, { from: 'pop' });
-        const note = P.text({ x: 300, y: 510, w: 680, text: '토큰 수는 언어마다 비율이 달라져요. 정확한 개수는 모델의 토크나이저가 정해요.', size: 20, weight: 600, align: 'center', cls: 'muted' });
+        const note = P.text({ x: 300, y: 510, w: 680, text: '같은 글도 언어마다 토큰 수가 달라요. 정확한 개수는 모델의 토크나이저가 정해요.', size: 20, weight: 600, align: 'center', cls: 'muted' });
         tl.at(stage.appendChild(note.el), 6.2, { from: 'up' });
         const big = P.text({ x: 300, y: 580, w: 680, text: '책상이라고 생각하면 쉬워요.', size: 28, weight: 800, align: 'center' });
         tl.at(stage.appendChild(big.el), 9.7, { from: 'up' });
@@ -73,7 +73,7 @@ export default {
       }
     },
     {
-      title: '책상에 올라가는 것은 대화만이 아니에요', dur: 13,
+      title: '책상에는 대화만 올라가지 않아요', dur: 13,
       captions: [
         { t: 0, text: '책상에는 내 질문만 올라가지 않아요. 앱이 미리 넣은 지시문, 올린 파일과 사진도 함께 올라가요.' },
         { t: 4.5, text: 'AI의 답과 AI가 속으로 한 생각까지, 전부 이 책상을 차지해요.' },
@@ -117,7 +117,7 @@ export default {
       title: '넘치면: 밀어내기와 컴팩션', dur: 14,
       captions: [
         { t: 0, text: '책상이 차면 오래된 것부터 밀어내거나, 앞부분을 <em>요약본으로 바꿔 끼워요</em>. 이걸 <em>컴팩션</em>이라고 해요.' },
-        { t: 5.5, text: '채팅 화면에 "생각을 정리하는 중"이 뜨면 이 요약이 돌아가는 중이에요.' },
+        { t: 5.5, text: '채팅 화면에 "생각을 정리하는 중"이 뜨면 이 요약을 하고 있는 거예요.' },
         { t: 10, text: '다만 요약에서 빠진 세부는 다시 볼 수 없고, 가운데 놓인 내용은 원래도 놓치기 쉬워요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -147,7 +147,7 @@ export default {
         });
         const midLabel = P.text({ x: 760, y: 340, w: 430, text: '가운데는 놓치기 쉬워요', size: 18, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(midLabel.el), 11, { from: 'up' });
-        const final = P.text({ x: 320, y: 560, w: 760, text: '컴팩션은 책상을 지키지만, 빠진 세부는 되돌릴 수 없어요.', size: 26, weight: 800 });
+        const final = P.text({ x: 320, y: 560, w: 760, text: '컴팩션으로 자리는 생기지만, 빠진 세부는 되돌릴 수 없어요.', size: 26, weight: 800 });
         tl.at(stage.appendChild(final.el), 10.3, { from: 'up' });
         return {
           tick(t) {
@@ -187,7 +187,7 @@ export default {
 
   interaction: {
     title: '책상과 컴팩션 시뮬레이터',
-    desc: '위 칸에 문장을 치면 <b>토큰 칩</b>으로 쪼개져요(대략적인 예시). 아래에서는 책상(컨텍스트 창) 크기를 바꾸고, 넘칠 때 방식을 <b>밀려남 / 컴팩션 하기 / 오류로 보기</b> 중에서 골라 보세요. "메모리에 적기"를 누르면 컴팩션 뒤에도 학년 정보가 남는 걸 볼 수 있어요.',
+    desc: '위 칸에 문장을 치면 <b>토큰 칩</b>으로 쪼개져요(대략적인 예시). 아래에서는 책상(컨텍스트 창) 크기를 바꾸고, 넘쳤을 때 어떻게 할지 <b>밀려남 / 컴팩션 하기 / 오류로 보기</b> 중에서 골라 보세요. "메모리에 적기"를 누르면 컴팩션 뒤에도 학년 정보가 남는 걸 볼 수 있어요.',
     mount(el, P) {
       const PARTICLES = ['은', '는', '이', '가', '을', '를', '과', '와', '에', '의', '로', '도'];
       const DEFAULT_SENT = '우리 반 5학년 아이들과 AI 영상 만들기 수업을 3차시로 계획해 주세요.';
@@ -343,7 +343,7 @@ export default {
   },
   myth: {
     myth: '컨텍스트 창이 100만 토큰이니 긴 대화도 처음 내용을 다 기억한다.',
-    fact: '넣을 수 있는 양과 정확히 떠올리는 힘은 달라요. 토큰이 많을수록 회상이 떨어지고(컨텍스트 로트), 가운데 놓인 내용은 특히 놓치기 쉬우며, 컴팩션된 부분은 요약본만 남아요.'
+    fact: '넣을 수 있는 양과 정확히 떠올리는 힘은 달라요. 토큰이 많을수록 회상이 떨어지고(컨텍스트 로트), 가운데 놓인 내용은 특히 놓치기 쉬워요. 컴팩션된 부분은 요약본만 남고요.'
   },
   sources: [
     { title: 'Claude 문서 — Context windows', url: 'https://platform.claude.com/docs/en/build-with-claude/context-windows', note: '작업 기억 비유, 창에 들어가는 것들(지시문·파일·대화·출력), 100만/20만 토큰, context rot, 채팅 화면의 FIFO 각주.' },

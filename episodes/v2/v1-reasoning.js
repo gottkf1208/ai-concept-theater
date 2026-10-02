@@ -4,7 +4,7 @@ export default {
   track: 'S1',
   title: '"생각하는 시간"이 있는 AI는 무엇이 다를까?',
   subtitle: '추론 모델과 노력 수준(effort)',
-  summary: '답하기 전에 중간 단계를 풀어 보는 추론 모델이 무엇이고, 2026년 최신 모델처럼 생각이 기본으로 켜진 뒤에는 "얼마나 깊이"를 어떻게 조절하는지 짚어봐요.',
+  summary: '추론 모델은 답하기 전에 중간 단계를 먼저 풀어 봐요. 2026년 최신 모델처럼 생각이 기본으로 켜진 뒤에는 "얼마나 깊이" 생각할지를 어떻게 조절하는지도 짚어 봐요.',
   keywords: ['추론 모델', '확장 사고', '적응형 사고', 'adaptive thinking', 'Chain-of-Thought', '노력 수준', 'effort', '테스트 시점 연산', '생각 토큰', '과잉 사고'],
 
   scenes: [
@@ -155,7 +155,7 @@ export default {
       }
     },
     {
-      title: '2026년: 생각은 켜져 있고, 깊이를 고르는 시대', dur: 14,
+      title: '2026년: 생각은 켜 두고, 깊이를 골라요', dur: 14,
       captions: [
         { t: 0, text: '2026년 최신 모델은 생각이 <em>기본으로 켜져</em> 있어요. 문제를 보고 얼마나 생각할지 모델이 스스로 정해요.' },
         { t: 5.5, text: '이걸 <em>적응형 사고</em>라고 해요. 사람이 고르는 건 <em>노력 수준</em>이에요.' },
@@ -186,7 +186,7 @@ export default {
         const skipNote = P.text({ x: 400, y: 320, w: 820, text: '<em>낮음</em>: 쉬운 문제는 생각을 건너뛰어요 · <em>높음·최대</em>: 더 깊이 생각해요', size: 19, weight: 700, cls: 'muted' });
         tl.at(stage.appendChild(skipNote.el), 10.8, { from: 'up' });
 
-        const summaryBox = P.box({ x: 400, y: 410, w: 820, h: 150, label: '화면에 보이는 "생각"', sub: '실제 판단 근거를 다 보여 주는 게 아니라 요약이에요', accent: 'orange', icon: P.ICON.eye });
+        const summaryBox = P.box({ x: 400, y: 410, w: 820, h: 150, label: '화면에 보이는 "생각"', sub: '실제 판단 근거를 다 담지 않은 요약본이에요', accent: 'orange', icon: P.ICON.eye });
         tl.at(stage.appendChild(summaryBox.el), 11.4, { from: 'up' });
 
         return {
@@ -202,7 +202,7 @@ export default {
 
   interaction: {
     title: '노력 수준 다이얼',
-    desc: '문제를 고르고 <b>노력 수준 다이얼</b>을 낮음부터 높음까지 옮겨 보세요. 걸린 시간과 토큰 비용(대략적인 예시)이 함께 바뀌어요. 수학 문장제의 낮음에서는 모델이 짧게 생각해 정답을 맞히는 걸 볼 수 있어요. 보조 버튼으로 옛날 방식(생각 꺼짐)과 비교해 보세요.',
+    desc: '문제를 고르고 <b>노력 수준 다이얼</b>을 낮음부터 높음까지 옮겨 보세요. 걸린 시간과 토큰 비용(대략적인 예시)이 함께 바뀌어요. 수학 문장제는 낮음에서도 짧게 생각해 정답을 맞혀요. "옛날 방식과 비교" 버튼을 누르면 생각을 끈 예전 답과 견줘 볼 수 있어요.',
     mount(el, P) {
       const PROBLEMS = [
         {
@@ -236,7 +236,7 @@ export default {
             { think: true, sec: 9, tok: 600, ok: null, body: '1차시(주제·콘티, 준비물 안내), 2차시(역할 분담·촬영·안전 지도), 3차시(편집 실습·평가 기준 안내·학급 발표)까지 세부 활동과 확인 지점을 넣었어요.' }
           ],
           legacy0: null,
-          note: '복잡한 계획일수록 <b>더 깊이 생각할수록</b> 자세해져요.'
+          note: '복잡한 계획은 <b>더 깊이 생각할수록</b> 자세해져요.'
         }
       ];
       const LEVEL_NAMES = ['낮음', '보통', '높음'];
@@ -294,7 +294,7 @@ export default {
         render();
       });
 
-      const disclaimer = P.h('p', { class: 'sim-disclaimer' }, '예시 답변이며 실제 모델 출력이 아니에요. 시간·토큰 수치는 이해를 돕기 위한 대략적인 예시예요.');
+      const disclaimer = P.h('p', { class: 'sim-disclaimer' }, '예시 답변이며 실제 모델 출력이 아니에요. 시간·토큰 수치도 대략적인 예시예요.');
 
       const style = P.h('style', { html: `
         .sim-sec{margin-top:20px}
@@ -336,7 +336,7 @@ export default {
 
   teacherLines: [
     '어떤 AI는 답을 바로 내지 않고 <b>풀이를 먼저 써 보고</b> 답해요. 어려운 문제일수록 효과가 커요.',
-    '쉬운 질문엔 오래 생각해도 답이 같아요. <b>문제 난이도에 맞춰</b> 깊이를 고르는 게 똑똑한 사용법이에요.'
+    '쉬운 질문엔 오래 생각해도 답이 같아요. 그래서 <b>문제 난이도에 맞춰</b> 깊이를 골라 써요.'
   ],
   tip: {
     body: '성적 처리 수식 점검, 여러 조건이 걸린 시간표 짜기처럼 단계가 많은 일은 노력 수준을 높여 맡기고, 안내 문구 다듬기 같은 일은 낮은 수준이나 빠른 모델로 충분해요.',

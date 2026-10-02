@@ -4,7 +4,7 @@ export default {
   track: 'S2',
   title: '영상은 왜 이미지보다 훨씬 비쌀까',
   subtitle: '프레임 × 해상도 × 단계, 그리고 VAE 압축',
-  summary: '이미지 한 장보다 영상 몇 초가 훨씬 많은 크레딧을 쓰는 이유를, 프레임 수·해상도·단계 수와 VAE 압축으로 계산해 봐요. 영상 길이와 해상도에 왜 상한이 있는지, 공식 문서 숫자로 확인해요.',
+  summary: '이미지 한 장보다 영상 몇 초가 훨씬 많은 크레딧을 쓰는 이유를 프레임 수·해상도·단계 수와 VAE 압축으로 계산해 봐요. 영상 길이와 해상도에 상한이 있는 이유도 공식 문서 숫자로 확인해요.',
   keywords: ['연산량', '크레딧', '프레임', '잠재 공간', 'VAE', '토큰', '어텐션', '시공간 압축', '단계 수', '해상도 상한'],
 
   scenes: [
@@ -13,7 +13,7 @@ export default {
       captions: [
         { t: 0, text: '이미지 한 장과 영상 몇 초, 크레딧 창을 보고 눈이 커졌어요.' },
         { t: 5, text: '<em>영상 쪽이 훨씬 많이</em> 깎여 있었거든요.' },
-        { t: 9.5, text: '답은 <em>프레임 수 × 해상도 × 단계 수</em>예요.' }
+        { t: 9.5, text: '<em>프레임 수 × 해상도 × 단계 수</em> 때문이에요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 340, size: 300, pose: 'oops' });
@@ -83,8 +83,8 @@ export default {
       title: '압축해서 계산해요: VAE', dur: 14,
       captions: [
         { t: 0, text: '이대로 계산하면 숫자가 너무 커요.' },
-        { t: 5, text: '그래서 <em>VAE</em>라는 압축기로 줄인 뒤 계산해요. 가로·세로를 각각 8분의 1로, 그러니 넓이는 <em>64분의 1</em>이에요.' },
-        { t: 9.8, text: '영상은 시간도 4분의 1로 줄여요. 압축을 더 세게 하면 더 싸지지만, 2024년 연구는 <em>세부가 사라지는</em> 대가가 있다고 했어요.' }
+        { t: 5, text: '그래서 <em>VAE</em>라는 압축기로 줄인 뒤 계산해요. 가로·세로를 각각 8분의 1로 줄이니 넓이는 <em>64분의 1</em>이에요.' },
+        { t: 9.8, text: '영상은 시간도 4분의 1로 줄여요. 압축을 더 세게 하면 더 싸지지만 2024년 연구는 <em>세부가 사라지는</em> 대가가 있다고 했어요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 340, size: 300, pose: 'think' });
@@ -155,7 +155,7 @@ export default {
       captions: [
         { t: 0, text: '그래서 비용을 줄이는 방법도 있어요.' },
         { t: 5, text: '2026년 영상 모델 공식 안내도 <em>360p는 초안용</em>, 고른 것만 크게 키우라고 해요.' },
-        { t: 8.5, text: '긴 영상은 한 번에가 아니라 <em>짧은 조각을 이어</em> 만들어요. 길이·해상도 상한은 계산량과 메모리의 한계예요.' }
+        { t: 8.5, text: '긴 영상은 <em>짧은 조각을 이어</em> 만들어요. 길이·해상도에 상한이 있는 건 계산량과 메모리 때문이에요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 300, size: 330, pose: 'wave' });
@@ -169,7 +169,7 @@ export default {
         const chips = ['해상도', '길이', '단계 수'].map((c, i) => tl.at(stage.appendChild(P.chip({ x: 430 + i * 170, y: 300, text: c, color: i % 2 ? 'orange' : 'aqua', size: 22 }).el), 2.4 + i * .3, { from: 'pop' }));
         const final = P.text({ x: 430, y: 400, w: 790, text: '짧게 여러 번 시도하고, 마음에 드는 것만 <em>크게 키우거나 이어붙여요</em>.', size: 27, weight: 800 });
         tl.at(stage.appendChild(final.el), 5.4, { from: 'up' });
-        const last = P.text({ x: 430, y: 460, w: 790, text: '길이·해상도 상한은 <em>계산량과 메모리</em>의 한계예요.', size: 25, weight: 700 });
+        const last = P.text({ x: 430, y: 460, w: 790, text: '길이·해상도에 상한이 있는 건 <em>계산량과 메모리</em> 때문이에요.', size: 25, weight: 700 });
         tl.at(stage.appendChild(last.el), 8.8, { from: 'up' });
         return {
           tick(t) {
@@ -303,7 +303,7 @@ export default {
     { title: 'LTX-Video: Realtime Video Latent Diffusion (arXiv, 2024)', url: 'https://arxiv.org/abs/2501.00103', note: '1:192 고압축의 효율과 세부 손실 맞바꿈.' },
     { title: 'Gemini API — Generate videos with Veo 3.1', url: 'https://ai.google.dev/gemini-api/docs/veo', note: '4·6·8초, 24fps, 1080p·4K는 8초만, 7초씩 최대 148초 연장.' }
   ],
-  script: `이미지 한 장과 영상 몇 초, 크레딧 차이에 눈이 커진 적 있으시죠. 답은 프레임 수, 해상도, 단계 수예요. 공식 문서 기준으로 영상은 1초에 24장, 8초면 192장이고, 앞뒤 장면이 이어지도록 시간 축까지 계산해요.
+  script: `이미지 한 장과 영상 몇 초, 크레딧 차이에 눈이 커진 적 있으시죠. 프레임 수, 해상도, 단계 수 때문이에요. 공식 문서 기준으로 영상은 1초에 24장, 8초면 192장이고, 앞뒤 장면이 이어지도록 시간 축까지 계산해요.
 
 그대로는 너무 커서 VAE라는 압축기로 줄인 잠재 공간에서 계산해요. 가로·세로 각 8분의 1이라 넓이는 64분의 1, 영상은 시간도 4분의 1로 줄여요. 그래도 1024 이미지는 약 4천 조각, 720p 81프레임 영상은 약 7만 6천 조각이에요. 어텐션은 조각 수의 제곱으로 늘고, 단계마다 반복돼요.
 

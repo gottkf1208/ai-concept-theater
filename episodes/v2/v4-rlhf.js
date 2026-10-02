@@ -4,7 +4,7 @@ export default {
   track: 'S4',
   title: 'AI는 왜 칭찬받는 쪽으로 기울까',
   subtitle: '사람 피드백 강화학습(RLHF)과 아첨',
-  summary: '학생 글에 "제가 쓴 건데 정말 마음에 들어요"를 붙이면 AI 피드백이 칭찬으로 기울어요. 사람이 매긴 순위로 AI를 길들이는 RLHF의 원리와, 그 과정에서 듣기 좋은 답이 보상받는 아첨이 생기는 이유를 2025~2026년 연구로 파고들어요.',
+  summary: '학생 글에 "제가 쓴 건데 정말 마음에 들어요"를 붙이면 AI 피드백이 칭찬으로 기울어요. 사람이 매긴 순위로 AI를 다듬는 RLHF의 원리와 그 과정에서 듣기 좋은 답이 보상받아 아첨이 생기는 이유를 2025~2026년 연구로 짚어요.',
   keywords: ['RLHF', '사람 피드백', '보상 모델', '선호 데이터', '강화학습', 'PPO', '아첨', '사이코펀시', 'sycophancy', '사회적 아첨'],
 
   scenes: [
@@ -28,7 +28,7 @@ export default {
         const ai2 = P.box({ x: 760, y: 195, w: 420, h: 140, label: 'AI 피드백', sub: '훌륭한 글이에요!<br>표현이 생생해요.', accent: 'orange', icon: P.ICON.check });
         tl.at(stage.appendChild(ai2.el), 6.8, { from: 'up' });
         const arrow2 = P.arrow(lines, { x1: 970, y1: 140, x2: 970, y2: 192, width: 4, color: '#1B1F24' });
-        const note = P.chip({ x: 300, y: 400, text: '같은 글인데, 왜 답이 달라졌을까요?', color: 'gray', size: 20 });
+        const note = P.chip({ x: 300, y: 400, text: '같은 글인데 왜 답이 달라졌을까요?', color: 'gray', size: 20 });
         tl.at(stage.appendChild(note.el), 9.9, { from: 'pop' });
         let oops = false;
         return {
@@ -76,7 +76,7 @@ export default {
           tl.at(stage.appendChild(lab.el), 9.8 + i * .3, { from: 'up' });
           return bar;
         });
-        const final = P.text({ x: 560, y: 450, w: 620, text: '약 135배 더 큰 모델보다 사람 평가에서 <em>더 선호</em>됐어요.', size: 24, weight: 800 });
+        const final = P.text({ x: 560, y: 450, w: 620, text: '평가자들은 약 135배 큰 모델보다 이쪽을 <em>더 자주 골랐어요</em>.', size: 24, weight: 800 });
         tl.at(stage.appendChild(final.el), 10.4, { from: 'up' });
         return {
           tick(t) {
@@ -136,14 +136,14 @@ export default {
         stage.append(q.el);
         const cards = [
           ['사람보다 50% 더 긍정', '11개 모델이 속임·불법 행동까지도\n사람 평가자보다 자주 편들었어요', 'orange'],
-          ['더 신뢰하지만 더 멀어져요', '아첨 AI와 대화한 뒤 갈등 회복 의지는\n줄었는데, 그 AI를 더 좋다고 평가했어요', 'orange'],
+          ['더 신뢰하지만 더 멀어져요', '아첨 AI와 대화한 뒤 갈등 회복 의지는\n줄었는데 그 AI를 더 좋다고 평가했어요', 'orange'],
           ["경고 라벨은 효과가 약해요", "'아첨할 수 있어요' 표시만으로는\n그 영향이 줄지 않았어요", 'ink']
         ].map(([label, sub, acc], i) => {
           const b = P.box({ x: 70 + i * 390, y: 110, w: 360, h: 210, label, sub: sub.replace(/\n/g, '<br>'), accent: acc, icon: P.ICON.x });
           tl.at(stage.appendChild(b.el), .3 + i * 1.7, { from: 'up' });
           return b;
         });
-        const final = P.text({ x: 240, y: 560, w: 970, text: '세 연구 모두 같은 원리를 가리켜요. <em>칭찬은 평가가 아닐 수 있어요</em>.', size: 25, weight: 800 });
+        const final = P.text({ x: 240, y: 560, w: 970, text: '세 연구를 종합하면 <em>칭찬이 곧 평가는 아닐 수 있어요</em>.', size: 25, weight: 800 });
         tl.at(stage.appendChild(final.el), 11.6, { from: 'up' });
         return {
           tick(t) {
@@ -172,7 +172,7 @@ export default {
           tl.at(stage.appendChild(b.el), .3 + i * .9, { from: 'up' });
           return b;
         });
-        const final = P.text({ x: 400, y: 430, w: 770, text: 'AI 칭찬은 <em>평가가 아니라 반응</em>일 수 있어요. 기준을 주고 약점부터 물어봐요.', size: 25, weight: 800 });
+        const final = P.text({ x: 400, y: 430, w: 770, text: 'AI 칭찬은 <em>그저 반응</em>일 수도 있어요. 기준을 주고 약점부터 물어봐요.', size: 25, weight: 800 });
         tl.at(stage.appendChild(final.el), 8.2, { from: 'up' });
         return {
           tick(t) {
@@ -186,7 +186,7 @@ export default {
 
   interaction: {
     title: '채점기 훈련장',
-    desc: '슬라이더로 <b>"평가자가 내 생각과 맞는 답을 좋아하는 정도"</b>를 정하고, "채점기로 학습시키기"를 눌러 보세요. 문제마다 정확한 답(A)과 매끈한 아첨 답(B) 중 채점기가 어느 쪽을 더 쳐주는지, 그리고 그 결과로 AI 성향이 어느 쪽으로 누적되는지 보여줘요. 값은 원리를 보여 주는 숫자예요(실제 논문 수치가 아니에요).',
+    desc: '슬라이더로 <b>"평가자가 내 생각과 맞는 답을 좋아하는 정도"</b>를 정하고, "채점기로 학습시키기"를 눌러 보세요. 문제마다 정확한 답(A)과 매끈한 아첨 답(B) 중 채점기가 어느 쪽을 더 쳐주는지 나오고, 아래 막대에는 그 결과로 AI 성향이 어느 쪽으로 쌓이는지 나타나요. 숫자는 원리를 설명하려고 정한 값이에요(실제 논문 수치가 아니에요).',
     mount(el, P) {
       const PROBLEMS = [
         { q: '이 학생 글의 결론이 근거와 맞나요?', a: '정확하지만 직설적: "결론이 2번째 근거와 안 맞아요"', b: '매끈하지만 아첨: "결론이 정말 인상 깊어요!"', threshold: 15 },
@@ -265,7 +265,7 @@ export default {
         meterFill.style.background = color;
         meterDot.style.background = color;
         if (trainCount === 0) {
-          status.textContent = '아직 학습 전이에요. 왼쪽 슬라이더를 정하고 학습시켜 보세요.';
+          status.textContent = '아직 학습 전이에요. 슬라이더 값을 정하고 학습시켜 보세요.';
         } else {
           const drift = tendency > 15 ? '맞장구 쪽으로 기울었어요' : '정확한 채점 쪽에 머물러 있어요';
           status.textContent = `학습 ${trainCount}회: ${drift}. 평가자가 듣기 좋은 답을 고른 비율만큼 배워요.`;
@@ -294,7 +294,7 @@ export default {
   },
   myth: {
     myth: '사람 피드백으로 학습했으니 AI의 평가는 사람처럼 공정하다.',
-    fact: '사람 피드백에는 <b>내 생각과 맞는 답을 좋아하는 경향</b>도 섞여 있어요. 그 경향이 채점기를 거쳐 AI에 배어서, 맞는 말보다 듣기 좋은 말을 고를 때가 있어요.'
+    fact: '사람 피드백에는 <b>내 생각과 맞는 답을 좋아하는 경향</b>도 섞여 있어요. 그 경향이 채점기를 거쳐 AI에 배어서 맞는 말보다 듣기 좋은 말을 고를 때가 있어요.'
   },
   sources: [
     { title: 'Training language models to follow instructions with human feedback (InstructGPT, arXiv 2022)', url: 'https://arxiv.org/abs/2203.02155', note: 'RLHF 3단계(지도학습·보상 모델·PPO), 라벨러 약 40명, 13억 모델이 1750억보다 선호됨, "특정 집단의 선호"라는 스스로의 한계 진술.' },

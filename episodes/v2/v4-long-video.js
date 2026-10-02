@@ -4,7 +4,7 @@ export default {
   track: 'S4',
   title: '긴 영상은 왜 뒤로 갈수록 무너질까',
   subtitle: '시간 일관성',
-  summary: '30초 영상을 한 번에 만들었더니 10초부터 색이 바래고 20초엔 얼굴이 달라졌어요. 영상 모델이 짧은 조각을 이어 붙이며 오차가 쌓이는 드리프트의 원리와, 짧게 나누고 레퍼런스를 다시 넣는 해소법을 파고들어요.',
+  summary: '30초 영상을 한 번에 만들었더니 10초부터 색이 바래고 20초엔 얼굴이 달라졌어요. 영상 모델이 짧은 조각을 이어 붙이며 오차가 쌓이는 드리프트의 원리와 짧게 나누고 레퍼런스를 다시 넣어 푸는 법을 짚어요.',
   keywords: ['드리프트', '시간 일관성', '시간창', '자기회귀 확장', '키프레임', '레퍼런스 리셋', '장면 전환', 'Lumiere', 'StreamingT2V'],
 
   scenes: [
@@ -12,8 +12,8 @@ export default {
       title: '한 번에 30초 만들었더니', dur: 13,
       captions: [
         { t: 0, text: '쿼카가 교실에서 발표하는 30초 영상을 <em>한 번에</em> 만들었어요.' },
-        { t: 5, text: '10초부터 스웨터 색이 바래고, 20초엔 <em>얼굴</em>까지 달라졌어요.' },
-        { t: 9.5, text: '고친 곳은 없는데, 왜 뒤로 갈수록 달라질까요?' }
+        { t: 5, text: '10초부터 스웨터 색이 바래고 20초엔 <em>얼굴</em>까지 달라졌어요.' },
+        { t: 9.5, text: '고친 곳은 없는데 왜 뒤로 갈수록 달라질까요?' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 330, size: 320, pose: 'oops' });
@@ -30,7 +30,7 @@ export default {
         tl.at(stage.appendChild(chip1.el), 3.0, { from: 'pop' });
         const chip2 = P.chip({ x: 810, y: 360, text: '딴 쿼카 같아요', color: 'orange', size: 17 });
         tl.at(stage.appendChild(chip2.el), 6.0, { from: 'pop' });
-        const note = P.text({ x: 330, y: 420, w: 880, text: '고친 곳은 없는데, <em>뒤로 갈수록</em> 달라졌어요.', size: 28, weight: 800 });
+        const note = P.text({ x: 330, y: 420, w: 880, text: '고친 곳은 없는데 <em>뒤로 갈수록</em> 달라졌어요.', size: 28, weight: 800 });
         tl.at(stage.appendChild(note.el), 9.7, { from: 'up' });
         return { tick(t) { q.tick(t, t > 9.5); } };
       }
@@ -38,7 +38,7 @@ export default {
     {
       title: '자기가 만든 조각을 보고 이어 그려요', dur: 14,
       captions: [
-        { t: 0, text: '영상 모델은 한 번에 다룰 수 있는 <em>시간창</em>이 정해져 있어요. 짧은 조각을 이어 붙여요.' },
+        { t: 0, text: '영상 모델은 한 번에 다룰 수 있는 <em>시간창</em>이 정해져 있어서 짧은 조각을 이어 붙여요.' },
         { t: 5, text: '모델은 배울 때 <em>진짜 영상</em>을 보고 다음을 이어 그렸는데, 실제로는 <em>자기가 만든 조각</em>을 보고 이어 그려요. 그 차이가 쌓여요.' },
         { t: 10.3, text: '이렇게 쌓이는 어긋남을 드리프트라고 해요.' }
       ],
@@ -78,7 +78,7 @@ export default {
       title: '연구가 말해 주는 것', dur: 13,
       captions: [
         { t: 0, text: '긴 영상을 <em>통째로</em> 만들려는 시도도 있어요. 2024년 연구 <em>루미에르</em>는 시간 전체를 한 번에 다뤄요.' },
-        { t: 4, text: '조각을 이어가며 <em>장기 기억</em>으로 첫 조각을 붙잡으려는 시도도 있어요. 2024년 연구 <em>스트리밍T2V</em>예요.' },
+        { t: 4, text: '조각을 이어 가되 <em>장기 기억</em>으로 첫 조각을 붙잡는 방식도 나왔어요. 2024년 연구 <em>스트리밍T2V</em>예요.' },
         { t: 7.6, text: '자기 출력으로 미리 연습시키거나 끝 장면을 먼저 정해 두는 2025년 연구도 있어요.' },
         { t: 10.4, text: '방식은 달라도 목표는 같아요. 조각이 이어질수록 <em>처음에서 멀어지지 않게</em> 하는 거예요.' }
       ],
@@ -100,7 +100,7 @@ export default {
         });
         const lab = P.text({ x: 380, y: 570, w: 340, text: '조각 1 → 조각 2 → 조각 3 → 조각 4', size: 16, weight: 700, cls: 'muted' });
         tl.at(stage.appendChild(lab.el), 11.3, { from: 'up' });
-        const small = P.text({ x: 760, y: 400, w: 460, text: '막대는 원리를 보여 주는 그림이에요. 드리프트는 조각을 이어 붙인 횟수만큼 쌓여요.', size: 18, weight: 600, cls: 'muted' });
+        const small = P.text({ x: 760, y: 400, w: 460, text: '막대는 원리를 설명하려고 그린 그림이에요. 드리프트는 조각을 이어 붙인 횟수만큼 쌓여요.', size: 18, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(small.el), 11.4, { from: 'up' });
         return {
           tick(t) {
@@ -111,10 +111,10 @@ export default {
       }
     },
     {
-      title: '해소법: 짧게 나누고 레퍼런스 다시', dur: 14,
+      title: '해법: 짧게 나누고 레퍼런스 다시', dur: 14,
       captions: [
         { t: 0, text: '해법은 <em>짧게 나누는</em> 거예요. 짧은 조각으로 여러 번 만들어요.' },
-        { t: 5, text: '조각마다 <em>정면 레퍼런스</em>를 다시 넣어서, 앞 조각의 흐트러진 부분을 그대로 잇지 않아요.' },
+        { t: 5, text: '조각마다 <em>정면 레퍼런스</em>를 다시 넣어서 앞 조각의 흐트러진 부분을 그대로 잇지 않아요.' },
         { t: 9.5, text: '몇 번 이어 붙였으면 그다음엔 <em>레퍼런스로 리셋</em>해요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -151,7 +151,7 @@ export default {
       title: '정리: 짧게, 같은 레퍼런스로', dur: 12,
       captions: [
         { t: 0, text: '원본은 <em>레퍼런스</em>로 따로 챙겨 둬요. 조각마다 다시 꺼내 써요.' },
-        { t: 4.5, text: '몇 번 이어 붙였으면 그다음엔 <em>레퍼런스로 리셋</em>해요.' },
+        { t: 4.5, text: '이어 붙인 횟수가 늘면 <em>레퍼런스로 리셋</em>하고 다시 시작해요.' },
         { t: 8.5, text: '장면이 바뀌는 부분은 AI가 아니라 <em>편집 프로그램</em>에서 붙여요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -161,13 +161,13 @@ export default {
           ['① 짧은 조각으로 나누기', '조각마다 새로 시작'],
           ['② 레퍼런스 다시 넣기', '조각마다 정면 이미지'],
           ['③ 몇 번마다 리셋', '그 이상은 흐트러져요'],
-          ['④ 장면 전환은 편집', '이어붙이지 않기']
+          ['④ 장면 전환은 편집', '이어 붙이지 않기']
         ].map(([label, sub], i) => {
           const b = P.box({ x: 400 + (i % 2) * 400, y: 110 + Math.floor(i / 2) * 150, w: 370, h: 120, label, sub, accent: i === 1 ? 'aqua' : (i === 3 ? 'orange' : '') });
           tl.at(stage.appendChild(b.el), .3 + i * .9, { from: 'up' });
           return b;
         });
-        const final = P.text({ x: 400, y: 430, w: 770, text: '긴 영상은 <em>긴 한 방</em>이 아니라 <em>짧은 여러 방</em>이에요.', size: 27, weight: 800 });
+        const final = P.text({ x: 400, y: 430, w: 770, text: '긴 영상은 <em>짧은 여러 방</em>으로 나눠 만들어요.', size: 27, weight: 800 });
         tl.at(stage.appendChild(final.el), 8.6, { from: 'up' });
         return {
           tick(t) {
@@ -181,7 +181,7 @@ export default {
 
   interaction: {
     title: '드리프트 누적 시뮬레이터',
-    desc: '왼쪽은 <b>자기 출력을 이어 받을 때마다</b> 어긋남이 쌓이고, 오른쪽은 <b>리셋 때마다</b> 원본 레퍼런스에서 다시 출발해요. 시간 슬라이더를 올리면 두 쪽 다 시간이 지나요. "레퍼런스 리셋 켜기"를 누르면 오른쪽은 10초마다 원본으로 돌아가 드리프트가 작게 유지돼요.',
+    desc: '왼쪽은 <b>자기 출력을 이어 받을 때마다</b> 어긋남이 쌓이고, 오른쪽은 <b>리셋 때마다</b> 원본 레퍼런스에서 다시 출발해요. 시간 슬라이더를 올리면 두 쪽 다 시간이 지나요. "레퍼런스 리셋 켜기"를 누르면 오른쪽은 10초마다 원본으로 돌아가 드리프트가 크게 쌓이지 않아요.',
     mount(el, P) {
       let t = 0, resetOn = false;
       const SRC = P.charSrc('base');
@@ -193,7 +193,7 @@ export default {
         const card = P.h('div', { class: 'sim-card' }, P.h('div', { class: 'sim-card-h' }, title), frame, P.h('div', { class: 'sim-lab' }, '일치도'), meter, val);
         return { card, img, meter, val };
       };
-      const chain = mk('이어붙이기만 (조각마다 앞 조각 참고)');
+      const chain = mk('이어 붙이기만 (조각마다 앞 조각 참고)');
       const fresh = mk('레퍼런스 리셋 (10초마다 원본으로)');
       const toggle = P.h('button', { class: 'btn primary', type: 'button' }, '레퍼런스 리셋 켜기');
       const rewind = P.h('button', { class: 'btn', type: 'button' }, '처음으로');

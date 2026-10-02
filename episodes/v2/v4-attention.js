@@ -20,7 +20,7 @@ export default {
   track: 'S4',
   title: 'AI는 문장의 어디를 보고 있을까',
   subtitle: '트랜스포머 어텐션',
-  summary: '"쿼카가 공책을 가방에 넣었는데 그게 너무 컸다"에서 \'그게\'는 공책일까 가방일까요. AI는 낱말마다 다른 낱말을 얼마나 볼지 점수를 매겨 뜻을 정해요. 어텐션의 원리와, 긴 자료의 중간을 놓치는 이유를 파고들어요.',
+  summary: '"쿼카가 공책을 가방에 넣었는데 그게 너무 컸다"에서 \'그게\'는 공책일까 가방일까요. AI는 낱말마다 다른 낱말을 얼마나 볼지 점수를 매겨 뜻을 정해요. 어텐션의 원리와 긴 자료의 가운데를 놓치는 이유를 짚어요.',
   keywords: ['어텐션', '셀프 어텐션', '트랜스포머', '쿼리·키·값', '소프트맥스', '멀티헤드', '위치 인코딩', '긴 문맥', 'Lost in the Middle', '위치 편향'],
 
   scenes: [
@@ -100,7 +100,7 @@ export default {
       title: '2017년 연구가 바꾼 것', dur: 13,
       captions: [
         { t: 0, text: '2017년 연구는 차례로 읽는 구조를 버리고 <em>어텐션만</em>으로 번역 모델을 만들었어요.' },
-        { t: 5, text: '한꺼번에 계산하니 빨라졌고, 지금 쓰는 대화형 AI 대부분이 이 <em>트랜스포머</em> 구조 위에 있어요.' },
+        { t: 5, text: '한꺼번에 계산하니 빨라졌고, 지금 쓰는 대화형 AI 대부분이 이 <em>트랜스포머</em> 구조로 만들어졌어요.' },
         { t: 9.5, text: '어텐션은 순서를 모르니 <em>위치 정보</em>를 따로 더해 줘요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -117,7 +117,7 @@ export default {
         });
         const fact = P.chip({ x: 340, y: 340, text: '영→독 BLEU 28.4 · GPU 8대·3.5일', color: 'gray', size: 20 });
         tl.at(stage.appendChild(fact.el), 5.4, { from: 'pop' });
-        const final = P.text({ x: 340, y: 420, w: 760, text: '지금 대화형 AI 대부분이 이 <em>트랜스포머</em> 구조 위에 있어요.', size: 26, weight: 700, cls: 'muted' });
+        const final = P.text({ x: 340, y: 420, w: 760, text: '지금 대화형 AI 대부분이 이 <em>트랜스포머</em> 구조로 만들어졌어요.', size: 26, weight: 700, cls: 'muted' });
         tl.at(stage.appendChild(final.el), 9.7, { from: 'up' });
         return {
           tick(t) {
@@ -137,7 +137,7 @@ export default {
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 340, size: 300, pose: 'oops' });
         stage.append(q.el);
-        const note = P.text({ x: 340, y: 110, w: 760, text: '그림은 <i>원리</i>를 보여줘요. 실제 정답률 수치는 아니에요.', size: 18, weight: 600, cls: 'muted' });
+        const note = P.text({ x: 340, y: 110, w: 760, text: '그림은 <i>원리</i>를 설명하려고 그렸어요. 실제 정답률 수치는 아니에요.', size: 18, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(note.el), .3, { from: 'up' });
         const heights = [88, 70, 54, 40, 54, 70, 88];
         const baseY = 560, barW = 56, gap = 20;
@@ -164,7 +164,7 @@ export default {
     {
       title: '정리: 어디에 둘까', dur: 12,
       captions: [
-        { t: 0, text: 'AI는 모든 글자를 똑같이 보지 않아요. <em>어디에 두느냐</em>가 답을 바꿔요.' },
+        { t: 0, text: 'AI는 모든 글자를 똑같이 보지 않아요. <em>어디에 두느냐</em>에 따라 답이 달라져요.' },
         { t: 4.5, text: '긴 자료는 <em>나눠서</em> 묻고, 근거 문장을 인용하게 해서 확인해요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -180,7 +180,7 @@ export default {
           tl.at(stage.appendChild(b.el), .3 + i * .7, { from: 'up' });
           return b;
         });
-        const final = P.text({ x: 380, y: 480, w: 760, text: 'AI는 모든 글자를 <i>똑같이</i> 보지 않아요. <em>어디에 두느냐</em>가 답을 바꿔요.', size: 27, weight: 800 });
+        const final = P.text({ x: 380, y: 480, w: 760, text: 'AI는 모든 글자를 <i>똑같이</i> 보지 않아요. <em>어디에 두느냐</em>에 따라 답이 달라져요.', size: 27, weight: 800 });
         tl.at(stage.appendChild(final.el), 5.0, { from: 'up' });
         return {
           tick(t) {
@@ -194,7 +194,7 @@ export default {
 
   interaction: {
     title: '어텐션 손전등',
-    desc: '문장 속 한 낱말을 고르면, 그 낱말이 <b>다른 낱말을 얼마나 보는지</b> 가중치로 보여줘요. "손전등 켜기"를 누르면 가장 많이 보는 낱말이 가장 진하게 빛나요. 문장을 바꾸면 같은 \'그게\'도 가중치가 다른 낱말로 옮겨가요. 아래 슬라이더는 긴 자료에서 정답 위치에 따라 찾기 쉬운 정도가 달라지는 걸 보여주는 원리 그림이에요(실제 논문 수치가 아니에요).',
+    desc: '문장 속 한 낱말을 고르면 그 낱말이 <b>다른 낱말을 얼마나 보는지</b> 가중치로 보여 줘요. "손전등 켜기"를 누르면 가장 많이 보는 낱말이 가장 진하게 빛나요. 문장을 바꾸면 같은 \'그게\'도 가중치가 다른 낱말로 옮겨 가요. 아래 슬라이더는 긴 자료에서 정답 위치에 따라 찾기 쉬운 정도가 어떻게 달라지는지 그린 원리 그림이에요(실제 논문 수치가 아니에요).',
     mount(el, P) {
       const SENT = { A: { tokens: SENT_A, weights: W_A }, B: { tokens: SENT_B, weights: W_B } };
       const BASE_POS = [4, 3, 6];
@@ -355,7 +355,7 @@ export default {
   ],
   script: `"쿼카가 공책을 가방에 넣었는데 그게 너무 컸다." 여기서 '그게'가 가방인지 공책인지, AI는 다른 낱말을 얼마나 볼지 점수를 매겨서 정해요.
 
-낱말마다 질문·이름표·내용이라는 숫자 묶음을 만들고, 질문과 이름표가 맞을수록 큰 점수를 줘요. 점수 합이 100퍼센트가 되게 나누는 걸 소프트맥스, 그 비율로 내용을 섞는 걸 어텐션이라고 해요. 2017년 연구는 이 어텐션만으로 번역 모델을 만들었고, 지금 대화형 AI 대부분이 이 트랜스포머 구조 위에 있어요.
+낱말마다 질문·이름표·내용이라는 숫자 묶음을 만들고, 질문과 이름표가 맞을수록 큰 점수를 줘요. 점수 합이 100퍼센트가 되게 나누는 걸 소프트맥스, 그 비율로 내용을 섞는 걸 어텐션이라고 해요. 2017년 연구는 이 어텐션만으로 번역 모델을 만들었고, 지금 대화형 AI 대부분이 이 트랜스포머 구조로 만들어졌어요.
 
 그런데 자료가 길면 함정이 있어요. 정답이 맨 앞이나 끝에 있으면 잘 찾지만 가운데면 놓치기 쉬워요. 2023년 연구에서는 문서 20개 중 정답이 가운데 있을 때 아예 안 준 것보다 정답률이 낮은 모델도 있었어요.
 

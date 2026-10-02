@@ -4,7 +4,7 @@ export default {
   track: 'S2',
   title: '캐릭터 얼굴은 왜 장면마다 바뀔까',
   subtitle: '일관성과 레퍼런스 이미지',
-  summary: '영상 속 인물이 장면마다 다른 사람처럼 보였던 이유와, 레퍼런스 이미지로 얼굴을 붙잡아 두는 원리를 짚어요. 2026년 영상 모델이 얼굴에 이어 목소리까지 붙잡기 시작한 흐름도요.',
+  summary: '영상 속 인물이 장면마다 다른 사람처럼 보였던 이유와, 레퍼런스 이미지로 얼굴을 붙잡아 두는 원리를 짚어요. 2026년 영상 모델이 얼굴에 이어 목소리까지 붙잡기 시작한 흐름도 다뤄요.',
   keywords: ['일관성', '레퍼런스 이미지', '캐릭터 고정', 'IP-Adapter', 'DreamBooth', '교차 어텐션', '멀티샷', '목소리 일관성'],
 
   scenes: [
@@ -39,9 +39,9 @@ export default {
     {
       title: '왜 자꾸 달라질까', dur: 14,
       captions: [
-        { t: 0, text: '이유는 간단해요. AI는 <em>장면마다 새로</em> 그려요.' },
+        { t: 0, text: 'AI가 <em>장면마다 새로</em> 그려서 그래요.' },
         { t: 5.5, text: '장면마다 <em>새 시드</em>에서 출발하니, 같은 설명이라도 세부가 달라져요.' },
-        { t: 10, text: '똑같은 프롬프트를 넣어도, 얼굴은 매번 다시 뽑히는 거예요.' }
+        { t: 10, text: '똑같은 프롬프트를 넣어도 얼굴은 매번 새로 뽑혀요.' }
       ],
       build({ stage, lines, P, tl }) {
         const prompt = P.box({ x: 60, y: 260, w: 300, h: 140, label: '설명(프롬프트)', sub: '"갈색 털 쿼카, 둥근 안경"', accent: 'ink' });
@@ -68,7 +68,7 @@ export default {
     {
       title: '레퍼런스 이미지 넣기', dur: 14,
       captions: [
-        { t: 0, text: '글자 대신 <em>그림으로 조건</em>을 주면, 모델이 그 그림의 특징을 붙잡아 둬요.' },
+        { t: 0, text: '글자 대신 <em>그림으로 조건</em>을 주면 모델이 그 그림의 특징을 붙잡아 둬요.' },
         { t: 5, text: '이런 방식을 연구에서는 <em>IP-Adapter</em>, <em>DreamBooth</em> 같은 이름으로 불러요.' },
         { t: 9.5, text: '사진 몇 장만으로 같은 얼굴을 여러 장면에 유지하는 기술이에요.' }
       ],
@@ -82,7 +82,7 @@ export default {
         const arr = P.arrow(lines, { x1: 730, y1: 205, x2: 760, y2: 205, width: 4, color: '#1B1F24' });
         const chip = P.chip({ x: 400, y: 340, text: 'IP-Adapter · DreamBooth', color: 'gray', size: 22 });
         tl.at(stage.appendChild(chip.el), 5.4, { from: 'pop' });
-        const final = P.text({ x: 400, y: 400, w: 700, text: '사진 <em>몇 장</em>으로 같은 인물을 여러 장면에 유지하는 방법들이에요.', size: 24, weight: 700 });
+        const final = P.text({ x: 400, y: 400, w: 700, text: '사진 <em>몇 장</em>으로 같은 인물을 여러 장면에 유지하는 방법이에요.', size: 24, weight: 700 });
         tl.at(stage.appendChild(final.el), 9.8, { from: 'up' });
         return {
           tick(t) {
@@ -98,7 +98,7 @@ export default {
       captions: [
         { t: 0, text: '레퍼런스 이미지는 글과 <em>다른 통로</em>로 들어가요. 글은 "무엇을", 사진은 "어떻게 생겼는지"를 전해요.' },
         { t: 5, text: '2026년 영상 연구는 여러 샷에 걸쳐 <em>얼굴과 목소리</em>를 같은 인물에 묶어 두려고 해요.' },
-        { t: 9.5, text: '그래도 완벽하진 않아서, 장면마다 <i>같은 정면 사진</i>을 다시 넣는 게 가장 확실해요.' }
+        { t: 9.5, text: '그래도 완벽하진 않아서 장면마다 <i>같은 정면 사진</i>을 다시 넣는 게 가장 확실해요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 440, size: 260, pose: 'tablet' });
@@ -117,7 +117,7 @@ export default {
         tl.at(stage.appendChild(lab2.el), 1.8, { from: 'pop' });
         const chip2026 = P.chip({ x: 800, y: 340, text: '2026: 얼굴 + 목소리', color: 'orange', size: 20 });
         tl.at(stage.appendChild(chip2026.el), 5.2, { from: 'pop' });
-        const final = P.text({ x: 360, y: 430, w: 720, text: '완벽하진 않아서, 장면마다 <i>같은 정면 사진</i>을 다시 넣는 게 가장 확실해요.', size: 24, weight: 700 });
+        const final = P.text({ x: 360, y: 430, w: 720, text: '완벽하진 않아서 장면마다 <i>같은 정면 사진</i>을 다시 넣는 게 가장 확실해요.', size: 24, weight: 700 });
         tl.at(stage.appendChild(final.el), 9.6, { from: 'up' });
         return {
           tick(t) {
@@ -147,7 +147,7 @@ export default {
         const arrows = [0, 1].map(i => P.arrow(lines, { x1: 640 + i * 230, y1: 220, x2: 660 + i * 230, y2: 220, width: 4, color: '#1B1F24' }));
         const final = P.text({ x: 430, y: 360, w: 700, text: 'AI가 그린 얼굴은 매번 달라질 수 있어요. <em>레퍼런스 이미지</em>로 붙잡아 두세요.', size: 27, weight: 800 });
         tl.at(stage.appendChild(final.el), 5.4, { from: 'up' });
-        const last = P.text({ x: 430, y: 500, w: 700, text: '결과를 비교해 보는 눈이 우리 실력이에요.', size: 26, weight: 700, color: '#B3520F' });
+        const last = P.text({ x: 430, y: 500, w: 700, text: '어느 쪽이 나은지는 나란히 놓고 봐야 보여요.', size: 26, weight: 700, color: '#B3520F' });
         tl.at(stage.appendChild(last.el), 9.3, { from: 'up' });
         return {
           tick(t) {
@@ -162,7 +162,7 @@ export default {
 
   interaction: {
     title: '레퍼런스 켜고 끄기',
-    desc: '아래 장면 카드 4장은 같은 캐릭터를 담고 있어요. 토글이 꺼져 있으면 장면마다 <b>시드 기반</b>으로 색·크기·각도가 조금씩 달라져서 매번 다른 얼굴처럼 보여요. <b>레퍼런스 이미지 넣기</b>를 켜면 4장 모두 참조 이미지 그대로 유지돼요. "다른 시드로 다시"를 눌러 매번 얼마나 달라지는지 비교해 보세요.',
+    desc: '아래 장면 카드 4장은 같은 캐릭터를 담고 있어요. 토글이 꺼져 있으면 장면마다 <b>시드</b>에 따라 색·크기·각도가 조금씩 달라져서 매번 다른 얼굴처럼 보여요. <b>레퍼런스 이미지 넣기</b>를 켜면 4장 모두 참조 이미지와 같은 모습이 돼요. "다른 시드로 다시"를 눌러 매번 얼마나 달라지는지 비교해 보세요.',
     mount(el, P) {
       const EARS = ['귀 작음', '귀 보통', '귀 큼'];
       const FUR = ['털색 연함', '털색 보통', '털색 진함'];
@@ -246,7 +246,7 @@ export default {
   ],
   script: `만든 영상에서 같은 인물인데 장면마다 얼굴이 조금씩 달랐어요. 귀 크기도 털색도 매번 바뀌었죠. 왜 이럴까요?
 
-이유는 간단해요. AI는 장면마다 새 시드에서 다시 그려요. 매번 다른 출발점에서 확률로 그림을 뽑다 보니, 같은 설명이라도 세부가 달라져요.
+AI는 장면마다 새 시드에서 다시 그려요. 매번 다른 출발점에서 확률로 그림을 뽑다 보니, 같은 설명이라도 세부가 달라져요.
 
 레퍼런스 이미지는 글과 다른 통로로 들어가요. 글은 "무엇을", 사진은 "어떻게 생겼는지"를 전하고, 모델은 이 둘을 교차 어텐션으로 합쳐요. IP-Adapter는 이 통로를 분리한 작은 부품이고, DreamBooth는 사진 몇 장으로 대상을 고유 이름표에 묶는 미세조정이에요.
 

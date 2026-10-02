@@ -35,3 +35,5 @@ AI개념극장업데이트(1002)/
 - 2026-10-02 17:5x: 에피소드 40편 집필 에이전트 전부 투입 완료(동시 20개 제한, 완료 순 투입). 누락 포즈 9장 생성(4.5크레딧) → manifest 병합 완료. 02_캐릭터_에셋 복사 완료(40세트).
 - 블로그 에이전트(opus) 투입 순서: 완성된 편부터. 투입됨: E01 E02 E03 E04 E05 E07 E08 E09 E14 E16 E17 E18 E19 E20 E21 E22 E23 E24 E25 E26 E27 E28 E29 E12 E13 E30 E32 E35 E15 E37 E38 E39 E40 E31 E36 E34 E33 E06 E10 | 인포그래픽 160장 전부 완료(E01 푸터 fixtext 보정)
 - 2026-10-02 18:40: 전체 검사 `node test/run.mjs` 모두 통과(EXIT 0), overlap total 0, 커밋 e5adfd8 push 완료. 구글 시트 v2 https://docs.google.com/spreadsheets/d/1tN56VSZwgRS6KgytGVZEcrW4eWdckNhRWgJ72bJrIyA/edit. 납품 zip `Downloads\AI개념극장업데이트(1002).zip`(325MB).
+- 2026-10-02 19:1x: 사용자 지시 "번역투·AI 말투(두 겹이에요 등) 극장 전체 수정 + 글자 칸 밀림 검수". `test/overflow.mjs`(칸 밀림 검사) 신설, 규칙 `test/briefs/V2_POLISH_RULES.md`, 시즌별 opus 에이전트 5개 투입. 끝나면: 자막·썸네일 재생성 → 납품 폴더(01_썸네일·04_자막) 교체 → zip 재생성 → 커밋·push.
+- 2026-10-02 19:5x: 윤문·칸 맞춤 5시즌 완료(40파일, 315줄 변경). overflow.mjs는 말풍선 꼬리를 밀림으로 세지 않게 수정(p-bubble scroll 제외), 에이전트가 뗀 꼬리 3곳(E16·E22·E23) 복원. v5-grading 사실 표현 2곳 정정(80%는 강한 심판 모델 수치, 법 인과 제거). title 바뀐 편 없음 → 썸네일 유지, 자막 40편 재생성·납품 폴더 교체.

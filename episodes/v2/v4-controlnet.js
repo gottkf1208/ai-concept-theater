@@ -24,7 +24,7 @@ export default {
   track: 'S4',
   title: '포즈를 지정하면 왜 말을 잘 들을까',
   subtitle: '컨트롤넷과 조건부 생성',
-  summary: '"왼손 들고 오른쪽을 보는 쿼카"를 글로 열 번 써도 매번 다르게 나와요. 포즈 뼈대 그림 한 장을 조건으로 더하면 한 번에 맞아요. 조건이 원래 그림 실력을 해치지 않는 이유와, 누구·어디에·무엇을 나눠 주는 법을 파고들어요.',
+  summary: '"왼손 들고 오른쪽을 보는 쿼카"를 글로 열 번 써도 매번 다르게 나와요. 포즈 뼈대 그림 한 장을 조건으로 더하면 한 번에 맞아요. 조건을 더해도 원래 그림 실력이 그대로인 이유와 누구·어디에·무엇을 나눠 주는 법을 짚어요.',
   keywords: ['컨트롤넷', '조건부 생성', '포즈 뼈대', '캐니 윤곽선', '깊이 조건', 'zero convolution', '컨트롤 가중치', 'T2I-어댑터', 'OpenPose', '조건 토큰'],
 
   scenes: [
@@ -57,7 +57,7 @@ export default {
         const arrow = P.arrow(lines, { x1: 560, y1: 430, x2: 650, y2: 430, width: 4, color: '#1B1F24' });
         const result = P.box({ x: 660, y: 350, w: 340, h: 170, label: '결과', sub: '자세가 뼈대와 정확히 일치', accent: 'orange', icon: P.ICON.check });
         tl.at(stage.appendChild(result.el), 6.6, { from: 'pop' });
-        const final = P.text({ x: 330, y: 590, w: 870, text: '뼈대 <em>한 장</em>이면, 자세가 한 번에 맞아요.', size: 27, weight: 800 });
+        const final = P.text({ x: 330, y: 590, w: 870, text: '뼈대 <em>한 장</em>이면 자세가 한 번에 맞아요.', size: 27, weight: 800 });
         tl.at(stage.appendChild(final.el), 9.7, { from: 'up' });
         return {
           tick(t) {
@@ -107,7 +107,7 @@ export default {
       title: '왜 그림 실력은 안 망가질까', dur: 13,
       captions: [
         { t: 0, text: '조건을 배우면서 원래 그림 실력이 망가지면 곤란해요.' },
-        { t: 5, text: '그래서 원본은 <em>얼려 두고</em>, 복사한 가지에서 조건만 따로 배워요.' },
+        { t: 5, text: '그래서 원본은 <em>얼려 두고</em> 복사한 가지에서 조건만 따로 배워요.' },
         { t: 9.5, text: '비유하면 숙련된 화가 옆에 <em>자세 코치</em>를 붙인 것과 같아요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -122,7 +122,7 @@ export default {
         tl.at(stage.appendChild(chip.el), 2.2, { from: 'pop' });
         const analogy = P.text({ x: 330, y: 380, w: 760, text: '비유하면 숙련된 화가 옆에 <em>자세 코치</em>를 붙인 것과 같아요.', size: 28, weight: 800 });
         tl.at(stage.appendChild(analogy.el), 5.4, { from: 'up' });
-        const small = P.text({ x: 330, y: 460, w: 760, text: '가벼운 방식인 T2I-어댑터(2023)도 비슷한 원리예요. 요즘 트랜스포머형 모델은 조건 그림을 <em>토큰</em>으로 바꿔 함께 읽는 방식도 써요. 원리는 같아요 — 원래 실력은 두고 조건만 얹어요.', size: 18, weight: 600, cls: 'muted' });
+        const small = P.text({ x: 330, y: 460, w: 760, text: '가벼운 방식인 T2I-어댑터(2023)도 비슷해요. 요즘 트랜스포머형 모델은 조건 그림을 <em>토큰</em>으로 바꿔 함께 읽기도 해요. 어느 쪽이든 원래 실력은 두고 조건만 얹어요.', size: 18, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(small.el), 9.6, { from: 'up' });
         return {
           tick(t) {
@@ -181,7 +181,7 @@ export default {
           tl.at(stage.appendChild(b.el), .3 + i * .7, { from: 'up' });
           return b;
         });
-        const final = P.text({ x: 340, y: 360, w: 850, text: '셋을 나눠서 주면 <em>자세와 배치</em>는 글보다 조건 그림이 훨씬 정확하게 전해요.', size: 27, weight: 800 });
+        const final = P.text({ x: 340, y: 360, w: 850, text: '셋을 나눠 주되 <em>자세와 배치</em>는 글 대신 조건 그림에 맡겨요.', size: 27, weight: 800 });
         tl.at(stage.appendChild(final.el), 5.0, { from: 'up' });
         const small = P.text({ x: 340, y: 420, w: 850, text: '앱에서는 <i>구조 참조</i>, <i>포즈 참조</i>, <i>스케치 모드</i>라는 이름으로 들어 있어요.', size: 20, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(small.el), 8.6, { from: 'up' });
@@ -197,7 +197,7 @@ export default {
 
   interaction: {
     title: '조건 켜고 끄기',
-    desc: '왼쪽에서 자세를 고르면 뼈대가 바뀌어요. <b>조건 켜기</b>를 누르면 오른쪽 쿼카가 그 자세에 맞춰 회전·기울기를 바꿔요. 끄면 시드로 정해진 무작위 자세가 나오고, "다른 시드"로 그 무작위 자세를 바꿀 수 있어요. 실제로는 팔다리 위치까지 정확히 맞지만, 여기서는 회전·기울기로 흉내만 냈어요.',
+    desc: '왼쪽에서 자세를 고르면 뼈대가 바뀌어요. <b>조건 켜기</b>를 누르면 오른쪽 쿼카가 그 자세에 맞춰 회전·기울기를 바꿔요. 끄면 시드로 정해진 무작위 자세가 나오고, "다른 시드"로 그 무작위 자세를 바꿀 수 있어요. 실제로는 팔다리 위치까지 정확히 맞지만 여기서는 회전·기울기로 흉내만 냈어요.',
     mount(el, P) {
       const POSES = [['left', '왼손 들고 오른쪽 보기'], ['wide', '두 팔 벌리기'], ['crouch', '몸 낮춰 앉기']];
       const XFORM = {
@@ -268,7 +268,7 @@ export default {
     '누구는 레퍼런스 사진, 자세는 <b>뼈대 그림</b>, 나머지는 글로 나눠서 줘요.'
   ],
   tip: {
-    body: '학급 캐릭터 포스터는 포즈 뼈대 1장을 미리 만들어 두고 재사용하세요. 컨트롤 가중치는 <b>기본값 1.0</b>에서 시작해, 결과가 뻣뻣하면 조금씩 내려요.',
+    body: '학급 캐릭터 포스터는 포즈 뼈대 1장을 미리 만들어 두고 재사용하세요. 컨트롤 가중치는 <b>기본값 1.0</b>에서 시작해 결과가 뻣뻣하면 조금씩 내려요.',
     extra: '조건 그림과 프롬프트가 서로 다른 말을 하면(뼈대는 앉았는데 글은 달린다) 결과가 어색해져요. 둘을 맞추세요.'
   },
   myth: {

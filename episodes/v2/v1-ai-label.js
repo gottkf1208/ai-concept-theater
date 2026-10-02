@@ -13,7 +13,7 @@ export default {
       captions: [
         { t: 0, text: 'AI로 만든 1분짜리 수업 영상을 학교 유튜브에 올리려던 참이에요.' },
         { t: 5, text: '문득 손이 멈춰요. <em>"이거 AI로 만들었다고 표시해야 하나?"</em>' },
-        { t: 9.5, text: '이 질문, 답을 한번 찾아볼게요.' }
+        { t: 9.5, text: '법은 뭐라고 하고, 학교는 어떻게 하면 될까요?' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 380, size: 300, pose: 'think' });
@@ -34,11 +34,11 @@ export default {
       }
     },
     {
-      title: '표시는 두 겹이에요', dur: 14,
+      title: '표시는 두 가지예요', dur: 14,
       captions: [
-        { t: 0, text: '표시는 두 겹이에요. 하나는 <em>눈에 보이는 표시</em>, 화면 라벨·자막·설명란 문구예요.' },
+        { t: 0, text: '표시는 두 가지예요. 하나는 <em>눈에 보이는 표시</em>, 화면 라벨·자막·설명란 문구예요.' },
         { t: 5, text: '다른 하나는 <em>기계가 읽는 표시</em>예요. 파일 안에 출처를 서명해 담는 C2PA와, 픽셀·소리에 숨기는 워터마크가 있어요.' },
-        { t: 10, text: '둘 다 같은 <em>AI 생성 표시</em>의 방법이에요. 상황에 맞게 같이 써요.' }
+        { t: 10, text: '둘 다 <em>AI로 만들었다고 알리는</em> 방법이에요. 상황에 맞게 같이 써요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 420, size: 260, pose: 'point' });
@@ -51,7 +51,7 @@ export default {
         const chip2 = P.chip({ x: 980, y: 320, text: '워터마크', color: 'ink', size: 18 });
         tl.at(stage.appendChild(chip1.el), 5.3, { from: 'pop' });
         tl.at(stage.appendChild(chip2.el), 5.6, { from: 'pop' });
-        const note = P.text({ x: 340, y: 420, w: 820, text: '둘 다 같은 <em>AI 생성 표시</em>의 방법이에요.', size: 26, weight: 700 });
+        const note = P.text({ x: 340, y: 420, w: 820, text: '둘 다 <em>AI로 만들었다고 알리는</em> 방법이에요.', size: 26, weight: 700 });
         tl.at(stage.appendChild(note.el), 10, { from: 'up' });
         return { tick(t) { q.tick(t, t > 10); } };
       }
@@ -129,7 +129,7 @@ export default {
       title: '우리 학교는 이렇게', dur: 13,
       captions: [
         { t: 0, text: '법의 의무 주체는 AI 서비스를 제공하는 사업자예요.' },
-        { t: 4.5, text: '그래도 학교 유튜브는 사실적인 합성 장면이면 업로드할 때 공개를 체크해야 하는 플랫폼 규칙이 있어요.' },
+        { t: 4.5, text: '그래도 학교 유튜브에 올릴 땐 플랫폼 규칙이 있어요. 사실적인 합성 장면이면 업로드할 때 공개를 체크해야 해요.' },
         { t: 8.5, text: '그래서 먼저 표시해요. 화면 라벨, 설명란 문구, 제작 기록을 남기고, 도구가 넣어 준 출처 정보는 지우지 않아요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -139,7 +139,7 @@ export default {
           ['제작 기록 남기기', '날짜 · 도구 · 검수자']
         ];
         const boxes = rows.map(([label, sub], i) => {
-          const b = P.box({ x: 300, y: 90 + i * 110, w: 900, h: 90, label, sub, accent: 'aqua', icon: P.ICON.check });
+          const b = P.box({ x: 300, y: 90 + i * 110, w: 900, h: 100, label, sub, accent: 'aqua', icon: P.ICON.check });
           tl.at(stage.appendChild(b.el), .4 + i * 1.3, { from: 'up' });
           return b;
         });
@@ -228,7 +228,7 @@ export default {
       const realisticNote = () => {
         if (!realistic) return '사실적인 장면이 아니면(애니메이션 등) 설명란 표시로 충분해요.';
         if (scopeId === 'public') return 'YouTube에 올릴 때는 "변경되거나 합성된 콘텐츠" 공개를 체크해요.';
-        return '사실적인 장면이면 이용자가 명확히 알 수 있게 더 분명하게 표시해요.';
+        return '사실적인 장면이면 보는 사람이 바로 알 수 있게 더 분명하게 표시해요.';
       };
 
       const render = () => {
@@ -268,7 +268,7 @@ export default {
   },
 
   teacherLines: [
-    'AI로 만든 걸 알리는 방법은 <b>눈에 보이는 라벨</b>과 <b>파일 안의 출처 정보</b>, 두 겹이에요.',
+    'AI로 만든 걸 알리는 방법은 <b>눈에 보이는 라벨</b>과 <b>파일 안의 출처 정보</b>, 두 가지예요.',
     '진짜처럼 보이는 AI 사진이나 영상일수록 <b>더 분명하게</b> 알려야 해요.'
   ],
   tip: {
@@ -277,7 +277,7 @@ export default {
   },
   myth: {
     myth: '워터마크는 그림 위에 비치는 로고나 글씨를 말한다.',
-    fact: '눈에 보이는 표시 말고도, 파일 안에 서명된 출처 정보(C2PA)나 픽셀·소리에 숨긴 보이지 않는 워터마크가 있어요. AI 기본법 시행 내용도 딥페이크가 아닌 결과물에는 보이지 않는 워터마크를 허용했어요.'
+    fact: '눈에 보이는 표시 말고도, 파일 안에 서명된 출처 정보(C2PA)나 픽셀·소리에 숨긴 보이지 않는 워터마크가 있어요. AI 기본법 시행에 따라 딥페이크가 아닌 결과물에는 보이지 않는 워터마크도 허용돼요.'
   },
   sources: [
     { title: '국가법령정보센터 — 인공지능 발전과 신뢰 기반 조성 등에 관한 기본법 제31조', url: 'https://www.law.go.kr/LSW//lsSideInfoP.do?lsiSeq=282791&joNo=0031&joBrNo=00&docCls=jo&urlMode=lsScJoRltInfoR', note: '사전 고지·결과물 표시·딥페이크 명확 표시 조문 원문.' },
@@ -287,7 +287,7 @@ export default {
   ],
   script: `AI로 만든 1분짜리 수업 영상을 올리려다 손이 멈췄어요. 이거 AI로 만들었다고 표시해야 하나 싶었거든요.
 
-표시는 두 겹이에요. 화면 라벨·자막·설명란 같은 눈에 보이는 표시, 그리고 파일 안에 출처를 서명하는 C2PA와 보이지 않는 워터마크예요. 2026년 1월 22일 시행된 AI 기본법 제31조는 AI사업자에게 미리 알리기, 결과물 표시하기, 구분하기 어려운 소리·사진·영상은 명확히 알리기를 요구해요.
+표시는 두 가지예요. 화면 라벨·자막·설명란 같은 눈에 보이는 표시, 그리고 파일 안에 출처를 서명하는 C2PA와 보이지 않는 워터마크예요. 2026년 1월 22일 시행된 AI 기본법 제31조는 AI사업자에게 미리 알리기, 결과물 표시하기, 구분하기 어려운 소리·사진·영상은 명확히 알리기를 요구해요.
 
 C2PA는 언제 어떤 도구로 만들고 고쳤는지를 파일에 서명해 담는 표준이에요. 내용을 바꾸면 서명이 깨져 변조를 알 수 있지만, 출처를 보여 줄 뿐 참·거짓은 판정하지 않아요.
 

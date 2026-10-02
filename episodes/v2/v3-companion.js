@@ -4,7 +4,7 @@ export default {
   track: 'S3',
   title: '학생이 AI를 친구라고 느낄 때',
   subtitle: 'AI 동반자 챗봇과 미성년자 보호',
-  summary: '"AI가 제일 나를 이해해요." 다정한 말투, 나를 기억하는 대화가 친구처럼 느껴지게 만들어요. 연구와 평가가 무엇을 경고했는지, 2025~2026년 미국 주법이 무엇을 의무로 정했는지, 교실에서 어떻게 이야기할지 살펴봐요.',
+  summary: '"AI가 제일 나를 이해해요." 다정한 말투, 나를 기억하는 대화가 친구처럼 느껴지게 만들어요. 연구와 평가가 무엇을 경고했는지, 2025~2026년 미국 주법이 무엇을 의무로 정했는지, 교실에서는 어떻게 이야기하면 좋을지까지 담았어요.',
   keywords: ['AI 동반자', 'companion chatbot', '의인화', '정서적 의존', '미성년자 보호', 'SB 243', '3시간 알림', '위기 상담 연결', '109'],
 
   scenes: [
@@ -39,7 +39,7 @@ export default {
     {
       title: '친구처럼 느껴지는 이유', dur: 14,
       captions: [
-        { t: 0, text: '나를 기억하는 대화, 맞장구치는 말투, 감정을 흉내 내는 표현이 <em>친구처럼</em> 느껴지게 만들어요.' },
+        { t: 0, text: '나를 기억하는 대화, 맞장구치는 말투, 감정을 흉내 내는 표현 때문에 AI가 <em>친구처럼</em> 느껴져요.' },
         { t: 5, text: '미국 연방거래위원회는 2025년 이런 챗봇이 <em>친구나 속마음을 털어놓는 상대처럼</em> 소통하도록 설계됐다며 조사를 시작했어요.' },
         { t: 9.5, text: '기계에 사람 같은 마음을 느끼는 걸 <em>의인화</em>라고 불러요.' }
       ],
@@ -95,7 +95,7 @@ export default {
         tl.at(stage.appendChild(chip.el), 9.7, { from: 'pop' });
         const note = P.text({ x: 340, y: 360, w: 860, text: '조건이 아니라 <i>얼마나 썼는지</i>가 갈랐어요. 원인이라는 뜻은 아니에요.', size: 20, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(note.el), 3.2, { from: 'up' });
-        const final = P.text({ x: 340, y: 420, w: 860, text: '많이 쓸수록 <em>안전한 게 아니에요</em>.', size: 28, weight: 800 });
+        const final = P.text({ x: 340, y: 420, w: 860, text: '많이 쓴다고 <em>안전해지지 않아요</em>.', size: 28, weight: 800 });
         tl.at(stage.appendChild(final.el), 10.4, { from: 'up' });
         return {
           tick(t) {
@@ -123,7 +123,7 @@ export default {
           P.arrow(lines, { x1: 600, y1: 190, x2: 640, y2: 190, width: 4, color: '#1B1F24' }),
           P.arrow(lines, { x1: 910, y1: 190, x2: 950, y2: 190, width: 4, color: '#1B1F24' })
         ];
-        const final = P.text({ x: 330, y: 340, w: 890, text: '목표는 같아요. <em>AI임을 알리고</em>, 위험 신호에서 사람에게 연결하는 것.', size: 27, weight: 800 });
+        const final = P.text({ x: 330, y: 340, w: 890, text: '세 법 모두 <em>AI임을 알리고</em>, 위험 신호가 보이면 사람에게 연결하게 해요.', size: 27, weight: 800 });
         tl.at(stage.appendChild(final.el), 9.8, { from: 'up' });
         return {
           tick(t) {
@@ -138,7 +138,7 @@ export default {
       title: '교실에서는', dur: 13,
       captions: [
         { t: 0, text: '금지보다 <em>대화부터</em>예요. 얼마나, 언제, 어떤 얘기를 하는지 물어봐요.' },
-        { t: 4.5, text: 'AI의 다정함은 <em>만들어진 말투</em>라는 것, 3시간 알림이 법으로 생긴 이유를 함께 이야기해요.' },
+        { t: 4.5, text: 'AI의 다정함은 <em>만들어진 말투</em>예요. 3시간 알림이 왜 법으로 생겼는지도 함께 이야기해요.' },
         { t: 8.5, text: '힘든 이야기는 담임·상담 선생님, 자살예방 상담전화 <em>109</em> 같은 사람에게도 꼭 해요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -168,7 +168,7 @@ export default {
 
   interaction: {
     title: '동반자 챗봇 안전 점검표',
-    desc: '가상 챗봇 3종 중 하나를 고르고 <b>연속 대화 시간</b>을 올려 보세요. "점검하기"를 누르면 미국 주법이 요구하는 안전장치 5가지를 이 챗봇이 지키는지 보여줘요. 대화 로그는 결정적 예시이고, 실제 서비스의 점검 결과는 이와 다를 수 있어요.',
+    desc: '가상 챗봇 3종 중 하나를 고르고 <b>연속 대화 시간</b>을 올려 보세요. "점검하기"를 누르면 미국 주법이 요구하는 안전장치 5가지를 이 챗봇이 지키는지 보여줘요. 대화 로그는 늘 같은 예시 대화이고, 실제 서비스를 점검하면 결과가 다를 수 있어요.',
     mount(el, P) {
       const BOTS = {
         study: { label: '공부 도우미형', lines: [['나', '이 문제 다시 설명해줄래?'], ['챗봇', '네, 저는 AI 도우미예요. 어디서부터 헷갈렸어요?']] },
@@ -267,7 +267,7 @@ export default {
     { title: 'Common Sense Media — AI Companions Decoded 위험 평가 (2025-04-30)', url: 'https://www.commonsensemedia.org/press-releases/ai-companions-decoded-common-sense-media-recommends-ai-companion-safety-standards', note: '스탠퍼드 의대 연구실과 공동으로 소셜 AI 동반자를 시험해 미성년자에게 "허용할 수 없는 위험" 등급을 준 평가.' },
     { title: 'Fang 외, How AI and Human Behaviors Shape Psychosocial Effects of Extended Chatbot Use (arXiv 2503.17473, 2025)', url: 'https://arxiv.org/abs/2503.17473', note: '981명, 4주, 30만 건 넘는 메시지를 분석한 무작위 대조 실험. 스스로 더 많이 쓴 참가자일수록 외로움·정서적 의존이 컸다는 결과.' }
   ],
-  script: `상담 시간에 한 학생이 어젯밤 AI랑 새벽까지 얘기했다며 걔가 제일 자신을 이해해 준다고 했어요. 나를 기억하는 대화, 맞장구치는 말투, 감정을 흉내 내는 표현이 친구처럼 느껴지게 만들어요. 미국 연방거래위원회는 2025년 이런 챗봇이 친구나 속마음을 털어놓는 상대처럼 소통하도록 설계됐다며 조사를 시작했어요. 기계에 사람 같은 마음을 느끼는 걸 의인화라고 불러요.
+  script: `상담 시간에 한 학생이 어젯밤 AI랑 새벽까지 얘기했다며 걔가 제일 자신을 이해해 준다고 했어요. 나를 기억하는 대화, 맞장구치는 말투, 감정을 흉내 내는 표현 때문에 AI가 친구처럼 느껴져요. 미국 연방거래위원회는 2025년 이런 챗봇이 친구나 속마음을 털어놓는 상대처럼 소통하도록 설계됐다며 조사를 시작했어요. 기계에 사람 같은 마음을 느끼는 걸 의인화라고 불러요.
 
 2025년 진행된 4주 실험에는 981명이 참여했는데, 스스로 AI를 많이 쓴 사람일수록 더 외롭고 실제 사람과의 교류가 적었어요. 미국의 한 비영리 평가 기관은 동반자 앱들을 시험해 18세 미만에게는 허용할 수 없는 위험이라고 봤고, 10대 셋 중 한 명은 진지한 이야기를 사람 대신 AI와 했다고 답했어요.
 

@@ -37,7 +37,7 @@ export default {
       title: '소리를 글자로 추정해요', dur: 14,
       captions: [
         { t: 0, text: '자막 AI는 소리 파형을 아주 짧은 조각으로 잘라요.' },
-        { t: 5, text: '조각마다 특징을 뽑아서, <em>문맥과 함께</em> "이 소리는 어떤 글자일까"를 확률로 추정해요.' },
+        { t: 5, text: '조각마다 특징을 뽑아서 <em>문맥과 함께</em> "이 소리는 어떤 글자일까"를 확률로 추정해요.' },
         { t: 10, text: 'Whisper 같은 모델은 <em>68만 시간</em>의 인터넷 음성으로 배워서 잡음과 억양에 꽤 강해요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -115,7 +115,7 @@ export default {
         tl.at(stage.appendChild(regChip.el), 5, { from: 'pop' });
         const warnChip = P.chip({ x: 340, y: 566, text: '거짓 양성: 안 한 말이 끼어들었어요', color: 'orange', size: 19 });
         tl.at(stage.appendChild(warnChip.el), 11.6, { from: 'pop' });
-        const final = P.text({ x: 340, y: 608, w: 860, text: '가산점은 효과가 있지만, <em>너무 크면 위험</em>해요.', size: 25, weight: 800 });
+        const final = P.text({ x: 340, y: 608, w: 860, text: '가산점은 효과가 있지만 <em>너무 크면 위험</em>해요.', size: 25, weight: 800 });
         tl.at(stage.appendChild(final.el), 12.1, { from: 'up' });
 
         const paint = (row, score, isTop, warn) => {
@@ -200,7 +200,7 @@ export default {
 
   interaction: {
     title: '단어장 가산점 다이얼',
-    desc: '네 줄의 음성 인식 결과예요. <b>단어장에 등록</b> 버튼으로 "한소리"·"사회 시간"을 커스텀 보캐뷸러리에 넣고, <b>가산점</b> 슬라이더를 올려 보세요. 처음 두 줄은 가산점을 조금만 올려도 바로잡히지만, 가산점을 너무 크게 주면 실제로 말하지 않은 "한소리"가 끼어드는 <b>거짓 양성</b>이 생겨요. "정답 보기"로 실제 발화를 확인할 수 있어요.',
+    desc: '네 줄의 음성 인식 결과예요. <b>단어장에 등록</b> 버튼으로 "한소리"·"사회 시간"을 커스텀 보캐뷸러리에 넣고, <b>가산점</b> 슬라이더를 올려 보세요. 처음 두 줄은 가산점을 조금만 올려도 바로잡히지만 가산점을 너무 크게 주면 실제로 말하지 않은 "한소리"가 끼어드는 <b>거짓 양성</b>이 생겨요. "정답 보기"로 실제 발화를 확인할 수 있어요.',
     mount(el, P) {
       const LINES = [
         { say: '한소리 학생', cands: [{ w: '한소라', s: .46 }, { w: '한소리', s: .41, boost: true, right: true }, { w: '한솔이', s: .13 }] },
@@ -291,7 +291,7 @@ export default {
 
   teacherLines: [
     '자막 AI는 소리를 듣고 <b>가장 그럴듯한 글자</b>를 골라요. 그래서 처음 듣는 이름은 잘 틀려요.',
-    '단어장에 이름을 넣으면 그 이름이 더 잘 나오지만, <b>너무 세게</b> 넣으면 안 한 말도 끼어들어요.'
+    '단어장에 이름을 넣으면 그 이름이 더 잘 나오지만 <b>너무 세게</b> 넣으면 안 한 말도 끼어들어요.'
   ],
   tip: {
     body: '자막 검수는 <b>고유명사 → 숫자 → 동음이의어</b> 순서로 보면 놓치는 게 줄어요. 번역 자막은 한국어 자막을 먼저 고친 다음에 번역해요. 앞 오타가 그대로 번역되거든요.',
@@ -307,7 +307,7 @@ export default {
     { title: 'Amazon Transcribe — Custom vocabularies', url: 'https://docs.aws.amazon.com/transcribe/latest/dg/custom-vocabulary.html', note: '브랜드명·고유명사용 단어장 기능과, 개인정보를 넣지 말라는 주의 사항이에요.' },
     { title: 'SeamlessM4T: Massively Multilingual & Multimodal Machine Translation (arXiv, 2023)', url: 'https://arxiv.org/abs/2308.11596', note: '인식 뒤에 번역을 붙이는 캐스케이드 방식과, 한 번에 처리하는 통합 모델을 비교한 연구예요.' }
   ],
-  script: `자동 자막에서 "사회 시간"이 "사회시장"으로, 친구 이름이 엉뚱한 낱말로 나온 적 있으세요? 음성 인식이 왜 가끔 헛짚는지, 단어장을 쓰면 왜 또 다른 문제가 생기는지 알아봐요.
+  script: `자동 자막에서 "사회 시간"이 "사회시장"으로, 친구 이름이 엉뚱한 낱말로 나온 적 있으세요? 음성 인식은 왜 가끔 헛짚을까요? 단어장을 쓰면 또 다른 문제가 생기기도 해요.
 
 음성 인식은 소리를 짧은 조각으로 잘라 특징을 뽑고, 문맥과 함께 가장 그럴듯한 글자를 확률로 골라요. 처음 듣는 이름은 아는 낱말로 바꿔 쓰고요. 커스텀 보캐뷸러리라는 단어장에 낱말을 등록하면 그 후보에 가산점이 붙어 더 자주 골라지는데, 이걸 컨텍스트 바이어싱이라고 해요. 다만 가산점을 너무 크게 주면 말하지 않은 낱말까지 끼어드는 오인식이 늘어난다고 공식 문서들이 경고해요.
 

@@ -13,7 +13,7 @@ export default {
       captions: [
         { t: 0, text: '학생 생활기록부 문구를 AI에게 다듬어 달라고 하려던 참이에요.' },
         { t: 5, text: '그런데 손이 멈칫해요. <em>"이름이랑 성적, 넣어도 되나?"</em>' },
-        { t: 9.5, text: '그 답, 하나씩 짚어볼게요.' }
+        { t: 9.5, text: '넣어도 되는 것과 가려야 하는 것, 어떻게 나눌까요?' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 60, y: 300, size: 360, pose: 'oops' });
@@ -24,7 +24,7 @@ export default {
         tl.at(stage.appendChild(preview.el), 1.2, { from: 'up' });
         const b = P.bubble({ x: 380, y: 320, w: 620, text: '"<b>이름이랑 성적</b>, 넣어도 되나?"', tail: 'left', tone: 'orange', size: 27 });
         tl.at(stage.appendChild(b.el), 5, { from: 'up' });
-        const qq = P.text({ x: 380, y: 560, w: 760, text: '그 답, 하나씩 짚어볼게요.', size: 30, weight: 800 });
+        const qq = P.text({ x: 380, y: 560, w: 760, text: '넣어도 되는 것, 가려야 하는 것은?', size: 30, weight: 800 });
         tl.at(stage.appendChild(qq.el), 9.6, { from: 'up' });
         return {
           tick(t) {
@@ -68,7 +68,7 @@ export default {
       captions: [
         { t: 0, text: '이름·사진·학번·성적·건강·가정 사정은 <em>개인정보</em>예요.' },
         { t: 5, text: '개인정보보호위원회는 2025년에 생성형 AI <em>개인정보 처리 안내서</em>를 냈어요.' },
-        { t: 9.5, text: '2025년 12월 수행평가 AI 관리 방안도 다섯 영역 중 하나로 <em>개인정보 보호</em>를 넣고, 입력에 각별히 주의하라고 했어요.' }
+        { t: 9.5, text: '2025년 12월 수행평가 AI 관리 방안도 다섯 영역에 <em>개인정보 보호</em>를 넣고, 입력에 각별히 주의하라고 했어요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 440, size: 260, pose: 'think' });
@@ -92,11 +92,11 @@ export default {
       }
     },
     {
-      title: '수행평가와 기록: 금지가 아니라 규칙이 먼저', dur: 14,
+      title: '수행평가와 기록: 규칙부터 알려요', dur: 14,
       captions: [
         { t: 0, text: '관리 방안은 AI를 <em>일률적으로 막지 않아요</em>.' },
         { t: 5, text: '평가 전에 허용 범위와 금지 행위를 미리 알리고, 학생이 쓴 AI 종류와 프롬프트를 <em>출처로 밝히게</em> 해요.' },
-        { t: 9.5, text: '결과물만 받지 않고 수업 시간에 과정을 직접 보는 평가로 바꿔요. 기록도 <em>교사가 직접 본 것</em>이 바탕이에요.' }
+        { t: 9.5, text: '결과물만 받지 않고 수업 시간에 과정을 직접 보는 평가로 바꿔요. 기록도 <em>교사가 직접 본 것</em>을 바탕으로 해요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 380, size: 280, pose: 'point' });
@@ -227,7 +227,7 @@ export default {
       function renderResult() {
         const { out, changes } = maskText(ta.value);
         if (!changes.length) {
-          resultBox.replaceChildren(P.h('p', { class: 'sim-priv-placeholder' }, '바뀐 항목이 없어요. 이름 · 학번 · 점수 · 건강 정보가 담긴 문장으로 다시 시도해 보세요.'));
+          resultBox.replaceChildren(P.h('p', { class: 'sim-priv-placeholder' }, '바뀐 항목이 없어요. 이름 · 학번 · 점수 · 건강 정보가 담긴 문장으로 다시 해 보세요.'));
           return;
         }
         const tags = P.h('div', { class: 'sim-priv-tags' },
@@ -292,7 +292,7 @@ export default {
   },
   myth: {
     myth: '내 계정에서만 쓰니까 학생 정보를 넣어도 괜찮다.',
-    fact: '입력은 서비스 서버로 가고, 설정에 따라 수년간 보관되거나 사람이 검토하거나 학습에 쓰일 수 있어요. 학생 정보는 개인정보라서 넣기 전에 가리고 최소로 넣어야 해요.'
+    fact: '입력은 서비스 서버로 가고, 설정에 따라 수년간 보관되거나 사람이 검토하거나 학습에 쓰일 수 있어요. 학생 정보는 개인정보라서 넣기 전에 가리고, 꼭 필요한 만큼만 넣어야 해요.'
   },
   sources: [
     { title: '교육부 보도자료 — 수행평가 시, 인공지능(AI) 활용 관리 방안', url: 'https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=294&boardSeq=104984&lev=0&m=020402', note: '일률 금지가 아닌 관리, 5개 영역, 출처 표기와 개인정보 주의.' },

@@ -60,7 +60,7 @@ export default {
           ['AI 기법과 응용', '이해 → 적용 → 창조', ''],
           ['AI 시스템 설계', '이해 → 적용 → 창조', 'ink']
         ].map(([label, sub, acc], i) => {
-          const b = P.box({ x: 340, y: 110 + i * 105, w: 860, h: 90, label, sub, accent: acc, icon: P.ICON.brain });
+          const b = P.box({ x: 340, y: 105 + i * 110, w: 860, h: 100, label, sub, accent: acc, icon: P.ICON.brain });
           tl.at(stage.appendChild(b.el), .3 + i * .9, { from: 'left' });
           return b;
         });
@@ -92,11 +92,11 @@ export default {
           ['AI 교수법', '습득 → 심화 → 창조', 'orange'],
           ['전문성 학습을 위한 AI', '습득 → 심화 → 창조', 'aqua']
         ].map(([label, sub, acc], i) => {
-          const b = P.box({ x: 340, y: 100 + i * 100, w: 860, h: 86, label, sub, accent: acc, icon: P.ICON.brain });
+          const b = P.box({ x: 340, y: 88 + i * 102, w: 860, h: 96, label, sub, accent: acc, icon: P.ICON.brain });
           tl.at(stage.appendChild(b.el), .3 + i * .75, { from: 'left' });
           return b;
         });
-        const final = P.text({ x: 340, y: 600, w: 860, text: '다섯 차원 × 세 단계 = <em>15개 역량</em>이에요.', size: 27, weight: 800 });
+        const final = P.text({ x: 340, y: 606, w: 860, text: '다섯 차원 × 세 단계 = <em>15개 역량</em>이에요.', size: 27, weight: 800 });
         tl.at(stage.appendChild(final.el), 9.1, { from: 'up' });
         return {
           tick(t) {
@@ -111,7 +111,7 @@ export default {
       captions: [
         { t: 0, text: '2026년 6월 유럽연합 집행위원회와 OECD가 AILit 틀 확정판을 내놨어요.' },
         { t: 5, text: '<em>Engage</em>(알아보고 판단하기) · <em>Create</em>(함께 만들기) · <em>Manage</em>(쓸지 말지 관리하기) · <em>Shape</em>(사람 가치로 더 낫게 만들기)예요.' },
-        { t: 10, text: '100개국 넘는 곳에서 2,000명 넘게 의견을 모았고, PISA 2029 평가에도 연결돼요.' }
+        { t: 10, text: '100개국 넘는 곳에서 2,000명 넘게 의견을 모았고 PISA 2029 평가에도 연결돼요.' }
       ],
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 330, size: 300, pose: 'point' });
@@ -175,7 +175,7 @@ export default {
 
   interaction: {
     title: '우리 수업 AILit 지도',
-    desc: '수업 활동 10개 중 하는 것을 체크해 보세요. 각 활동은 <b>Engage·Create·Manage·Shape</b> 네 영역 중 하나에 연결돼요. "예시 학기 채우기"를 누르면 네 영역을 고르게 채운 예시가 들어가요. 활동과 영역 연결은 연구회 예시예요. 영역 이름은 2026년 확정판 기준이에요.',
+    desc: '수업 활동 10개 중 지금 하고 있는 활동에 체크해 보세요. 각 활동은 <b>Engage·Create·Manage·Shape</b> 네 영역 중 하나에 연결돼요. "예시 학기 채우기"를 누르면 네 영역을 고르게 채운 예시가 들어가요. 활동과 영역 연결은 연구회 예시예요. 영역 이름은 2026년 확정판 기준이에요.',
     mount(el, P) {
       const ACTS = [
         { t: 'AI 답에서 틀린 곳 찾기', area: 'engage', stage: '적용' },
