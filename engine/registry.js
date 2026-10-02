@@ -2,10 +2,16 @@
 export const TRACKS = {
   A: { label: '트랙 A', desc: 'AI 영상을 만들다 생기는 "왜?"' },
   B: { label: '트랙 B', desc: '요즘 AI를 따라잡는 필수 개념' },
-  C: { label: '트랙 C', desc: '원리를 끝까지 파고드는 심화편' }
+  C: { label: '트랙 C', desc: '원리를 끝까지 파고드는 심화편' },
+  /* v2 (2026-10): 시즌이 곧 트랙 */
+  S1: { label: '시즌 1 · 입문', desc: 'AI와 첫 대화' },
+  S2: { label: '시즌 2 · 기본', desc: '이미지·영상을 만들며 배우는 원리' },
+  S3: { label: '시즌 3 · 활용', desc: '에이전트의 시대' },
+  S4: { label: '시즌 4 · 심화', desc: '원리를 끝까지 파고들기' },
+  S5: { label: '시즌 5 · 판단', desc: '2026년의 AI, 교실의 판단' }
 };
 
-export const EPISODES = [
+export const EPISODES_V1 = [
   { no: 1, slug: 'e1-agent-mcp', file: 'episodes/e1-agent-mcp.js', status: 'ready' },
   { no: 2, slug: 'e2-seed', file: 'episodes/e2-seed.js', status: 'ready' },
   { no: 3, slug: 'e3-diffusion', file: 'episodes/e3-diffusion.js', status: 'ready' },
@@ -42,16 +48,60 @@ export const EPISODES = [
   { no: 30, slug: 's5-long-video', file: 'episodes/s5/s5-long-video.js', status: 'ready' }
 ];
 
+/* v2 전면 개편(2026-10): 40편. 완성되면 위 목록을 대체해요. */
+export const EPISODES = [
+  { no: 1, slug: 'v1-next-token', file: 'episodes/v2/v1-next-token.js', status: 'ready', track: 'S1' },
+  { no: 2, slug: 'v1-context', file: 'episodes/v2/v1-context.js', status: 'ready', track: 'S1' },
+  { no: 3, slug: 'v1-prompt-parts', file: 'episodes/v2/v1-prompt-parts.js', status: 'ready', track: 'S1' },
+  { no: 4, slug: 'v1-hallucination', file: 'episodes/v2/v1-hallucination.js', status: 'ready', track: 'S1' },
+  { no: 5, slug: 'v1-rag', file: 'episodes/v2/v1-rag.js', status: 'ready', track: 'S1' },
+  { no: 6, slug: 'v1-reasoning', file: 'episodes/v2/v1-reasoning.js', status: 'ready', track: 'S1' },
+  { no: 7, slug: 'v1-ai-label', file: 'episodes/v2/v1-ai-label.js', status: 'ready', track: 'S1' },
+  { no: 8, slug: 'v1-student-privacy', file: 'episodes/v2/v1-student-privacy.js', status: 'ready', track: 'S1' },
+  { no: 9, slug: 'v2-seed', file: 'episodes/v2/v2-seed.js', status: 'ready', track: 'S2' },
+  { no: 10, slug: 'v2-text-render', file: 'episodes/v2/v2-text-render.js', status: 'ready', track: 'S2' },
+  { no: 11, slug: 'v2-english-prompt', file: 'episodes/v2/v2-english-prompt.js', status: 'ready', track: 'S2' },
+  { no: 12, slug: 'v2-consistency', file: 'episodes/v2/v2-consistency.js', status: 'ready', track: 'S2' },
+  { no: 13, slug: 'v2-motion-prompt', file: 'episodes/v2/v2-motion-prompt.js', status: 'ready', track: 'S2' },
+  { no: 14, slug: 'v2-video-cost', file: 'episodes/v2/v2-video-cost.js', status: 'ready', track: 'S2' },
+  { no: 15, slug: 'v2-voice', file: 'episodes/v2/v2-voice.js', status: 'ready', track: 'S2' },
+  { no: 16, slug: 'v2-subtitle', file: 'episodes/v2/v2-subtitle.js', status: 'ready', track: 'S2' },
+  { no: 17, slug: 'v3-agent-mcp', file: 'episodes/v2/v3-agent-mcp.js', status: 'ready', track: 'S3' },
+  { no: 18, slug: 'v3-computer-use', file: 'episodes/v2/v3-computer-use.js', status: 'ready', track: 'S3' },
+  { no: 19, slug: 'v3-prompt-injection', file: 'episodes/v2/v3-prompt-injection.js', status: 'ready', track: 'S3' },
+  { no: 20, slug: 'v3-tool-use', file: 'episodes/v2/v3-tool-use.js', status: 'ready', track: 'S3' },
+  { no: 21, slug: 'v3-vibecoding', file: 'episodes/v2/v3-vibecoding.js', status: 'ready', track: 'S3' },
+  { no: 22, slug: 'v3-multimodal', file: 'episodes/v2/v3-multimodal.js', status: 'ready', track: 'S3' },
+  { no: 23, slug: 'v3-memory', file: 'episodes/v2/v3-memory.js', status: 'ready', track: 'S3' },
+  { no: 24, slug: 'v3-companion', file: 'episodes/v2/v3-companion.js', status: 'ready', track: 'S3' },
+  { no: 25, slug: 'v4-degradation', file: 'episodes/v2/v4-degradation.js', status: 'ready', track: 'S4' },
+  { no: 26, slug: 'v4-upscale', file: 'episodes/v2/v4-upscale.js', status: 'ready', track: 'S4' },
+  { no: 27, slug: 'v4-guidance', file: 'episodes/v2/v4-guidance.js', status: 'ready', track: 'S4' },
+  { no: 28, slug: 'v4-controlnet', file: 'episodes/v2/v4-controlnet.js', status: 'ready', track: 'S4' },
+  { no: 29, slug: 'v4-long-video', file: 'episodes/v2/v4-long-video.js', status: 'ready', track: 'S4' },
+  { no: 30, slug: 'v4-attention', file: 'episodes/v2/v4-attention.js', status: 'ready', track: 'S4' },
+  { no: 31, slug: 'v4-embedding', file: 'episodes/v2/v4-embedding.js', status: 'ready', track: 'S4' },
+  { no: 32, slug: 'v4-rlhf', file: 'episodes/v2/v4-rlhf.js', status: 'ready', track: 'S4' },
+  { no: 33, slug: 'v5-model-collapse', file: 'episodes/v2/v5-model-collapse.js', status: 'ready', track: 'S5' },
+  { no: 34, slug: 'v5-open-weight', file: 'episodes/v2/v5-open-weight.js', status: 'ready', track: 'S5' },
+  { no: 35, slug: 'v5-on-device', file: 'episodes/v2/v5-on-device.js', status: 'ready', track: 'S5' },
+  { no: 36, slug: 'v5-grading', file: 'episodes/v2/v5-grading.js', status: 'ready', track: 'S5' },
+  { no: 37, slug: 'v5-ai-literacy', file: 'episodes/v2/v5-ai-literacy.js', status: 'ready', track: 'S5' },
+  { no: 38, slug: 'v5-law-timeline', file: 'episodes/v2/v5-law-timeline.js', status: 'ready', track: 'S5' },
+  { no: 39, slug: 'v5-energy', file: 'episodes/v2/v5-energy.js', status: 'ready', track: 'S5' },
+  { no: 40, slug: 'v5-choose', file: 'episodes/v2/v5-choose.js', status: 'ready', track: 'S5' }
+];
+
 export async function loadEpisode(slug, base = '') {
   const e = EPISODES.find(x => x.slug === slug);
   if (!e) return null;
   const mod = await import(new URL('../' + e.file, import.meta.url).href);
-  return Object.assign({ no: e.no, status: e.status }, mod.default);
+  return Object.assign({ no: e.no, status: e.status }, mod.default, e.track ? { track: e.track } : {});
 }
 export async function loadAll(base = '') {
   const out = [];
   for (const e of EPISODES) {
-    try { const mod = await import(new URL('../' + e.file, import.meta.url).href); out.push(Object.assign({ no: e.no, status: e.status, slug: e.slug }, mod.default)); }
+    try { const mod = await import(new URL('../' + e.file, import.meta.url).href); out.push(Object.assign({ no: e.no, status: e.status, slug: e.slug }, mod.default, e.track ? { track: e.track } : {})); }
     catch (err) { out.push({ no: e.no, status: 'soon', slug: e.slug, title: e.slug, missing: true }); }
   }
   return out;

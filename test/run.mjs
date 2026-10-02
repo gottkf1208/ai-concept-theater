@@ -6,7 +6,7 @@ import { mkdirSync } from 'node:fs';
 const BASE = process.argv[2] || 'http://localhost:5310/';
 const OUT = 'test/screens';
 mkdirSync(OUT, { recursive: true });
-const SLUGS = (process.env.SLUGS || 'e1-agent-mcp,e2-seed,e3-diffusion,e4-plausible,e5-context,e6-rag,n1-consistency,n2-video-cost,n3-english-prompt,n4-reasoning,n5-vibecoding,n6-ai-label,s3-voice,s3-avatar,s3-music,s3-subtitle,s3-vision,s3-role,s4-grading,s4-sycophancy,s4-privacy,s4-calc,s4-search,s4-choose,s5-degradation,s5-motion-prompt,s5-upscale,s5-guidance,s5-controlnet,s5-long-video').split(',');
+const SLUGS = (process.env.SLUGS || 'v1-next-token,v1-context,v1-prompt-parts,v1-hallucination,v1-rag,v1-reasoning,v1-ai-label,v1-student-privacy,v2-seed,v2-text-render,v2-english-prompt,v2-consistency,v2-motion-prompt,v2-video-cost,v2-voice,v2-subtitle,v3-agent-mcp,v3-computer-use,v3-prompt-injection,v3-tool-use,v3-vibecoding,v3-multimodal,v3-memory,v3-companion,v4-degradation,v4-upscale,v4-guidance,v4-controlnet,v4-long-video,v4-attention,v4-embedding,v4-rlhf,v5-model-collapse,v5-open-weight,v5-on-device,v5-grading,v5-ai-literacy,v5-law-timeline,v5-energy,v5-choose').split(',');
 const VIEWPORTS = [{ name: 'desk', width: 1440, height: 900 }, { name: 'phone', width: 390, height: 844 }];
 let fails = 0;
 const ok = (cond, msg) => { if (cond) console.log('  ✓', msg); else { fails++; console.log('  ✗', msg); } };
