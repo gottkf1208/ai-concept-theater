@@ -1,0 +1,1336 @@
+
+== desk 1440×900 ==
+  ✓ index: 가로 넘침 없음
+  ✓ index: 에피소드 카드 6개 이상
+  ✓ index: 오늘의 한 토막
+  ✓ index: 검색 필터 동작(1개)
+-- t7-sonnet-opus-55
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-gpt6-sol-luna
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-argon-staged
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-prompt-caching
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-model-retirement
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-solar-mini4-moe
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-dots-autopilot
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-agent-sandbox
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-gemini-skills
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-whale-ai-chat
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-ai-monitor
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-agentic-privacy
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-live-avatar
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-voice-design
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-streaming-stt
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-kling4-keyframes
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-audio-glasses-exam
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-guided-vision
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 3개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-synthid-bio-labels
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-distillation-defense
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 3개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-training-copyright
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-mentalhealthbench
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-safety-case
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-open-weight-jailbreak
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 3개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-research-ethics-guide
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-public-ai-ethics
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-topik-ai-grading
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-fact-check-campaign
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-deepfake-response
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-super-intelligence-word
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+  ✓ 콘솔 오류 0개
+
+== phone 390×844 ==
+  ✓ index: 가로 넘침 없음
+  ✓ index: 에피소드 카드 6개 이상
+  ✓ index: 오늘의 한 토막
+  ✓ index: 검색 필터 동작(1개)
+-- t7-sonnet-opus-55
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-gpt6-sol-luna
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-argon-staged
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-prompt-caching
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-model-retirement
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-solar-mini4-moe
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-dots-autopilot
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-agent-sandbox
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-gemini-skills
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-whale-ai-chat
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-ai-monitor
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-agentic-privacy
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-live-avatar
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-voice-design
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-streaming-stt
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-kling4-keyframes
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-audio-glasses-exam
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-guided-vision
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 3개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-synthid-bio-labels
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-distillation-defense
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 3개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-training-copyright
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:07)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 67s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-mentalhealthbench
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-safety-case
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-open-weight-jailbreak
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 3개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-research-ethics-guide
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-public-ai-ethics
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-topik-ai-grading
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-fact-check-campaign
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-deepfake-response
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+-- t7-super-intelligence-word
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 1:06)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(5장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 66s (55~90)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+  ✓ 콘솔 오류 0개
+
+모두 통과

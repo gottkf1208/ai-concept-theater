@@ -2,11 +2,11 @@
 import fs from 'node:fs';
 globalThis.Image = class { }; globalThis.document = { createElement: () => ({ getContext: () => null, style: {} }) }; globalThis.AudioContext = class { };
 const { EPISODES, TRACKS } = await import('../engine/registry.js');
-const season = n => n > 32 ? 'S5' : n > 24 ? 'S4' : n > 16 ? 'S3' : n > 8 ? 'S2' : 'S1';
+const season = n => n > 40 ? 'S777' : n > 32 ? 'S5' : n > 24 ? 'S4' : n > 16 ? 'S3' : n > 8 ? 'S2' : 'S1';
 let md = fs.readFileSync('README.md', 'utf8');
 const start = md.indexOf('## 시즌 1'); const end = md.indexOf('## 디자인');
 let out = '', cur = '';
-for (const e of EPISODES) {
+for (const e of (process.env.SEASON ? EPISODES.filter(x => season(x.no) === process.env.SEASON) : EPISODES)) {
   const ep = (await import('../' + e.file)).default;
   const s = season(e.no);
   if (s !== cur) { cur = s; out += `## ${TRACKS[s].label} — ${TRACKS[s].desc}\n\n| 편 | 제목 | 만져 보기 |\n|---|---|---|\n`; }

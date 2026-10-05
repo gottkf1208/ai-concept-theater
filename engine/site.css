@@ -56,7 +56,7 @@ kbd{font-family:var(--mono);font-size:11.5px;font-weight:600;background:#fff;bor
 .tag.a{background:var(--orange-pale);color:#B3520F}
 .tag.b{background:var(--aqua-pale);color:var(--aqua-deep)}
 .tag.c{background:#E6F4F1;color:#0F766E}
-.tag.s1{background:#E8F3FF;color:#1D4ED8}.tag.s2{background:#FFF1E6;color:#C2410C}.tag.s3{background:#EEF2FF;color:#4F46E5}.tag.s4{background:#E6F4F1;color:#0F766E}.tag.s5{background:#FDF2F8;color:#BE185D}
+.tag.s1{background:#E8F3FF;color:#1D4ED8}.tag.s2{background:#FFF1E6;color:#C2410C}.tag.s3{background:#EEF2FF;color:#4F46E5}.tag.s4{background:#E6F4F1;color:#0F766E}.tag.s5{background:#FDF2F8;color:#BE185D}.tag.s777{background:#1B1F24;color:#FFD166}
 .tag.soon{background:#EEF1F4;color:var(--faint)}
 
 /* 바닥 */

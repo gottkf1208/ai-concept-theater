@@ -8,7 +8,8 @@ export const TRACKS = {
   S2: { label: '시즌 2 · 기본', desc: '이미지·영상을 만들며 배우는 원리' },
   S3: { label: '시즌 3 · 활용', desc: '에이전트의 시대' },
   S4: { label: '시즌 4 · 심화', desc: '원리를 끝까지 파고들기' },
-  S5: { label: '시즌 5 · 판단', desc: '2026년의 AI, 교실의 판단' }
+  S5: { label: '시즌 5 · 판단', desc: '2026년의 AI, 교실의 판단' },
+  S777: { label: '시즌 777 · 지금', desc: '2026년 9월 말~10월 초, 지금 화제인 AI 소식으로 배우는 개념' }
 };
 
 export const EPISODES_V1 = [
@@ -89,7 +90,37 @@ export const EPISODES = [
   { no: 37, slug: 'v5-ai-literacy', file: 'episodes/v2/v5-ai-literacy.js', status: 'ready', track: 'S5' },
   { no: 38, slug: 'v5-law-timeline', file: 'episodes/v2/v5-law-timeline.js', status: 'ready', track: 'S5' },
   { no: 39, slug: 'v5-energy', file: 'episodes/v2/v5-energy.js', status: 'ready', track: 'S5' },
-  { no: 40, slug: 'v5-choose', file: 'episodes/v2/v5-choose.js', status: 'ready', track: 'S5' }
+  { no: 40, slug: 'v5-choose', file: 'episodes/v2/v5-choose.js', status: 'ready', track: 'S5' },
+  { no: 41, slug: 't7-sonnet-opus-55', file: 'episodes/s777/t7-sonnet-opus-55.js', status: 'ready', track: 'S777' },
+  { no: 42, slug: 't7-gpt6-sol-luna', file: 'episodes/s777/t7-gpt6-sol-luna.js', status: 'ready', track: 'S777' },
+  { no: 43, slug: 't7-argon-staged', file: 'episodes/s777/t7-argon-staged.js', status: 'ready', track: 'S777' },
+  { no: 44, slug: 't7-prompt-caching', file: 'episodes/s777/t7-prompt-caching.js', status: 'ready', track: 'S777' },
+  { no: 45, slug: 't7-model-retirement', file: 'episodes/s777/t7-model-retirement.js', status: 'ready', track: 'S777' },
+  { no: 46, slug: 't7-solar-mini4-moe', file: 'episodes/s777/t7-solar-mini4-moe.js', status: 'ready', track: 'S777' },
+  { no: 47, slug: 't7-dots-autopilot', file: 'episodes/s777/t7-dots-autopilot.js', status: 'ready', track: 'S777' },
+  { no: 48, slug: 't7-agent-sandbox', file: 'episodes/s777/t7-agent-sandbox.js', status: 'ready', track: 'S777' },
+  { no: 49, slug: 't7-gemini-skills', file: 'episodes/s777/t7-gemini-skills.js', status: 'ready', track: 'S777' },
+  { no: 50, slug: 't7-whale-ai-chat', file: 'episodes/s777/t7-whale-ai-chat.js', status: 'ready', track: 'S777' },
+  { no: 51, slug: 't7-ai-monitor', file: 'episodes/s777/t7-ai-monitor.js', status: 'ready', track: 'S777' },
+  { no: 52, slug: 't7-agentic-privacy', file: 'episodes/s777/t7-agentic-privacy.js', status: 'ready', track: 'S777' },
+  { no: 53, slug: 't7-live-avatar', file: 'episodes/s777/t7-live-avatar.js', status: 'ready', track: 'S777' },
+  { no: 54, slug: 't7-voice-design', file: 'episodes/s777/t7-voice-design.js', status: 'ready', track: 'S777' },
+  { no: 55, slug: 't7-streaming-stt', file: 'episodes/s777/t7-streaming-stt.js', status: 'ready', track: 'S777' },
+  { no: 56, slug: 't7-kling4-keyframes', file: 'episodes/s777/t7-kling4-keyframes.js', status: 'ready', track: 'S777' },
+  { no: 57, slug: 't7-audio-glasses-exam', file: 'episodes/s777/t7-audio-glasses-exam.js', status: 'ready', track: 'S777' },
+  { no: 58, slug: 't7-guided-vision', file: 'episodes/s777/t7-guided-vision.js', status: 'ready', track: 'S777' },
+  { no: 59, slug: 't7-synthid-bio-labels', file: 'episodes/s777/t7-synthid-bio-labels.js', status: 'ready', track: 'S777' },
+  { no: 60, slug: 't7-distillation-defense', file: 'episodes/s777/t7-distillation-defense.js', status: 'ready', track: 'S777' },
+  { no: 61, slug: 't7-training-copyright', file: 'episodes/s777/t7-training-copyright.js', status: 'ready', track: 'S777' },
+  { no: 62, slug: 't7-mentalhealthbench', file: 'episodes/s777/t7-mentalhealthbench.js', status: 'ready', track: 'S777' },
+  { no: 63, slug: 't7-safety-case', file: 'episodes/s777/t7-safety-case.js', status: 'ready', track: 'S777' },
+  { no: 64, slug: 't7-open-weight-jailbreak', file: 'episodes/s777/t7-open-weight-jailbreak.js', status: 'ready', track: 'S777' },
+  { no: 65, slug: 't7-research-ethics-guide', file: 'episodes/s777/t7-research-ethics-guide.js', status: 'ready', track: 'S777' },
+  { no: 66, slug: 't7-public-ai-ethics', file: 'episodes/s777/t7-public-ai-ethics.js', status: 'ready', track: 'S777' },
+  { no: 67, slug: 't7-topik-ai-grading', file: 'episodes/s777/t7-topik-ai-grading.js', status: 'ready', track: 'S777' },
+  { no: 68, slug: 't7-fact-check-campaign', file: 'episodes/s777/t7-fact-check-campaign.js', status: 'ready', track: 'S777' },
+  { no: 69, slug: 't7-deepfake-response', file: 'episodes/s777/t7-deepfake-response.js', status: 'ready', track: 'S777' },
+  { no: 70, slug: 't7-super-intelligence-word', file: 'episodes/s777/t7-super-intelligence-word.js', status: 'ready', track: 'S777' }
 ];
 
 export async function loadEpisode(slug, base = '') {
