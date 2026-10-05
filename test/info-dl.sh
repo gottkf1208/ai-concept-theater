@@ -1,6 +1,6 @@
 #!/bin/bash
 # usage: info-dl.sh E03_v1-prompt-parts url1 url2 url3 url4  → 인포그래픽_1..4.png 저장 + 컨택트시트
-D="${OUT:-C:/Users/dumok/Downloads/AI개념극장업데이트(1002)}/03_블로그_포스팅/$1"; shift; i=1
+D="${OUT:-C:/Users/dumok/Downloads/AI개념극장_통합(1005)}/03_블로그_포스팅/$1"; shift; i=1
 for u in "$@"; do curl -s -o "$D/인포그래픽_$i.png" "$u"; i=$((i+1)); done
 ls -la "$D"/*.png | awk '{print $5, $9}'
 cd /c/Users/dumok/dev/ai-concept-theater && node -e '
