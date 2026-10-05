@@ -222,7 +222,7 @@ export default {
           P.h('div', { class: 'vd-chk' }, c2, P.h('label', { for: 'vd-c2' }, '어디에 쓸지 알렸음')),
           P.h('div', {}, cloneBtn),
           cloneOut),
-        P.h('p', { class: 'vd-note' }, '법률 자문이 아니라 수업용 점검표예요. 학생 목소리 규칙은 v2 목소리 편을 함께 보세요.')
+        P.h('p', { class: 'vd-note' }, '수업에서 쓰는 점검표예요. 법률 자문으로 쓰진 마세요. 학생 목소리 규칙은 v2 목소리 편을 함께 보세요.')
       ));
       el.append(P.h('style', { html: `
         .vd-wrap{display:flex;flex-direction:column;gap:16px;max-width:100%}

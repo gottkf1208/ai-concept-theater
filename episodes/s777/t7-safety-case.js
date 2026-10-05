@@ -241,7 +241,7 @@ export default {
           const ev = CARDS.filter(c => on.has(c.id) && c.slot === s && c.kind === '증거');
           if (!ev.length) list.push(s === '남은 위험' ? '못 막는 위험을 적지 않았어요.' : `${s} 칸에 근거가 없어요.`);
         });
-        CARDS.filter(c => on.has(c.id) && c.kind === '주장뿐').forEach(c => list.push(`"${c.text}"는 증거가 아니라 말이에요.`));
+        CARDS.filter(c => on.has(c.id) && c.kind === '주장뿐').forEach(c => list.push(`"${c.text}"는 아직 말뿐이에요. 증거를 붙여야 해요.`));
         return list;
       }
       function render() {

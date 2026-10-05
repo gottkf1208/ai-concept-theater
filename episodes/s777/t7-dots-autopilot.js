@@ -93,7 +93,7 @@ export default {
       build({ stage, lines, P, tl }) {
         const q = P.quokka({ x: 50, y: 340, size: 300, pose: 'think' });
         stage.append(q.el);
-        const head = P.text({ x: 400, y: 90, w: 820, text: '자율 = 능력이 아니라 <em>설계로 정하는 값</em>', size: 30, weight: 800 });
+        const head = P.text({ x: 400, y: 90, w: 820, text: '자율 = <em>설계로 정하는 값</em>', size: 30, weight: 800 });
         tl.at(stage.appendChild(head.el), 9.2, { from: 'up' });
         const steps = [
           ['조작자', '직접 조종'], ['협업자', '함께 하기'], ['자문자', '조언하기'], ['승인자', '결정 허가'], ['관찰자', '지켜보기']

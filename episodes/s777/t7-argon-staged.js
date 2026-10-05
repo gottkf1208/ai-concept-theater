@@ -104,7 +104,7 @@ export default {
         tl.at(stage.appendChild(tclNote.el), 11, { from: 'up' });
         const rule = P.text({ x: 380, y: 410, w: 820, text: '선에 닿으면 → <em>출시 전 안전성 검토</em>', size: 28, weight: 800 });
         tl.at(stage.appendChild(rule.el), 8, { from: 'up' });
-        const note = P.text({ x: 380, y: 470, w: 820, text: '특정 모델의 위치가 아니라 기준선을 그린 그림이에요.', size: 18, weight: 600, cls: 'muted' });
+        const note = P.text({ x: 380, y: 470, w: 820, text: '기준선만 그린 그림이에요. 특정 모델의 자리는 표시하지 않았어요.', size: 18, weight: 600, cls: 'muted' });
         tl.at(stage.appendChild(note.el), 8.4, { from: 'none' });
         return {
           tick(t) {

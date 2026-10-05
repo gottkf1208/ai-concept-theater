@@ -86,7 +86,7 @@ export default {
       title: '정답보다 풀이가 비싸요', dur: 14,
       captions: [
         { t: 0, text: '요즘 모델은 답을 내기 전에 풀이 과정을 거쳐요. 회사는 이 <em>보호된 추론</em>을 최종 답에서 빼 두는데 여기엔 정답보다 배울 게 훨씬 많아요.' },
-        { t: 5, text: '남의 모델 풀이를 허락 없이 체계적으로 빼내 내 모델을 가르치는 걸 <em>적대적 증류</em>라고 해요. 이번엔 암호를 깬 게 아니라 대화를 조작해 풀이를 다시 꺼냈어요.' },
+        { t: 5, text: '남의 모델 풀이를 허락 없이 체계적으로 빼내 내 모델을 가르치는 걸 <em>적대적 증류</em>라고 해요. 이번엔 암호는 그대로 둔 채 대화를 조작해 풀이를 다시 꺼냈어요.' },
         { t: 10, text: '이렇게 옮긴 능력에는 원래 모델의 <em>안전장치</em>가 따라오지 않을 수 있어요.' }
       ],
       build({ stage, lines, P, tl }) {
@@ -104,7 +104,7 @@ export default {
         tl.at(stage.appendChild(rich.el), 3, { from: 'pop' });
         const adv = P.chip({ x: 340, y: 360, text: '허락 없이 · 체계적으로 = 적대적 증류', color: 'orange', size: 24 });
         tl.at(stage.appendChild(adv.el), 5.3, { from: 'pop' });
-        const how = P.text({ x: 340, y: 430, w: 860, text: '암호를 깬 게 아니라 <em>대화를 조작해</em> 풀이를 다시 꺼냈어요', size: 24, weight: 700 });
+        const how = P.text({ x: 340, y: 430, w: 860, text: '암호는 그대로 둔 채 <em>대화를 조작해</em> 풀이를 다시 꺼냈어요', size: 24, weight: 700 });
         tl.at(stage.appendChild(how.el), 7.4, { from: 'up' });
         const safe = P.chip({ x: 340, y: 510, text: '옮긴 능력에 안전장치는 따라오지 않을 수 있어요', color: 'ink', size: 22 });
         tl.at(stage.appendChild(safe.el), 10.2, { from: 'pop' });
