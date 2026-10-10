@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 globalThis.Image = class { }; globalThis.document = { createElement: () => ({ getContext: () => null, style: {} }) }; globalThis.AudioContext = class { };
 const { EPISODES, TRACKS } = await import('../engine/registry.js');
-const season = n => n > 40 ? 'S777' : n > 32 ? 'S5' : n > 24 ? 'S4' : n > 16 ? 'S3' : n > 8 ? 'S2' : 'S1';
+const season = n => n > 70 ? 'S8' : n > 40 ? 'S777' : n > 32 ? 'S5' : n > 24 ? 'S4' : n > 16 ? 'S3' : n > 8 ? 'S2' : 'S1';
 let md = fs.readFileSync('README.md', 'utf8');
 const start = md.indexOf('## 시즌 1'); const end = md.indexOf('## 디자인');
 let out = '', cur = '';

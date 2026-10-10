@@ -102,6 +102,7 @@ export const PALETTES = {
   't7-fact-check-campaign':    { a1: '#2563EB', a2: '#CA8A04', name: '데님 오버롤·로봇' },
   't7-deepfake-response':      { a1: '#EA580C', a2: '#374151', name: '테크 재킷·헤드폰' },
   't7-super-intelligence-word':{ a1: '#15803D', a2: '#B45309', name: '크림 트렌치·초록 베레' },
+  'v8-motion-code':            { a1: '#111827', a2: '#CA8A04', name: '블랙 터틀넥·금테 안경' }
 };
 export const DEFAULT_PALETTE = { a1: '#2563EB', a2: '#EA580C', name: '기본' };
 

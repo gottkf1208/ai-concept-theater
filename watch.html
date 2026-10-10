@@ -74,7 +74,8 @@ body.mode-train .slide.s-title h1 small{font-size:.42em}
 body.mode-train .ep-head{padding:0}
 body.mode-train .ep-head .tags .tag{font-size:15px;padding:8px 14px}
 body.mode-train .slide.s-theater{padding:2vh 4vw}
-body.mode-train .theater{width:min(100%,calc((100vh - 4vh - 180px) * 16 / 9));margin:0 auto}
+body.mode-train .theater{width:min(100%,calc((100vh - 4vh - 180px) * var(--sar,1.7778)));margin:0 auto}
+body.mode-train .theater.vertical{max-width:none}
 body.mode-train .caption-bar{font-size:clamp(18px,2.6vw,34px);min-height:96px}
 body.mode-train .theater:focus-visible{outline:none}
 body.mode-train section.block{margin-top:0}
@@ -105,7 +106,9 @@ body.mode-rec .top,body.mode-rec .ep-head,body.mode-rec section.block,body.mode-
 body.mode-rec .wrap{max-width:none;padding:0}
 body.mode-rec .slide{display:block}
 body.mode-rec .slide.s-theater{position:fixed;inset:0;display:grid;place-items:center}
-body.mode-rec .theater{width:min(100vw,calc(100vh * 16 / 9));border-radius:0;border:0;box-shadow:none}
+body.mode-rec .theater{width:min(100vw,calc(100vh * var(--sar,1.7778)));border-radius:0;border:0;box-shadow:none;max-width:none}
+.theater.vertical{max-width:calc(80vh * var(--sar,0.5625));margin:0 auto}
+body.mode-rec .theater.vertical .caption-bar{font-size:clamp(18px,4.4vw,40px);padding:2.6vw 4vw}
 body.mode-rec .controls,body.mode-rec .scrub,body.mode-rec .scene-list{display:none}
 body.mode-rec .caption-bar{position:absolute;left:0;right:0;bottom:0;background:rgba(27,31,36,.86);font-size:clamp(16px,2.4vw,32px);min-height:0;padding:1.6vw 3vw}
 body.mode-rec .theater.playing{cursor:none}
@@ -239,6 +242,7 @@ const kvSrc = P.keySrc(slug); if (kvSrc) { $('#kv').src = kvSrc; $('#kv').hidden
 $('#btnRec').href = `watch.html?ep=${slug}&mode=rec${soloQ}`;
 
 /* 극장 */
+document.body.dataset.format = ep.format || 'short';
 const theater = mountTheater($("#theater"), ep, { mode });
 window.__theater = theater; /* 테스트용: 장면/시각으로 바로 이동 */
 

@@ -9,7 +9,8 @@ export const TRACKS = {
   S3: { label: '시즌 3 · 활용', desc: '에이전트의 시대' },
   S4: { label: '시즌 4 · 심화', desc: '원리를 끝까지 파고들기' },
   S5: { label: '시즌 5 · 판단', desc: '2026년의 AI, 교실의 판단' },
-  S777: { label: '시즌 777 · 지금', desc: '2026년 9월 말~10월 초, 지금 화제인 AI 소식으로 배우는 개념' }
+  S777: { label: '시즌 777 · 지금', desc: '2026년 9월 말~10월 초, 지금 화제인 AI 소식으로 배우는 개념' },
+  S8: { label: '시즌 8 · 편집실', desc: '손이 없는 편집자: 클로드가 영상을 만지는 법 (세로·강의식)' }
 };
 
 export const EPISODES_V1 = [
@@ -120,7 +121,8 @@ export const EPISODES = [
   { no: 67, slug: 't7-topik-ai-grading', file: 'episodes/s777/t7-topik-ai-grading.js', status: 'ready', track: 'S777' },
   { no: 68, slug: 't7-fact-check-campaign', file: 'episodes/s777/t7-fact-check-campaign.js', status: 'ready', track: 'S777' },
   { no: 69, slug: 't7-deepfake-response', file: 'episodes/s777/t7-deepfake-response.js', status: 'ready', track: 'S777' },
-  { no: 70, slug: 't7-super-intelligence-word', file: 'episodes/s777/t7-super-intelligence-word.js', status: 'ready', track: 'S777' }
+  { no: 70, slug: 't7-super-intelligence-word', file: 'episodes/s777/t7-super-intelligence-word.js', status: 'ready', track: 'S777' },
+  { no: 76, slug: 'v8-motion-code', file: 'episodes/s8/v8-motion-code.js', status: 'ready', track: 'S8' }
 ];
 
 export async function loadEpisode(slug, base = '') {

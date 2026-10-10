@@ -31,6 +31,7 @@ export default {
     's4-calc': 'webp',
     's4-search': 'webp',
     's4-choose': 'webp',
+    'v8-motion-code': 'webp',
     't7-super-intelligence-word': 'webp',
     't7-deepfake-response': 'webp',
     't7-fact-check-campaign': 'webp',
@@ -76,7 +77,8 @@ export default {
     's5-guidance': 'webp',
     's5-upscale': 'webp',
     's5-motion-prompt': 'webp',
-    's5-degradation': 'webp',
+    's5-degradation': 'webp'
+,
     'v1-next-token': 'webp',
     'v1-context': 'webp',
     'v1-prompt-parts': 'webp',
@@ -143,6 +145,7 @@ export default {
     's4-calc': ['point', 'think', 'oops', 'wave'],
     's4-search': ['point', 'think', 'oops', 'wave'],
     's4-choose': ['point', 'think', 'oops', 'wave'],
+    'v8-motion-code': ['point', 'think', 'oops', 'wave'],
     't7-super-intelligence-word': ['point', 'think', 'oops', 'wave'],
     't7-deepfake-response': ['point', 'think', 'oops', 'wave'],
     't7-fact-check-campaign': ['point', 'think', 'oops', 'wave'],
@@ -188,7 +191,8 @@ export default {
     's5-guidance': ['point', 'think', 'oops', 'wave'],
     's5-upscale': ['point', 'think', 'oops', 'wave'],
     's5-motion-prompt': ['point', 'think', 'oops', 'wave'],
-    's5-degradation': ['point', 'think', 'oops', 'wave'],
+    's5-degradation': ['point', 'think', 'oops', 'wave']
+,
     'v1-next-token': ['oops', 'point', 'think', 'wave'],
     'v1-context': ['oops', 'point', 'think'],
     'v1-prompt-parts': ['oops', 'point', 'think', 'wave'],

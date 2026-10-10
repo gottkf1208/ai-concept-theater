@@ -15,15 +15,16 @@ export function mountTheater(container, ep, { mode = 'watch', base = '' } = {}) 
   const total = scenes.reduce((a, sc) => a + sc.dur, 0);
   const offsets = scenes.map((_, i) => scenes.slice(0, i).reduce((a, sc) => a + sc.dur, 0));
 
-  /* DOM */
-  const stage = P.h('div', { class: 'stage', 'aria-hidden': 'true' });
-  const lines = P.s('svg', { class: 'lines', viewBox: '0 0 1280 720' });
-  const stageWrap = P.h('div', { class: 'stage-wrap' }, stage);
+  /* DOM (무대 좌표계: 기본 1280×720, 편이 stage:{w,h}를 주면 그 크기 — 세로 720×1280 등) */
+  const SW = (ep.stage && ep.stage.w) || 1280, SH = (ep.stage && ep.stage.h) || 720;
+  const stage = P.h('div', { class: 'stage', 'aria-hidden': 'true', style: `width:${SW}px;height:${SH}px` });
+  const lines = P.s('svg', { class: 'lines', viewBox: `0 0 ${SW} ${SH}`, style: `width:${SW}px;height:${SH}px` });
+  const stageWrap = P.h('div', { class: 'stage-wrap', style: `aspect-ratio:${SW}/${SH}` }, stage);
   const caption = P.h('div', { class: 'caption-bar', role: 'status', 'aria-live': 'polite' });
   const scrub = P.h('div', { class: 'scrub', role: 'group', 'aria-label': '장면 진행' });
   const controls = P.h('div', { class: 'controls' });
   const sceneList = P.h('div', { class: 'scene-list', role: 'group', 'aria-label': '장면 이동' });
-  const root = P.h('div', { class: `theater mode-${mode}`, tabindex: '0', 'aria-label': `${ep.title} 애니메이션` }, stageWrap, caption, scrub, controls, sceneList);
+  const root = P.h('div', { class: `theater mode-${mode}${SH > SW ? ' vertical' : ''}`, tabindex: '0', 'aria-label': `${ep.title} 애니메이션`, style: `--sar:${(SW / SH).toFixed(4)}` }, stageWrap, caption, scrub, controls, sceneList);
   container.append(root);
   applyPalette(root, ep.slug);
 
@@ -45,7 +46,7 @@ export function mountTheater(container, ep, { mode = 'watch', base = '' } = {}) 
   });
 
   /* 크기 맞춤 */
-  const fit = () => { const w = stageWrap.clientWidth; stage.style.transform = `scale(${w / 1280})`; };
+  const fit = () => { const w = stageWrap.clientWidth; stage.style.transform = `scale(${w / SW})`; };
   new ResizeObserver(fit).observe(stageWrap); fit();
 
   /* 상태 */

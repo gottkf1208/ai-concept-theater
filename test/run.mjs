@@ -66,7 +66,7 @@ for (const vp of VIEWPORTS) {
     await page.locator('.scene-list button').nth(n - 1).click();
     await page.click('.controls .btn.primary');
     const dur = await page.evaluate(() => { const t = document.querySelector('.controls .time').textContent.split('/')[1].trim().split(':'); return +t[0] * 60 + +t[1]; });
-    ok(dur >= 55 && dur <= 90, `watch: 애니메이션 길이 ${dur}s (55~90)`);
+    const lecture = await page.evaluate(() => document.body.dataset.format === 'lecture'); const [dMin, dMax] = lecture ? [150, 360] : [55, 90]; ok(dur >= dMin && dur <= dMax, `watch: 애니메이션 길이 ${dur}s (${dMin}~${dMax})`);
     /* 만져 보기 */
     const panel = page.locator('#iPanel');
     const before = await panel.innerHTML();
@@ -95,7 +95,7 @@ for (const vp of VIEWPORTS) {
     ok((await page.locator('#scriptOverlayBody').innerText()).length > 100, 'train: 대본 내용');
     await page.screenshot({ path: `${OUT}/${slug}-train-script-${vp.name}.png` });
     await page.keyboard.press('n'); await page.waitForTimeout(100);
-    for (let k = 0; k < 8; k++) { await page.keyboard.press('ArrowRight'); await page.waitForTimeout(80); }
+    for (let k = 0; k < n + 8; k++) { await page.keyboard.press('ArrowRight'); await page.waitForTimeout(80); }
     ok(await page.locator('.slide.active#sources').count() === 1, 'train: 끝까지 넘김');
     ok((await overflow()) <= 0, 'train: 가로 넘침 없음');
     await page.keyboard.press('ArrowLeft'); await page.waitForTimeout(150);

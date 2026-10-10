@@ -20,7 +20,7 @@ for (const e of EPISODES) {
       await page.waitForTimeout(450);
       const found = await page.evaluate(() => {
         const stage = document.querySelector('.stage');
-        const sr = stage.getBoundingClientRect(); const k = 1280 / sr.width;
+        const sr = stage.getBoundingClientRect(); const k = stage.offsetWidth / sr.width; const SW = stage.offsetWidth, SH = stage.offsetHeight;
         const toS = r => ({ x: (r.left - sr.left) * k, y: (r.top - sr.top) * k, w: r.width * k, h: r.height * k, r: (r.right - sr.left) * k, b: (r.bottom - sr.top) * k });
         const vis = el => { let n = el; while (n && n !== stage) { const cs = getComputedStyle(n); if (+cs.opacity < .12 || cs.visibility === 'hidden' || cs.display === 'none') return false; n = n.parentElement; } return true; };
         const items = [];
@@ -43,7 +43,7 @@ for (const e of EPISODES) {
           }
         });
         const out = [];
-        items.forEach(a => { const r = a.rect; if (r.x < -2 || r.y < -2 || r.r > 1282 || r.b > 722) out.push({ kind: 'clip', a: a.label, cls: a.cls, rect: [r.x, r.y, r.r, r.b].map(Math.round) }); });
+        items.forEach(a => { const r = a.rect; if (r.x < -2 || r.y < -2 || r.r > SW + 2 || r.b > SH + 2) out.push({ kind: 'clip', a: a.label, cls: a.cls, rect: [r.x, r.y, r.r, r.b].map(Math.round) }); });
         for (let i = 0; i < items.length; i++) for (let j = i + 1; j < items.length; j++) {
           const A = items[i], B = items[j];
           const ra = A.rect, rb = B.rect;

@@ -1,0 +1,60 @@
+
+== desk 1440×900 ==
+  ✓ index: 가로 넘침 없음
+  ✓ index: 에피소드 카드 6개 이상
+  ✓ index: 오늘의 한 토막
+  ✓ index: 검색 필터 동작(1개)
+-- v8-motion-code
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 3:30)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(9장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 210s (150~360)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+  ✓ 콘솔 오류 0개
+
+== phone 390×844 ==
+  ✓ index: 가로 넘침 없음
+  ✓ index: 에피소드 카드 6개 이상
+  ✓ index: 오늘의 한 토막
+  ✓ index: 검색 필터 동작(1개)
+-- v8-motion-code
+  ✓ watch: 가로 넘침 없음
+  ✓ watch: 극장 마운트
+  ✓ watch: 재생·멈춤 (0:01 / 3:30)
+  ✓ watch: 자막 표시
+  ✓ watch: 장면 이동(9장면)
+  ✓ watch: → 키 장면 이동
+  ✓ watch: 애니메이션 길이 210s (150~360)
+  ✓ watch: 만져 보기 반응
+  ✓ watch: 출처 4개
+  ✓ train: 제목 슬라이드
+  ✓ train: → 극장 슬라이드
+  ✓ train: 자동 재생
+  ✓ train: Space 멈춤
+  ✓ train: N 키 강사 대본
+  ✓ train: 대본 내용
+  ✓ train: 끝까지 넘김
+  ✓ train: 가로 넘침 없음
+  ✓ rec: 시작 카드
+  ✓ rec: 조작 버튼 숨김
+  ✓ rec: 카운트다운 후 자동 재생
+  ✓ rec: Space 즉시 재생
+  ✓ 콘솔 오류 0개
+
+모두 통과

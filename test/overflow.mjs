@@ -18,7 +18,7 @@ for (const e of EPISODES) {
     await page.evaluate(([i, t]) => window.__theater.goto(i, t), [i, Math.max(0.5, dur - 1.5)]);
     await page.waitForTimeout(450);
     const found = await page.evaluate(() => {
-      const stage = document.querySelector('.stage'); const sr = stage.getBoundingClientRect(); const k = 1280 / sr.width;
+      const stage = document.querySelector('.stage'); const sr = stage.getBoundingClientRect(); const k = stage.offsetWidth / sr.width; const SW = stage.offsetWidth, SH = stage.offsetHeight;
       const vis = el => { let n = el; while (n && n !== stage) { const cs = getComputedStyle(n); if (+cs.opacity < .12 || cs.visibility === 'hidden' || cs.display === 'none') return false; n = n.parentElement; } return true; };
       const out = [];
       const lab = el => (el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 22);
@@ -37,7 +37,7 @@ for (const e of EPISODES) {
         if (cls === 'p-box') el.querySelectorAll('*').forEach(c => { if (!vis(c)) return; const cr = c.getBoundingClientRect(); if (cr.width < 2 || cr.height < 2) return; const dr = Math.round((cr.right - r.right) * k), db = Math.round((cr.bottom - r.bottom) * k); if (dr > 3 || db > 3) out.push({ kind: 'child', cls, a: lab(el), c: lab(c) || c.className, dr, db }); });
       });
       /* 4) 무대 하단 한계(y 660) 넘는 요소 */
-      stage.querySelectorAll('.p-box, .p-bubble, .p-text, .p-chip').forEach(el => { if (!vis(el)) return; const r = el.getBoundingClientRect(); const b = (r.bottom - sr.top) * k; if (b > 700) out.push({ kind: 'low', cls: el.className.split(' ')[0], a: lab(el), b: Math.round(b) }); });
+      stage.querySelectorAll('.p-box, .p-bubble, .p-text, .p-chip').forEach(el => { if (!vis(el)) return; const r = el.getBoundingClientRect(); const b = (r.bottom - sr.top) * k; if (b > SH - 20) out.push({ kind: 'low', cls: el.className.split(' ')[0], a: lab(el), b: Math.round(b) }); });
       return out;
     });
     const seen = new Set();
