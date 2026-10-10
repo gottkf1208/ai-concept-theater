@@ -61,6 +61,7 @@
 /* 자막과 조작 */
 .caption-bar{min-height:76px;display:flex;align-items:center;justify-content:center;padding:14px 22px;background:var(--ink);color:#fff;text-align:center;font-size:clamp(15px,2.1vw,21px);font-weight:600;line-height:1.45;letter-spacing:-.01em;word-break:keep-all}
 .caption-bar em{font-style:normal;color:color-mix(in srgb,var(--acc2) 55%,white)}
+.theater.vertical .caption-bar{font-size:var(--cap,22px);line-height:1.35;padding:.7em 1em;min-height:0}
 .controls{display:flex;align-items:center;gap:8px;padding:12px 14px;border-top:1px solid var(--line);background:#fff;flex-wrap:wrap}
 .controls .btn{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:700;font-size:14px;color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s}
 .controls .btn:hover{background:var(--paper)}

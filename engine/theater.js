@@ -46,7 +46,7 @@ export function mountTheater(container, ep, { mode = 'watch', base = '' } = {}) 
   });
 
   /* 크기 맞춤 */
-  const fit = () => { const w = stageWrap.clientWidth; stage.style.transform = `scale(${w / SW})`; };
+  const fit = () => { const w = stageWrap.clientWidth; stage.style.transform = `scale(${w / SW})`; root.style.setProperty('--cap', `${(w / SW * 26).toFixed(1)}px`); };
   new ResizeObserver(fit).observe(stageWrap); fit();
 
   /* 상태 */

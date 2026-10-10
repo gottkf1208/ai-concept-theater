@@ -150,11 +150,14 @@ export function arrow(lines, { x1, y1, x2, y2, curve = 0, dashed = false, color 
     g.append(headEl);
   }
   lines.append(g);
-  const total = path.getTotalLength();
+  let total = path.getTotalLength();
   const api = {
     el: g,
     draw(p) {
       p = clamp(p, 0, 1);
+      /* 장면 전환 중 선 레이어가 아직 붙지 않았으면 길이가 0이나 NaN이라 다시 재요 */
+      if (!(total > 0)) total = path.getTotalLength();
+      if (!(total > 0)) { g.style.opacity = 0; return; }
       if (!dashed) { path.setAttribute('stroke-dasharray', total); path.setAttribute('stroke-dashoffset', total * (1 - p)); }
       g.style.opacity = p > 0 ? 1 : 0;
       if (headEl) {
