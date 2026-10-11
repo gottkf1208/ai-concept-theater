@@ -121,6 +121,7 @@ const CSS = `
 .mc-count b{position:absolute;inset:14px;border-radius:50%}
 .mc-count span{position:absolute;inset:0;display:grid;place-items:center}
 .mc-track{position:absolute;left:60px;top:842px;width:330px;display:flex;flex-direction:column;gap:8px}
+.mc-wide{position:absolute;left:40px;top:40px;width:720px;height:1280px;transform:scale(.74);transform-origin:0 0}
 .mc-step{display:flex;align-items:center;gap:12px;height:48px;padding:0 14px;border-radius:14px;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.8);opacity:0;will-change:transform}
 .mc-step b{font-size:22px;font-weight:800;color:var(--muted2);width:44px}
 .mc-step span{font-size:17px;font-weight:700;color:var(--muted2);font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -146,12 +147,26 @@ const CSS = `
 .mc-tile-ko{position:absolute;left:12px;bottom:12px;font-size:16px;font-weight:800;color:#fff;background:rgba(27,31,36,.7);border-radius:999px;padding:3px 10px;opacity:0}
 `;
 const sty = (stage, P) => stage.append(P.h('style', {}, CSS));
+/* 가로 무대(1280×720)일 때: 세로 장면 전체를 왼쪽에 0.82배로 담은 틀을 돌려줘요. 세로 무대면 무대 그대로 */
+function frame(st, P) {
+  sty(st, P);
+  if (parseInt(st.style.width) <= parseInt(st.style.height)) return st;
+  const g = P.h('div', { class: 'mc-wide' }); st.append(g);
+  const ln = st.querySelector('svg.lines'); if (ln) g.append(ln);
+  g.__root = st; return g;
+}
+/* 쿼카: 세로면 아래 오른쪽, 가로면 오른쪽 아래 */
+function quokka(stage, P, pose) {
+  const root = stage.__root || stage, wide = !!stage.__root;
+  const q = P.quokka(wide ? { x: 1010, y: 380, size: 300, pose } : { x: 410, y: 820, size: 300, pose }); root.append(q.el); return q;
+}
 /* 쿼카 옆 길잡이: 지금 어느 단계 이야기인지. lit에 든 줄만 켜져요 */
 const STEPS = [['말', '왼쪽에서 들어와'], ['표', '0.2초 → -27'], ['글', 'left: -100%'], ['그림', '1초에 30장'], ['영상', 'out.mp4']];
 function track(stage, P, lit) {
-  const el = P.h('div', { class: 'mc-track' });
+  const root = stage.__root || stage, wide = !!stage.__root;
+  const el = P.h('div', { class: 'mc-track', style: wide ? 'left:640px;top:96px' : '' });
   const rows = STEPS.map(([k, v], i) => { const r = P.h('div', { class: 'mc-step' + (lit.includes(i) ? ' on' : '') }, P.h('b', {}, k), P.h('span', {}, v)); el.append(r); return r; });
-  stage.append(el);
+  root.append(el);
   return { el, at(t, T0 = .4) { rows.forEach((r, i) => { const c = EXPO(seg(t, T0 + i * .12, T0 + i * .12 + .5)); r.style.opacity = c; r.style.transform = `translateX(${(1 - c) * -30}px)`; }); } };
 }
 const codeBlock = (P, style) => {
@@ -178,6 +193,7 @@ export default {
   slug: 'v8-motion-code',
   track: 'S8',
   stage: { w: 720, h: 1280 },
+  stageWide: { w: 1280, h: 720 }, /* ?fmt=wide (유튜브 가로) */
   title: '손이 없는데 모션그래픽은 어떻게 만들까',
   subtitle: '움직임은 숫자 표, 그 표는 글로 적어요',
   summary: '제목 글자가 미끄러져 들어오게 해 달라고 하면 클로드는 영상을 상상하지 않아요. 움직임은 숫자 표거든요. 몇 초에 어디 있는지 적어 둔 표인데 이 표는 글로 옮겨 적을 수도 있고요. 클로드는 설명과 코드가 짝을 이룬 글을 인터넷에서 엄청나게 읽었어요. 그래서 부탁 속 낱말마다 어떤 코드 조각이 따라오는지 외워 두고 있죠. 그 조각들을 이어 붙여 글을 쓰면 브라우저가 그 글을 읽고 1초에 30장씩 그림으로 그려 내요. 그 그림을 영상 파일로 묶는 건 FFmpeg라는 무료 도구고요. 글이 맞게 쓰였는지는 사진을 찍어 확인해요.',
@@ -193,8 +209,8 @@ export default {
         { t: 8.5, text: '그런데 클로드는 손도 눈도 없어요.' },
         { t: 11.5, text: '손도 눈도 없이 어떻게요? 오늘 그 얘기예요.' }
       ],
-      build({ stage, lines, P, tl, base }) {
-        sty(stage, P);
+      build({ stage: st0, lines, P, tl, base }) {
+        const stage = frame(st0, P);
         const cd = P.h('div', { class: 'mc-count', style: 'left:230px;top:300px' }, P.h('i'), P.h('b'), P.h('span', {}, '3'));
         stage.append(cd);
         /* 모션랩에서 뽑은 독립 HTML 넷. 자기 시계로 돌아가는 되풀이 모션이라 무대 시간과 따로 놀아도 돼요 */
@@ -208,8 +224,7 @@ export default {
         });
         const q1 = P.h('div', { class: 'mc-big', style: 'left:60px;top:735px;width:600px' }); stage.append(q1);
         const rq = riser(P, q1, '손도 눈도 없는데?');
-        const q = P.quokka({ x: 410, y: 820, size: 300, pose: 'oops' });
-        stage.append(q.el);
+        const q = quokka(stage, P, 'oops');
         const tr = track(stage, P, []);
         return {
           tick(t) {
@@ -237,8 +252,8 @@ export default {
         { t: 9, text: '편집 프로그램 속도 이 표로 움직여요.' },
         { t: 12.5, text: '표만 있으면 움직임은 다시 그려져요.' }
       ],
-      build({ stage, lines, P, tl }) {
-        sty(stage, P);
+      build({ stage: st0, lines, P, tl }) {
+        const stage = frame(st0, P);
         const scr = P.h('div', { class: 'mc-screen', style: 'left:60px;top:110px;width:600px;height:200px' });
         const word = P.h('div', { class: 'mc-word' }, TITLE);
         const mark = P.h('div', { style: 'position:absolute;top:0;width:3px;height:100%;background:var(--acc2);opacity:0;margin-left:-1px' });
@@ -250,8 +265,7 @@ export default {
         stage.append(tbl); tl.at(tbl, .5, { from: 'up' });
         const note = P.h('div', { class: 'mc-big', style: 'left:60px;top:700px;width:600px;font-size:30px' }); stage.append(note);
         const rn = riser(P, note, '표 → 그림 30장 → 영상');
-        const q = P.quokka({ x: 410, y: 820, size: 300, pose: 'think' });
-        stage.append(q.el);
+        const q = quokka(stage, P, 'think');
         const tr = track(stage, P, [1]);
         return {
           tick(t) {
@@ -282,8 +296,8 @@ export default {
         { t: 8, text: '컴퓨터 글은 브라우저가 읽고 그대로 그려요.' },
         { t: 11.5, text: '움직임을 만든다는 건 글을 쓰는 거랑 같아요.' }
       ],
-      build({ stage, lines, P, tl }) {
-        sty(stage, P);
+      build({ stage: st0, lines, P, tl }) {
+        const stage = frame(st0, P);
         const hl = s => P.h('span', { class: 'hl' }, s);
         const c1 = P.h('div', { class: 'mc-card', style: 'left:60px;top:110px;width:600px;height:120px' }, P.h('h5', {}, '사람 말'), P.h('p', {}, hl('왼쪽 밖'), '에서 ', hl('가운데'), '로, ', hl('1초'), ' 동안, ', hl('천천히 멈추게')));
         const c2 = P.h('div', { class: 'mc-card', style: 'left:60px;top:260px;width:600px;height:150px' }, P.h('h5', {}, '숫자 표'), P.h('p', { class: 'mono' }, '0.0초  -100     0.6초  +37\n0.2초   -22     0.8초  +47\n0.4초   +17     1.0초  +50'));
@@ -304,8 +318,7 @@ export default {
           });
         };
         const punch = P.h('div', { class: 'mc-punch' }, '= 글쓰기', P.h('i', { style: 'width:200px' })); stage.append(punch);
-        const q = P.quokka({ x: 410, y: 820, size: 300, pose: 'point' });
-        stage.append(q.el);
+        const q = quokka(stage, P, 'point');
         const tr = track(stage, P, [0, 1, 2]);
         return {
           tick(t) {
@@ -330,8 +343,8 @@ export default {
         { t: 9.5, text: '"왼쪽에서 들어와" 옆엔 늘 같은 코드가 있었어요.' },
         { t: 13, text: '그 짝을 외워 둔 셈이죠.' }
       ],
-      build({ stage, lines, P, tl }) {
-        sty(stage, P);
+      build({ stage: st0, lines, P, tl }) {
+        const stage = frame(st0, P);
         const N = 36;
         const rain = Array.from({ length: N }, (_, i) => {
           const el = pairCard(P, i); stage.append(el); const col = i % 2;
@@ -345,8 +358,7 @@ export default {
         stage.append(handle, lens);
         const cnt = P.h('div', { class: 'mc-big', style: 'left:60px;top:120px;width:600px;font-size:34px' }); stage.append(cnt);
         const rc = riser(P, cnt, '이런 짝을 수백만 개');
-        const q = P.quokka({ x: 410, y: 820, size: 300, pose: 'think' });
-        stage.append(q.el);
+        const q = quokka(stage, P, 'think');
         const tr = track(stage, P, [0, 2]);
         return {
           tick(t) {
@@ -380,8 +392,8 @@ export default {
         { t: 10.5, text: '조각을 이어 붙이면 글 한 편이 완성돼요.' },
         { t: 13.5, text: '브라우저가 읽으면 움직임이 돼요.' }
       ],
-      build({ stage, lines, P, tl }) {
-        sty(stage, P);
+      build({ stage: st0, lines, P, tl }) {
+        const stage = frame(st0, P);
         const WORDS = [['왼쪽 밖에서', 'from', 'left: -100%'], ['가운데로', 'to', 'left: 50%'], ['1초 동안', 'dur', '1s'], ['천천히 멈추게', 'ease', 'ease-out']];
         const CX = i => (i % 2 ? 380 : 60), CY = i => 110 + Math.floor(i / 2) * 64;
         const chips = WORDS.map(([w], i) => { const c = P.h('div', { class: 'mc-chip', style: `left:${CX(i)}px;top:${CY(i)}px;width:280px;text-align:center` }, w); stage.append(c); tl.at(c, .3 + i * .4, { from: 'pop' }); return c; });
@@ -392,8 +404,7 @@ export default {
         const prev = P.h('div', { class: 'mc-screen', style: 'left:60px;top:520px;width:600px;height:200px;opacity:0' });
         const word = P.h('div', { class: 'mc-word' }, TITLE);
         prev.append(P.h('div', { class: 'mc-mid' }), word); stage.append(prev);
-        const q = P.quokka({ x: 410, y: 820, size: 300, pose: 'point' });
-        stage.append(q.el);
+        const q = quokka(stage, P, 'point');
         const tr = track(stage, P, [0, 2]);
         const T0 = 4.3, STEP = 1.6;
         return {
@@ -429,8 +440,8 @@ export default {
         { t: 7, text: 'FFmpeg가 그림을 이어 붙여 영상 파일로 만들어요.' },
         { t: 10.5, text: '명령 한 줄이면 돼요. 이것도 글이에요.' }
       ],
-      build({ stage, lines, P, tl }) {
-        sty(stage, P);
+      build({ stage: st0, lines, P, tl }) {
+        const stage = frame(st0, P);
         const code = P.h('div', { class: 'mc-code', style: 'left:60px;top:110px;width:600px;height:86px;padding:12px 20px' }, P.h('div', { class: 'mc-file' }, 'title.html'), P.h('div', { class: 'mc-line' }, 'animation: in 1s ease-out;'));
         stage.append(code); tl.at(code, .2, { from: 'up' });
         const a1 = P.arrow(lines, { x1: 360, y1: 200, x2: 360, y2: 236, width: 4, color: '#127E90' });
@@ -446,8 +457,7 @@ export default {
         stage.append(def); tl.at(def, 7.4, { from: 'up' });
         const file = P.h('div', { class: 'mc-file-ic', style: 'left:210px;top:660px;width:300px;height:120px' }, P.h('div', { class: 'mc-fname' }, 'out.mp4'), P.h('div', { class: 'mc-fsub' }, '1초 · 30장'));
         stage.append(file);
-        const q = P.quokka({ x: 410, y: 820, size: 300, pose: 'point' });
-        stage.append(q.el);
+        const q = quokka(stage, P, 'point');
         const tr = track(stage, P, [2, 3, 4]);
         return {
           tick(t) {
@@ -472,8 +482,8 @@ export default {
         { t: 6.4, text: '쓴 글이 맞는지는 사진을 찍어 보면 알아요.' },
         { t: 9.2, text: '시킬 땐 어디서, 몇 초, 어떻게. 셋이면 돼요.' }
       ],
-      build({ stage, lines, P, tl }) {
-        sty(stage, P);
+      build({ stage: st0, lines, P, tl }) {
+        const stage = frame(st0, P);
         const li = s => P.h('li', {}, P.h('span', {}, s));
         const good = P.h('div', { class: 'mc-col', style: 'left:60px;top:110px;width:290px;height:250px' }, P.h('h4', {}, '많이 봤어요'), P.h('ul', {}, ...['들어오기', '사라지기', '통통 튀기', '글자 타이핑'].map(li)));
         const bad = P.h('div', { class: 'mc-col bad', style: 'left:370px;top:110px;width:290px;height:250px' }, P.h('h4', {}, '처음 봐요'), P.h('ul', {}, ...['셋이 얽히는 춤', '손그림 같은 떨림', '물결치는 글자'].map(li)));
@@ -489,8 +499,7 @@ export default {
         /* 색종이 */
         const COLS = ['#127E90', '#F2812D', '#1B1F24', '#9AA5AF'];
         const conf = Array.from({ length: 28 }, (_, i) => { const c = P.h('div', { class: 'mc-conf', style: `background:${COLS[i % 4]}` }); stage.append(c); return { el: c, x: 40 + (i * 131) % 640, d: (i * 29) % 100 / 100, sp: .8 + (i * 17) % 50 / 100, rot: (i * 53) % 360 }; });
-        const q = P.quokka({ x: 410, y: 820, size: 300, pose: 'wave' });
-        stage.append(q.el);
+        const q = quokka(stage, P, 'wave');
         const tr = track(stage, P, [4]);
         const gl = [...good.querySelectorAll('li span')], bl = [...bad.querySelectorAll('li span')];
         return {
@@ -516,14 +525,13 @@ export default {
         { t: 5.6, text: '이징은 같은 거리를 다른 빠르기로 가는 속도표.' },
         { t: 10.2, text: 'FFmpeg는 그림을 영상으로 묶는 무료 도구예요.' }
       ],
-      build({ stage, lines, P, tl, base }) {
-        sty(stage, P);
+      build({ stage: st0, lines, P, tl, base }) {
+        const stage = frame(st0, P);
         const head = P.h('div', { class: 'mc-big', style: 'left:60px;top:112px;width:600px;font-size:34px;text-align:left' }); stage.append(head);
         const rh = riser(P, head, '오늘의 AI 개념극장 · 용어 셋');
         const box = P.h('div', { class: 'mc-ringbox' }, P.h('iframe', { src: `${base || ''}assets/motions/browser-tabs-e76.html`, title: '용어 정리', tabindex: '-1' }));
         stage.append(box);
-        const q = P.quokka({ x: 410, y: 820, size: 300, pose: 'wave' });
-        stage.append(q.el);
+        const q = quokka(stage, P, 'wave');
         const tr = track(stage, P, [0, 1, 2, 3, 4]);
         return {
           tick(t) {
