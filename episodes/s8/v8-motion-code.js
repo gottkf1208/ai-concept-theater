@@ -120,11 +120,36 @@ const CSS = `
 .mc-count i{position:absolute;inset:0;border-radius:50%;border:2px solid var(--ink);opacity:.5}
 .mc-count b{position:absolute;inset:14px;border-radius:50%}
 .mc-count span{position:absolute;inset:0;display:grid;place-items:center}
+.mc-track{position:absolute;left:60px;top:842px;width:330px;display:flex;flex-direction:column;gap:8px}
+.mc-step{display:flex;align-items:center;gap:12px;height:48px;padding:0 14px;border-radius:14px;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.8);opacity:0;will-change:transform}
+.mc-step b{font-size:22px;font-weight:800;color:var(--muted2);width:44px}
+.mc-step span{font-size:17px;font-weight:700;color:var(--muted2);font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mc-step.on{background:#fff;border-color:var(--acc1);box-shadow:0 10px 24px -18px rgba(27,31,36,.5)}
+.mc-step.on b{color:var(--acc1)}
+.mc-step.on span{color:var(--ink)}
+.mc-strip{position:absolute;display:flex;gap:4px;padding:18px 10px;box-sizing:border-box;background:var(--ink-soft);border-radius:14px;background-image:radial-gradient(circle,#fff 2.5px,transparent 3px),radial-gradient(circle,#fff 2.5px,transparent 3px);background-size:20px 8px;background-position:0 4px,0 98px;background-repeat:repeat-x;transform-origin:50% 50%}
+.mc-cell{position:relative;flex:1;height:74px;background:#fff;border-radius:3px;overflow:hidden;opacity:0;transition:opacity .15s}
+.mc-cell b{position:absolute;top:50%;width:60%;height:6px;margin-top:-3px;border-radius:3px;background:var(--acc1)}
+.mc-term{position:absolute;border-radius:18px;background:var(--ink-soft);color:#fff;padding:16px 22px;font-family:var(--mono);font-size:19px;line-height:1.7;box-sizing:border-box;overflow-wrap:anywhere}
+.mc-ps{color:var(--acc2)}
+.mc-file-ic{position:absolute;border-radius:22px;background:#fff;border:2px solid var(--acc2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;opacity:0;transform-origin:50% 50%;box-sizing:border-box;box-shadow:0 20px 40px -24px rgba(27,31,36,.5)}
+.mc-fname{font-family:var(--mono);font-weight:800;font-size:30px;color:var(--ink)}
+.mc-fsub{font-size:18px;font-weight:700;color:var(--muted2);text-align:center;padding:0 12px}
+.mc-def{position:absolute;border-radius:16px;background:var(--acc2-pale);border:1px solid rgba(27,31,36,.06);padding:12px 16px;box-sizing:border-box;font-size:21px;font-weight:700;line-height:1.4;color:var(--ink)}
+.mc-def b{color:var(--acc2)}
 .mc-tile{position:absolute;width:290px;height:290px;border-radius:22px;overflow:hidden;background:#fff;box-shadow:0 18px 40px -24px rgba(27,31,36,.55);transform-origin:50% 50%;opacity:0;will-change:transform}
 .mc-tile iframe{display:block;width:290px;height:290px;border:0;pointer-events:none}
 .mc-tile-ko{position:absolute;left:12px;bottom:12px;font-size:16px;font-weight:800;color:#fff;background:rgba(27,31,36,.7);border-radius:999px;padding:3px 10px;opacity:0}
 `;
 const sty = (stage, P) => stage.append(P.h('style', {}, CSS));
+/* 쿼카 옆 길잡이: 지금 어느 단계 이야기인지. lit에 든 줄만 켜져요 */
+const STEPS = [['말', '왼쪽에서 들어와'], ['표', '0.2초 → -27'], ['글', 'left: -100%'], ['그림', '1초에 30장'], ['영상', 'out.mp4']];
+function track(stage, P, lit) {
+  const el = P.h('div', { class: 'mc-track' });
+  const rows = STEPS.map(([k, v], i) => { const r = P.h('div', { class: 'mc-step' + (lit.includes(i) ? ' on' : '') }, P.h('b', {}, k), P.h('span', {}, v)); el.append(r); return r; });
+  stage.append(el);
+  return { el, at(t, T0 = .4) { rows.forEach((r, i) => { const c = EXPO(seg(t, T0 + i * .12, T0 + i * .12 + .5)); r.style.opacity = c; r.style.transform = `translateX(${(1 - c) * -30}px)`; }); } };
+}
 const codeBlock = (P, style) => {
   const el = P.h('div', { class: 'mc-code', style });
   el.append(P.h('div', { class: 'mc-file' }, 'title.html'));
@@ -151,7 +176,7 @@ export default {
   stage: { w: 720, h: 1280 },
   title: '손이 없는데 모션그래픽은 어떻게 만들까',
   subtitle: '움직임은 숫자 표, 그 표는 글로 적어요',
-  summary: '제목 글자가 미끄러져 들어오게 해 달라고 하면 클로드는 영상을 상상하지 않아요. 움직임은 숫자 표거든요. 몇 초에 어디 있는지 적어 둔 표인데 이 표는 글로 옮겨 적을 수도 있고요. 클로드는 설명과 코드가 짝을 이룬 글을 인터넷에서 엄청나게 읽었어요. 그래서 부탁 속 낱말마다 어떤 코드 조각이 따라오는지 외워 두고 있죠. 그 조각들을 이어 붙여 글을 쓰면 브라우저가 그 글을 읽고 움직임으로 그려 내요. 글이 맞게 쓰였는지는 사진을 찍어 확인하고요.',
+  summary: '제목 글자가 미끄러져 들어오게 해 달라고 하면 클로드는 영상을 상상하지 않아요. 움직임은 숫자 표거든요. 몇 초에 어디 있는지 적어 둔 표인데 이 표는 글로 옮겨 적을 수도 있고요. 클로드는 설명과 코드가 짝을 이룬 글을 인터넷에서 엄청나게 읽었어요. 그래서 부탁 속 낱말마다 어떤 코드 조각이 따라오는지 외워 두고 있죠. 그 조각들을 이어 붙여 글을 쓰면 브라우저가 그 글을 읽고 1초에 30장씩 그림으로 그려 내요. 그 그림을 영상 파일로 묶는 건 FFmpeg라는 무료 도구고요. 글이 맞게 쓰였는지는 사진을 찍어 확인해요.',
   keywords: ['모션그래픽', '키프레임', '숫자 표', '코드', '학습 데이터', '패턴', '이징', '천천히 멈춤', '확인'],
 
   scenes: [
@@ -181,9 +206,10 @@ export default {
         const rq = riser(P, q1, '손도 눈도 없는데?');
         const q = P.quokka({ x: 410, y: 820, size: 300, pose: 'oops' });
         stage.append(q.el);
+        const tr = track(stage, P, []);
         return {
           tick(t) {
-            q.tick(t, t > 9 && t < 15);
+            q.tick(t, t > 9 && t < 15); tr.at(t, 2);
             const n = 3 - Math.floor(t / .5), turn = (t % .5) / .5;
             cd.style.opacity = t < 1.5 ? 1 : 0; cd.lastChild.textContent = String(Math.max(1, n));
             cd.querySelector('b').style.background = `conic-gradient(var(--acc2-pale) ${turn * 360}deg, transparent 0)`;
@@ -200,7 +226,7 @@ export default {
     },
     /* 2 ── 움직임의 정체: 숫자 표(숫자 롤링) */
     {
-      title: '움직임의 정체', dur: 16,
+      title: '움직임의 정체', dur: 14,
       captions: [
         { t: 0, text: '움직임은 사실 숫자 표로 되어 있어요.' },
         { t: 4.5, text: '몇 초에 어디 있는지, 한 줄씩.' },
@@ -222,9 +248,10 @@ export default {
         const rn = riser(P, note, '표 → 그림 30장 → 영상');
         const q = P.quokka({ x: 410, y: 820, size: 300, pose: 'think' });
         stage.append(q.el);
+        const tr = track(stage, P, [1]);
         return {
           tick(t) {
-            q.tick(t, t < 15);
+            q.tick(t, t < 13); tr.at(t);
             /* 1초부터 4초 주기: 2.4초 동안 천천히 움직이고 1.6초 멈춤 */
             const cyc = Math.max(0, t - 1) % 4, p = Math.min(1, cyc / 2.4), loops = Math.floor(Math.max(0, t - 1) / 4);
             const e = EO(p);
@@ -244,7 +271,7 @@ export default {
     },
     /* 3 ── 표는 글이에요: 세 모습(가림막 올라오기), 형광펜, 한 낱말 펀치 */
     {
-      title: '표는 글이에요', dur: 15,
+      title: '표는 글이에요', dur: 14,
       captions: [
         { t: 0, text: '같은 움직임을 세 가지로 적을 수 있어요.' },
         { t: 4, text: '사람 말로, 숫자 표로, 컴퓨터 글로.' },
@@ -275,28 +302,29 @@ export default {
         const punch = P.h('div', { class: 'mc-punch' }, '= 글쓰기', P.h('i', { style: 'width:200px' })); stage.append(punch);
         const q = P.quokka({ x: 410, y: 820, size: 300, pose: 'point' });
         stage.append(q.el);
+        const tr = track(stage, P, [0, 1, 2]);
         return {
           tick(t) {
-            q.tick(t, t < 14);
+            q.tick(t, t < 13); tr.at(t);
             cards.forEach((c, i) => { const p = EXPO(seg(t, .3 + i * 1.6, 1.1 + i * 1.6)); c.style.opacity = p > 0 ? 1 : 0; c.style.transform = `translateY(${(1 - p) * 60}px)`; });
             a1.draw(seg(t, 1.9, 2.4)); a2.draw(seg(t, 3.5, 4));
             if (!pens && t > .5) mkPens();
             if (pens) pens.forEach(({ path, L }, i) => { const p = EO(seg(t, 11.6 + i * .45, 12.2 + i * .45)); path.setAttribute('stroke-dashoffset', L * (1 - p)); });
-            const come = EO(seg(t, 13.3, 13.8));
+            const come = EO(seg(t, 12.6, 13.1));
             punch.style.opacity = come; punch.style.transform = `scale(${1.25 - .25 * come})`;
-            punch.lastChild.style.transform = `scaleX(${EO(seg(t, 13.7, 14.3))})`;
+            punch.lastChild.style.transform = `scaleX(${EO(seg(t, 13, 13.6))})`;
           }
         };
       }
     },
     /* 4 ── 클로드가 읽은 것: 짝 카드 비, 돋보기 */
     {
-      title: '클로드가 읽은 것', dur: 17,
+      title: '클로드가 읽은 것', dur: 15,
       captions: [
         { t: 0, text: '클로드는 인터넷에 있는 코드를 잔뜩 읽었어요.' },
         { t: 4.5, text: '설명 옆에 코드가 짝지어 붙은 글들이요.' },
         { t: 9.5, text: '"왼쪽에서 들어와" 옆엔 늘 같은 코드가 있었어요.' },
-        { t: 14, text: '그 짝을 외워 둔 셈이죠.' }
+        { t: 13, text: '그 짝을 외워 둔 셈이죠.' }
       ],
       build({ stage, lines, P, tl }) {
         sty(stage, P);
@@ -315,9 +343,10 @@ export default {
         const rc = riser(P, cnt, '이런 짝을 수백만 개');
         const q = P.quokka({ x: 410, y: 820, size: 300, pose: 'think' });
         stage.append(q.el);
+        const tr = track(stage, P, [0, 2]);
         return {
           tick(t) {
-            q.tick(t, t < 16);
+            q.tick(t, t < 14); tr.at(t);
             rain.forEach(r => {
               const u = (t - .4 - r.delay) / 2.2;
               if (u < 0) { r.el.style.opacity = 0; return; }
@@ -333,19 +362,19 @@ export default {
             lens.style.opacity = come > 0 ? 1 : 0; lens.style.transform = `translate(${lx}px, ${ly}px)`;
             inner.style.transform = `translate(${R - px * Z}px, ${R - py * Z}px) scale(${Z})`;
             handle.style.opacity = come > 0 ? 1 : 0; handle.style.transform = `translate(${lx + R * 1.7}px, ${ly + R * 1.7}px) rotate(45deg)`;
-            rc.at(t, 14.2);
+            rc.at(t, 13.2);
           }
         };
       }
     },
     /* 5 ── 말이 코드가 되는 순간: 스포트라이트, 조각 날아가 꽂히기 */
     {
-      title: '말이 코드가 돼요', dur: 18,
+      title: '말이 코드가 돼요', dur: 16,
       captions: [
         { t: 0, text: '부탁을 낱말로 쪼개요.' },
         { t: 4, text: '낱말마다 외워 둔 코드 조각을 갖다 붙여요.' },
-        { t: 11, text: '조각을 이어 붙이면 글 한 편이 완성돼요.' },
-        { t: 15, text: '브라우저가 읽으면 움직임이 돼요.' }
+        { t: 10.5, text: '조각을 이어 붙이면 글 한 편이 완성돼요.' },
+        { t: 13.5, text: '브라우저가 읽으면 움직임이 돼요.' }
       ],
       build({ stage, lines, P, tl }) {
         sty(stage, P);
@@ -361,10 +390,11 @@ export default {
         prev.append(P.h('div', { class: 'mc-mid' }), word); stage.append(prev);
         const q = P.quokka({ x: 410, y: 820, size: 300, pose: 'point' });
         stage.append(q.el);
+        const tr = track(stage, P, [0, 2]);
         const T0 = 4.3, STEP = 1.6;
         return {
           tick(t) {
-            q.tick(t, t < 18);
+            q.tick(t, t < 15); tr.at(t);
             frags.forEach(({ el, k }, i) => {
               const u = (t - T0 - i * STEP) / .9;
               chips[i].classList.toggle('on', u >= 0 && (i === 3 ? t < T0 + 3 * STEP + 1.1 : u < STEP / .9));
@@ -381,31 +411,74 @@ export default {
             spot.style.opacity = t >= T0 - .2 && t < T0 + 3 * STEP + 1.1 ? 1 : 0;
             spot.style.transform = `translate(${CX(prv) + (CX(idx) - CX(prv)) * m - 10}px, ${CY(prv) + (CY(idx) - CY(prv)) * m - 2}px)`;
             prev.style.opacity = SM(seg(t, 2.6, 3.1));
-            loopIn(word, t, 15);
+            loopIn(word, t, 13.6);
+          }
+        };
+      }
+    },
+    /* 6 ── 글이 영상이 되기까지: 브라우저가 그림 30장, FFmpeg가 묶기 */
+    {
+      title: '글이 영상이 되기까지', dur: 14,
+      captions: [
+        { t: 0, text: '글을 쓰면 브라우저가 그림으로 그려요.' },
+        { t: 3.5, text: '1초에 30장. 아직 영상은 아니에요.' },
+        { t: 7, text: 'FFmpeg가 그림을 이어 붙여 영상 파일로 만들어요.' },
+        { t: 10.5, text: '명령 한 줄이면 돼요. 이것도 글이에요.' }
+      ],
+      build({ stage, lines, P, tl }) {
+        sty(stage, P);
+        const code = P.h('div', { class: 'mc-code', style: 'left:60px;top:110px;width:600px;height:86px;padding:12px 20px' }, P.h('div', { class: 'mc-file' }, 'title.html'), P.h('div', { class: 'mc-line' }, 'animation: in 1s ease-out;'));
+        stage.append(code); tl.at(code, .2, { from: 'up' });
+        const a1 = P.arrow(lines, { x1: 360, y1: 200, x2: 360, y2: 236, width: 4, color: '#127E90' });
+        const strip = P.h('div', { class: 'mc-strip', style: 'left:60px;top:240px;width:600px;height:110px' });
+        const cells = Array.from({ length: 30 }, (_, i) => { const d = P.h('div', { class: 'mc-cell' }, P.h('b', { style: `left:${-60 + 80 * EO(i / 29)}%` })); strip.append(d); return d; });
+        stage.append(strip);
+        const lab = P.chip({ x: 60, y: 366, text: '브라우저가 그린 그림 30장 = 1초', color: 'aqua', size: 22 });
+        tl.at(stage.appendChild(lab.el), 3.6, { from: 'pop' });
+        const term = P.h('div', { class: 'mc-term', style: 'left:60px;top:430px;width:600px;height:86px' });
+        const cmd = P.h('span', {}); term.append(P.h('span', { class: 'mc-ps' }, '$ '), cmd); stage.append(term); tl.at(term, 7, { from: 'up' });
+        const CMD = 'ffmpeg -framerate 30 -i frame_%03d.png out.mp4';
+        const def = P.h('div', { class: 'mc-def', style: 'left:60px;top:540px;width:600px' }, P.h('b', {}, 'FFmpeg'), ': 그림·소리·영상을 자르고 이어 붙이는 무료 도구예요. 세상 영상 편집기 대부분이 속으로 이걸 써요.');
+        stage.append(def); tl.at(def, 7.4, { from: 'up' });
+        const file = P.h('div', { class: 'mc-file-ic', style: 'left:210px;top:660px;width:300px;height:120px' }, P.h('div', { class: 'mc-fname' }, 'out.mp4'), P.h('div', { class: 'mc-fsub' }, '1초 · 30장'));
+        stage.append(file);
+        const q = P.quokka({ x: 410, y: 820, size: 300, pose: 'point' });
+        stage.append(q.el);
+        const tr = track(stage, P, [2, 3, 4]);
+        return {
+          tick(t) {
+            q.tick(t, t < 13); tr.at(t);
+            a1.draw(seg(t, .8, 1.3));
+            cells.forEach((c, i) => { c.style.opacity = t > 1.2 + i * .07 ? 1 : 0; });
+            const n = Math.round(CMD.length * seg(t, 7.2, 9.6)); if (cmd.textContent.length !== n) cmd.textContent = CMD.slice(0, n);
+            /* 10초: 띠가 아래로 모여 파일 하나가 돼요 */
+            const g = SM(seg(t, 10, 11.2));
+            strip.style.transform = `translateY(${420 * g}px) scaleX(${1 - .85 * g}) scaleY(${1 - .3 * g})`; strip.style.opacity = 1 - g;
+            file.style.opacity = t > 10.9 ? 1 : 0; file.style.transform = `scale(${SP(seg(t, 10.9, 11.4))})`;
           }
         };
       }
     },
     /* 6 ── 잘하는 것, 어려운 것, 사진 확인, 색종이 */
     {
-      title: '잘하는 것, 어려운 것', dur: 15,
+      title: '잘하는 것, 어려운 것', dur: 12,
       captions: [
         { t: 0, text: '많이 본 움직임은 잘 만들어요.' },
-        { t: 4, text: '처음 보는 복잡한 동작에선 숫자가 어긋나요.' },
-        { t: 8, text: '쓴 글이 맞는지는 사진을 찍어 보면 알아요.' },
-        { t: 11.5, text: '시킬 땐 어디서, 몇 초, 어떻게. 셋이면 돼요.' }
+        { t: 3.2, text: '처음 보는 복잡한 동작에선 숫자가 어긋나요.' },
+        { t: 6.4, text: '쓴 글이 맞는지는 사진을 찍어 보면 알아요.' },
+        { t: 9.2, text: '시킬 땐 어디서, 몇 초, 어떻게. 셋이면 돼요.' }
       ],
       build({ stage, lines, P, tl }) {
         sty(stage, P);
         const li = s => P.h('li', {}, P.h('span', {}, s));
         const good = P.h('div', { class: 'mc-col', style: 'left:60px;top:110px;width:290px;height:250px' }, P.h('h4', {}, '많이 봤어요'), P.h('ul', {}, ...['들어오기', '사라지기', '통통 튀기', '글자 타이핑'].map(li)));
         const bad = P.h('div', { class: 'mc-col bad', style: 'left:370px;top:110px;width:290px;height:250px' }, P.h('h4', {}, '처음 봐요'), P.h('ul', {}, ...['셋이 얽히는 춤', '손그림 같은 떨림', '물결치는 글자'].map(li)));
-        stage.append(good, bad); tl.at(good, .3, { from: 'left' }); tl.at(bad, 4.2, { from: 'right' });
+        stage.append(good, bad); tl.at(good, .3, { from: 'left' }); tl.at(bad, 3.4, { from: 'right' });
         const chk = P.h('div', { class: 'mc-screen', style: 'left:60px;top:400px;width:600px;height:140px;opacity:0;transform-origin:50% 50%' });
         const word = P.h('div', { class: 'mc-word sm', style: `left:${WPOS(EO(.5))}%` }, TITLE);
         chk.append(P.h('div', { class: 'mc-mid' }), word, P.h('span', { style: 'position:absolute;right:12px;top:10px;font-size:16px;font-weight:800;color:#fff;background:var(--acc2);border-radius:999px;padding:2px 10px' }, '0.5초 사진')); stage.append(chk);
         const ok = P.chip({ x: 60, y: 560, text: '절반 넘게 왔네요. 맞아요', color: 'aqua', size: 22 });
-        tl.at(stage.appendChild(ok.el), 9.6, { from: 'pop' });
+        tl.at(stage.appendChild(ok.el), 7.6, { from: 'pop' });
         const ask = P.h('div', { class: 'mc-ask', style: 'left:60px;top:640px;width:600px;opacity:0', html: '제목이 <b>왼쪽 밖</b>에서 <b>가운데</b>로, <b>1초</b> 동안, <b>천천히 멈추게</b>' });
         stage.append(ask);
         const bolds = [...ask.querySelectorAll('b')];
@@ -414,16 +487,17 @@ export default {
         const conf = Array.from({ length: 28 }, (_, i) => { const c = P.h('div', { class: 'mc-conf', style: `background:${COLS[i % 4]}` }); stage.append(c); return { el: c, x: 40 + (i * 131) % 640, d: (i * 29) % 100 / 100, sp: .8 + (i * 17) % 50 / 100, rot: (i * 53) % 360 }; });
         const q = P.quokka({ x: 410, y: 820, size: 300, pose: 'wave' });
         stage.append(q.el);
+        const tr = track(stage, P, [4]);
         const gl = [...good.querySelectorAll('li span')], bl = [...bad.querySelectorAll('li span')];
         return {
           tick(t) {
-            q.tick(t, t < 14);
-            gl.forEach((s, i) => { const p = EXPO(seg(t, .8 + i * .3, 1.5 + i * .3)); s.style.transform = `translateY(${(1 - p) * 110}%)`; });
-            bl.forEach((s, i) => { const p = EXPO(seg(t, 4.7 + i * .3, 5.4 + i * .3)); s.style.transform = `translateY(${(1 - p) * 110}%)`; });
-            chk.style.opacity = t > 8.2 ? 1 : 0; chk.style.transform = `scale(${SP(seg(t, 8.2, 8.7))})`;
-            ask.style.opacity = t > 11.3 ? 1 : 0;
-            bolds.forEach((b, i) => { const p = EO(seg(t, 11.5 + i * .35, 12.2 + i * .35)); b.style.filter = p < 1 ? `blur(${(1 - p) * 8}px)` : 'none'; b.style.opacity = p; b.style.transform = `translateY(${(1 - p) * 10}px)`; });
-            conf.forEach(c => { const u = (t - 12.8 - c.d) / (1.6 * c.sp); if (u < 0 || u > 1.2) { c.el.style.opacity = 0; return; } c.el.style.opacity = u < 1 ? 1 : 1 - (u - 1) * 5; c.el.style.transform = `translate(${c.x + Math.sin(u * 6 + c.rot) * 30}px, ${80 + u * 760}px) rotate(${c.rot + u * 540}deg)`; });
+            q.tick(t, t < 11); tr.at(t);
+            gl.forEach((s, i) => { const p = EXPO(seg(t, .8 + i * .25, 1.4 + i * .25)); s.style.transform = `translateY(${(1 - p) * 110}%)`; });
+            bl.forEach((s, i) => { const p = EXPO(seg(t, 3.8 + i * .25, 4.4 + i * .25)); s.style.transform = `translateY(${(1 - p) * 110}%)`; });
+            chk.style.opacity = t > 6.6 ? 1 : 0; chk.style.transform = `scale(${SP(seg(t, 6.6, 7.1))})`;
+            ask.style.opacity = t > 9.2 ? 1 : 0;
+            bolds.forEach((b, i) => { const p = EO(seg(t, 9.4 + i * .3, 10 + i * .3)); b.style.filter = p < 1 ? `blur(${(1 - p) * 8}px)` : 'none'; b.style.opacity = p; b.style.transform = `translateY(${(1 - p) * 10}px)`; });
+            conf.forEach(c => { const u = (t - 10.2 - c.d) / (1.6 * c.sp); if (u < 0 || u > 1.2) { c.el.style.opacity = 0; return; } c.el.style.opacity = u < 1 ? 1 : 1 - (u - 1) * 5; c.el.style.transform = `translate(${c.x + Math.sin(u * 6 + c.rot) * 30}px, ${80 + u * 760}px) rotate(${c.rot + u * 540}deg)`; });
           }
         };
       }
@@ -490,13 +564,13 @@ export default {
     { title: 'MDN, Using CSS animations', url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animations/Using_CSS_animations', note: '처음 모양과 끝 모양을 글로 적으면 브라우저가 사이를 그려 주는 방식의 공식 설명.' },
     { title: 'W3C, CSS Easing Functions Level 1', url: 'https://www.w3.org/TR/css-easing-1/', note: '"천천히 멈춤" 같은 속도 곡선의 표준 정의.' },
     { title: 'Anthropic, Claude Code 공식 문서', url: 'https://docs.claude.com/en/docs/claude-code/overview', note: '클로드가 파일을 쓰고 명령을 돌리고 결과 그림을 읽어 확인하는 작업 방식.' },
-    { title: 'FFmpeg 공식 문서', url: 'https://ffmpeg.org/ffmpeg.html', note: '그림 묶음을 영상으로 만들고 특정 시각의 그림을 꺼내는 도구의 설명서.' }
+    { title: 'FFmpeg 공식 문서', url: 'https://ffmpeg.org/ffmpeg.html', note: '그림 묶음을 영상 파일로 묶고, 영상에서 특정 시각의 그림을 꺼내는 무료 도구의 설명서.' }
   ],
   script: `클로드 코드로 만든 움직임이 모션랩에만 578개예요. 글자가 떨어지고, 숫자가 굴러가고, 낱말이 고리를 그려요. 그런데 클로드에겐 손도 눈도 없어요. 어떻게 만든 걸까요.
 
 움직임은 사실 숫자 표로 되어 있어요. 0초엔 왼쪽 밖, 0.5초엔 중간을 지나, 1초엔 가운데. 몇 초에 어디 있는지 한 줄씩 적은 표요. 편집 프로그램 속도 이 표로 움직이는데 이 표는 글로도 옮겨 적을 수 있어요. 사람 말로도, 숫자 표로도, 컴퓨터 글로도요. 컴퓨터 글은 브라우저가 읽고 그대로 그려 주거든요. 움직임을 만드는 일이 곧 글을 쓰는 일이죠.
 
-클로드는 인터넷에 있는 코드를 엄청나게 읽었어요. 설명과 코드가 짝으로 붙은 글들이요. "왼쪽에서 들어와"라는 설명 옆엔 늘 같은 코드가 있었어요. 클로드는 바로 그 짝을 외워 뒀어요. 부탁이 들어오면 낱말로 쪼갠 다음 낱말마다 외워 둔 코드 조각을 갖다 붙여요. 조각을 이어 붙여 글 한 편을 만들면 브라우저가 그걸 읽고 움직임으로 그려요.
+클로드는 인터넷에 있는 코드를 엄청나게 읽었어요. 설명과 코드가 짝으로 붙은 글들이요. "왼쪽에서 들어와"라는 설명 옆엔 늘 같은 코드가 있었어요. 클로드는 바로 그 짝을 외워 뒀어요. 부탁이 들어오면 낱말로 쪼갠 다음 낱말마다 외워 둔 코드 조각을 갖다 붙여요. 조각을 이어 붙여 글 한 편을 만들면 브라우저가 그걸 읽고 1초에 30장씩 그림으로 그려요. 그림을 영상 파일로 묶는 건 FFmpeg라는 무료 도구예요. 그림과 소리와 영상을 자르고 이어 붙이는 도구인데, 명령 한 줄이면 돼요. 이것도 글이에요.
 
 많이 본 움직임은 잘 만들지만 처음 보는 복잡한 동작에선 숫자를 잘못 적어요. 쓴 글이 맞는지는 사진을 찍어 보고 확인해요. 시킬 땐 어디서 어디로, 몇 초 동안, 어떻게 멈추는지. 이 세 가지만 적어 주면 돼요.`
 };
