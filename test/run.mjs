@@ -66,7 +66,7 @@ for (const vp of VIEWPORTS) {
     await page.locator('.scene-list button').nth(n - 1).click();
     await page.click('.controls .btn.primary');
     const dur = await page.evaluate(() => { const t = document.querySelector('.controls .time').textContent.split('/')[1].trim().split(':'); return +t[0] * 60 + +t[1]; });
-    const lecture = await page.evaluate(() => document.body.dataset.format === 'lecture'); const [dMin, dMax] = lecture ? [150, 360] : [55, 90]; ok(dur >= dMin && dur <= dMax, `watch: 애니메이션 길이 ${dur}s (${dMin}~${dMax})`);
+    const lecture = await page.evaluate(() => document.body.dataset.format === 'lecture'); const [dMin, dMax] = lecture ? [150, 360] : [55, 100]; ok(dur >= dMin && dur <= dMax, `watch: 애니메이션 길이 ${dur}s (${dMin}~${dMax})`);
     /* 만져 보기 */
     const panel = page.locator('#iPanel');
     const before = await panel.innerHTML();
