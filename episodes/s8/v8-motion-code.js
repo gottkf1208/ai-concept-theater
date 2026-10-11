@@ -98,9 +98,12 @@ const CSS = `
 .mc-rain{position:absolute;left:0;top:0;width:250px;height:92px;border-radius:12px;background:#fff;border:1px solid rgba(27,31,36,.1);box-sizing:border-box;padding:10px 12px;box-shadow:0 8px 16px -12px rgba(27,31,36,.6);will-change:transform;opacity:0}
 .mc-rain em{display:block;font-style:normal;font-size:15px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden}
 .mc-rain code{display:block;font-family:var(--mono);font-size:13px;color:var(--acc1);white-space:nowrap;overflow:hidden;margin-top:4px}
-.mc-lens{position:absolute;left:0;top:0;width:240px;height:240px;border-radius:50%;overflow:hidden;background:#fff;border:6px solid var(--ink);box-shadow:0 24px 50px -20px rgba(27,31,36,.6);opacity:0;will-change:transform}
+.mc-rain.mc-blank em,.mc-rain.mc-blank code{opacity:0}
+.mc-lens{position:absolute;left:0;top:0;width:240px;height:240px;border-radius:50%;overflow:hidden;background:#fff;border:4px solid var(--ink);box-shadow:0 34px 60px -26px rgba(27,31,36,.55),inset 0 0 0 7px rgba(255,255,255,.7),inset 0 -50px 70px rgba(27,31,36,.07);opacity:0;will-change:transform}
+.mc-lens::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 24%,rgba(255,255,255,.7),rgba(255,255,255,0) 42%);pointer-events:none}
+.mc-zoom{position:absolute;left:0;top:0;font-family:var(--mono);font-size:16px;font-weight:700;color:#fff;background:var(--ink);border-radius:999px;padding:3px 10px;opacity:0;will-change:transform}
 .mc-lens .mc-rain{opacity:1;box-shadow:none;border:0;transform-origin:0 0}
-.mc-handle{position:absolute;left:0;top:0;width:120px;height:18px;border-radius:9px;background:var(--ink);transform-origin:0 50%;opacity:0}
+.mc-handle{position:absolute;left:0;top:0;width:112px;height:16px;border-radius:8px;background:linear-gradient(90deg,var(--ink),var(--ink-soft));box-shadow:0 10px 20px -10px rgba(27,31,36,.6);transform-origin:0 50%;opacity:0}
 .mc-chip{position:absolute;font-size:24px;font-weight:800;padding:8px 16px;border-radius:999px;background:#fff;border:2px solid rgba(27,31,36,.1);color:var(--ink);white-space:nowrap;box-sizing:border-box;transition:border-color .2s,background .2s,color .2s}
 .mc-chip.on{border-color:var(--acc2);background:var(--acc2-pale);color:var(--acc2)}
 .mc-spot{position:absolute;left:0;top:0;width:300px;height:56px;border-radius:999px;box-shadow:0 0 0 2000px rgba(27,31,36,.42);pointer-events:none;opacity:0}
@@ -352,14 +355,14 @@ export default {
         const N = 36;
         const rain = Array.from({ length: N }, (_, i) => {
           const el = pairCard(P, i); stage.append(el); const col = i % 2;
-          return { el, x0: 60 + col * 320 + ((i * 37) % 60) - 30, x1: 60 + col * 320, y1: 700 - Math.floor(i / 2) * 5, delay: i * .22, rot: ((i * 7) % 11 - 5) * 1.2, rot1: ((i * 5) % 7 - 3) * 1.5 };
+          return { el, x0: 100 + col * 310 + ((i * 37) % 60) - 30, x1: 100 + col * 310, y1: 700 - Math.floor(i / 2) * 5, delay: i * .22, rot: ((i * 7) % 11 - 5) * 1.2, rot1: ((i * 5) % 7 - 3) * 1.5 };
         });
         const top = rain[N - 2]; /* 왼쪽 더미 맨 위 카드: '왼쪽에서 들어와' */
         /* 돋보기: 맨 위 카드를 2.4배로 비춰요 */
-        const Z = 1.9, R = 120;
+        const Z = 1.75, R = 120;
         const lens = P.h('div', { class: 'mc-lens' }); const inner = pairCard(P, N - 2); lens.append(inner);
-        const handle = P.h('div', { class: 'mc-handle' });
-        stage.append(handle, lens);
+        const handle = P.h('div', { class: 'mc-handle' }), zoom = P.h('span', { class: 'mc-zoom' }, '× 1.8');
+        stage.append(handle, lens, zoom);
         const cnt = P.h('div', { class: 'mc-big', style: 'left:60px;top:120px;width:600px;font-size:34px' }); stage.append(cnt);
         const rc = riser(P, cnt, '이런 짝을 수백만 개');
         const q = quokka(stage, P, 'think');
@@ -371,17 +374,20 @@ export default {
               const u = (t - .4 - r.delay) / 2.2;
               if (u < 0) { r.el.style.opacity = 0; return; }
               const p = Math.min(1, u), y = 40 + (r.y1 - 40) * SM(p), x = r.x0 + (r.x1 - r.x0) * p;
-              r.el.style.opacity = p < 1 ? Math.min(1, p * 6) : (t > 9.5 && r !== top ? .3 : 1);
+              const idx = rain.indexOf(r);
+              r.el.style.opacity = p < 1 ? Math.min(1, p * 6) : (t > 9.5 && r !== top ? (idx >= N - 8 ? .5 : 0) : 1);
+              r.el.classList.toggle('mc-blank', t > 9.5 && r !== top);
               r.el.style.transform = `translate(${x}px, ${y}px) rotate(${r.rot * (1 - p) + r.rot1 * p}deg)`;
             });
             /* 돋보기: 9.5초에 오른쪽 아래에서 들어와 설명 줄 → 코드 줄로 내려가요 */
             const come = EXPO(seg(t, 9.5, 10.6)), down = SM(seg(t, 12, 13.2));
-            const px = 64 + 10 * down, py = 19 + 21 * down; /* 카드 안에서 비출 점: 설명 줄 → 코드 줄 */
+            const px = 72 + 10 * down, py = 19 + 21 * down; /* 카드 안에서 비출 점: 설명 줄 → 코드 줄 */
             const cx = top.x1 + px, cy = top.y1 + py; /* 무대 좌표 */
             const lx = 760 + (cx - R - 760) * come, ly = 900 + (cy - R - 900) * come;
             lens.style.opacity = come > 0 ? 1 : 0; lens.style.transform = `translate(${lx}px, ${ly}px)`;
             inner.style.transform = `translate(${R - px * Z}px, ${R - py * Z}px) scale(${Z})`;
-            handle.style.opacity = come > 0 ? 1 : 0; handle.style.transform = `translate(${lx + R * 1.7}px, ${ly + R * 1.7}px) rotate(45deg)`;
+            handle.style.opacity = come > 0 ? 1 : 0; handle.style.transform = `translate(${lx + R * 1.68}px, ${ly + R * 1.68}px) rotate(45deg)`;
+            zoom.style.opacity = seg(t, 10.6, 11); zoom.style.transform = `translate(${lx + R * 2 - 20}px, ${ly - 6}px)`;
             rc.at(t, 13.2);
           }
         };
