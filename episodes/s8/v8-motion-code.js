@@ -120,6 +120,9 @@ const CSS = `
 .mc-count i{position:absolute;inset:0;border-radius:50%;border:2px solid var(--ink);opacity:.5}
 .mc-count b{position:absolute;inset:14px;border-radius:50%}
 .mc-count span{position:absolute;inset:0;display:grid;place-items:center}
+.mc-tile{position:absolute;width:290px;height:290px;border-radius:22px;overflow:hidden;background:#fff;box-shadow:0 18px 40px -24px rgba(27,31,36,.55);transform-origin:50% 50%;opacity:0;will-change:transform}
+.mc-tile iframe{display:block;width:290px;height:290px;border:0;pointer-events:none}
+.mc-tile-ko{position:absolute;left:12px;bottom:12px;font-size:16px;font-weight:800;color:#fff;background:rgba(27,31,36,.7);border-radius:999px;padding:3px 10px;opacity:0}
 `;
 const sty = (stage, P) => stage.append(P.h('style', {}, CSS));
 const codeBlock = (P, style) => {
@@ -152,42 +155,45 @@ export default {
   keywords: ['모션그래픽', '키프레임', '숫자 표', '코드', '학습 데이터', '패턴', '이징', '천천히 멈춤', '확인'],
 
   scenes: [
-    /* 1 ── 카운트다운, 부탁 한 줄(자모 타이핑), 질문(글자 올라오기) */
+    /* 1 ── 카운트다운, 클로드 코드가 만든 움직임 넷(모션랩 iframe), 질문(글자 올라오기) */
     {
-      title: '부탁 한 줄', dur: 13,
+      title: '클로드 코드가 만든 것', dur: 16,
       captions: [
-        { t: 1.5, text: '부탁은 한 줄이에요.' },
-        { t: 5.5, text: '클로드는 손도 눈도 없어요.' },
-        { t: 9, text: '그런데도 영상을 만들어 내요. 어떻게요?' }
+        { t: 0, text: '클로드 코드로 만든 움직임들이에요.' },
+        { t: 5.5, text: '모션랩에만 578개가 있어요.' },
+        { t: 9.5, text: '그런데 클로드는 손도 눈도 없어요.' },
+        { t: 12.5, text: '어떻게 만든 걸까요?' }
       ],
-      build({ stage, lines, P, tl }) {
+      build({ stage, lines, P, tl, base }) {
         sty(stage, P);
         const cd = P.h('div', { class: 'mc-count', style: 'left:230px;top:300px' }, P.h('i'), P.h('b'), P.h('span', {}, '3'));
         stage.append(cd);
-        const panel = P.h('div', { class: 'mc-panel', style: 'left:60px;top:110px;width:600px;height:690px;opacity:0' }); stage.append(panel);
-        const ask = P.h('div', { class: 'mc-say', style: 'left:90px;top:150px;width:540px;opacity:0' }); stage.append(ask);
-        const ty = typer(P, ask, '제목 글자가 왼쪽에서 들어와 가운데 서게 해 줘', .055);
-        const q1 = P.h('div', { class: 'mc-big', style: 'left:60px;top:330px;width:600px' }); stage.append(q1);
+        /* 모션랩에서 뽑은 독립 HTML 넷. 자기 시계로 돌아가는 되풀이 모션이라 무대 시간과 따로 놀아도 돼요 */
+        const TILES = [['word-punch', '한 낱말씩'], ['drop-type', '글자 낙하'], ['ring-type', '글자 고리'], ['odometer', '숫자 롤링']];
+        const tiles = TILES.map(([id, ko], k) => {
+          const x = 60 + (k % 2) * 310, y = 110 + Math.floor(k / 2) * 310;
+          const w = P.h('div', { class: 'mc-tile', style: `left:${x}px;top:${y}px` },
+            P.h('iframe', { src: `${base || ''}assets/motions/${id}.html`, title: ko, loading: 'eager', tabindex: '-1' }),
+            P.h('span', { class: 'mc-tile-ko' }, ko));
+          stage.append(w); return w;
+        });
+        const q1 = P.h('div', { class: 'mc-big', style: 'left:60px;top:735px;width:600px' }); stage.append(q1);
         const rq = riser(P, q1, '손도 눈도 없는데?');
-        const got = P.chip({ x: 90, y: 480, text: '1분 뒤, 영상이 왔어요', color: 'aqua', size: 24 });
-        tl.at(stage.appendChild(got.el), 9.2, { from: 'pop' });
-        const prev = P.h('div', { class: 'mc-screen', style: 'left:90px;top:560px;width:540px;height:200px;opacity:0' });
-        const word = P.h('div', { class: 'mc-word' }, TITLE);
-        prev.append(P.h('div', { class: 'mc-mid' }), word); stage.append(prev);
         const q = P.quokka({ x: 410, y: 820, size: 300, pose: 'oops' });
         stage.append(q.el);
         return {
           tick(t) {
-            q.tick(t, t > 5 && t < 12);
-            /* 0~1.5초: 필름 카운트다운 3·2·1 */
+            q.tick(t, t > 9 && t < 15);
             const n = 3 - Math.floor(t / .5), turn = (t % .5) / .5;
             cd.style.opacity = t < 1.5 ? 1 : 0; cd.lastChild.textContent = String(Math.max(1, n));
             cd.querySelector('b').style.background = `conic-gradient(var(--acc2-pale) ${turn * 360}deg, transparent 0)`;
-            panel.style.opacity = SM(seg(t, 1.4, 1.9)); ask.style.opacity = t > 1.6 ? 1 : 0;
-            ty.at(t - 1.8);
-            rq.at(t, 5.6);
-            prev.style.opacity = t > 9.4 ? 1 : 0;
-            loopIn(word, t, 9.6);
+            tiles.forEach((w, k) => {
+              const come = SP(seg(t, 1.6 + k * .45, 2.3 + k * .45)), dim = SM(seg(t, 9.3, 10));
+              w.style.opacity = come > 0 ? 1 - dim * .55 : 0;
+              w.style.transform = `scale(${come * (1 - dim * .06)})`;
+              w.lastChild.style.opacity = seg(t, 4 + k * .2, 4.4 + k * .2) * (1 - dim);
+            });
+            rq.at(t, 9.6);
           }
         };
       }
@@ -334,7 +340,7 @@ export default {
     },
     /* 5 ── 말이 코드가 되는 순간: 스포트라이트, 조각 날아가 꽂히기 */
     {
-      title: '말이 코드가 돼요', dur: 19,
+      title: '말이 코드가 돼요', dur: 18,
       captions: [
         { t: 0, text: '부탁을 낱말로 쪼개요.' },
         { t: 4, text: '낱말마다 외워 둔 코드 조각을 갖다 붙여요.' },
@@ -486,7 +492,7 @@ export default {
     { title: 'Anthropic, Claude Code 공식 문서', url: 'https://docs.claude.com/en/docs/claude-code/overview', note: '클로드가 파일을 쓰고 명령을 돌리고 결과 그림을 읽어 확인하는 작업 방식.' },
     { title: 'FFmpeg 공식 문서', url: 'https://ffmpeg.org/ffmpeg.html', note: '그림 묶음을 영상으로 만들고 특정 시각의 그림을 꺼내는 도구의 설명서.' }
   ],
-  script: `제목 글자가 왼쪽에서 들어오게 해 달라고 부탁하면 1분 뒤 영상이 만들어져 나와요. 클로드에겐 손도 눈도 없는데 말이죠. 어떻게 된 걸까요.
+  script: `클로드 코드로 만든 움직임이 모션랩에만 578개예요. 글자가 떨어지고, 숫자가 굴러가고, 낱말이 고리를 그려요. 그런데 클로드에겐 손도 눈도 없어요. 어떻게 만든 걸까요.
 
 움직임은 사실 숫자 표로 되어 있어요. 0초엔 왼쪽 밖, 0.5초엔 중간을 지나, 1초엔 가운데. 몇 초에 어디 있는지 한 줄씩 적은 표요. 편집 프로그램 속도 이 표로 움직이는데 이 표는 글로도 옮겨 적을 수 있어요. 사람 말로도, 숫자 표로도, 컴퓨터 글로도요. 컴퓨터 글은 브라우저가 읽고 그대로 그려 주거든요. 움직임을 만드는 일이 곧 글을 쓰는 일이죠.
 

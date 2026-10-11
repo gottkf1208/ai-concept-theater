@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>글자 고리</title>
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f6f3f0}</style>
+</head>
+<body>
+<!-- 쿼카 모션랩 · 글자 고리 (Type Ring) -->
+<!-- 글꼴: 프리텐다드 (OFL) · 눈누(noonnu.cc)의 무료 한글 글꼴 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Noto+Sans+KR:wght@100..900&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<div id="qm-ring-type" style="width:100%;max-width:calc(100vh * 1)"></div>
+<script>
+(function () {
+  // ① 설정: 여기만 고치면 됩니다
+  const CONFIG = {
+    speed: 1,          // 속도 (1 = 기본, 2 = 두 배)
+    bg: '#f6f3f0',     // 배경색 ('transparent'로 바꾸면 투명)
+    colors: ['#ffffff', '#f3e7e8', '#e5cdd1', '#c598a1', '#9c5263', '#6e1a2f', '#1f3460', '#1a1214'],   // 색 8개: 밝은 색 → 진한 색 ([5] 포인트 색, [7] 글자색)
+    words: ['2026', '가을 체육대회', '함께 뛰는 하루'], // 글자 (쉼표로 나눠 여러 개)
+    ratio: '1 / 1'     // 화면 비율 (가로 / 세로)
+  };
+
+  // ② 모션: 글자 고리
+  function kType(api) {
+    const W = api.W, H = api.H, dpr = Math.min(2, window.devicePixelRatio || 1);
+    const cv = document.createElement('canvas'), c = cv.getContext('2d');
+    cv.width = Math.round(W * dpr);
+    cv.height = Math.round(H * dpr);
+    cv.style.cssText = 'position:absolute;left:0;top:0;width:100%;height:100%;display:block;';
+    api.root.appendChild(cv);
+    // 글꼴 둘: 영문만 있는 글줄 / 한글이 든 글줄 (한글이 든 글줄은 영문·숫자·문장부호까지 이 글꼴 하나로)
+    const LATIN = '"Inter",' + api.font, KOREAN = '"Pretendard Variable",' + api.font, han = /[\u3131-\u318e\uac00-\ud7a3]/;
+    const widths = {}, asked = {}, pics = {};
+    const clamp = x => Math.max(0, Math.min(1, x));
+    const k = {
+      c: c, W: W, H: H, u: api.u, dpr: dpr,
+      CAP: 0.727,                                  // 대문자 높이 ÷ 글자 크기. 글자를 세로 가운데에 놓을 때 씁니다
+      ko: text => han.test(String(text)),          // 한글이 들어 있나. 글자를 한 자씩 놓을 때는 낱말 전체로 정해서 o.ko로 넘깁니다
+      clamp: clamp,
+      seg: (t, a, b) => clamp((t - a) / (b - a)),                 // t가 a~b 사이 어디쯤인지 0~1로
+      out: x => 1 - Math.pow(1 - clamp(x), 4),                    // 빠르게 출발해 부드럽게 멈춤
+      into: x => Math.pow(clamp(x), 3),                           // 천천히 출발해 빠르게 빠져나감
+      io: x => { x = clamp(x); return x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2; },   // 천천히-빠르게-천천히
+      bounce: x => {                                              // 바닥에 떨어져 세 번 튀고 멈춤
+        x = clamp(x);
+        if (x < 1 / 2.75) return 7.5625 * x * x;
+        if (x < 2 / 2.75) return 7.5625 * (x -= 1.5 / 2.75) * x + 0.75;
+        if (x < 2.5 / 2.75) return 7.5625 * (x -= 2.25 / 2.75) * x + 0.9375;
+        return 7.5625 * (x -= 2.625 / 2.75) * x + 0.984375;
+      },
+      weight: x => Math.round((100 + 800 * clamp(x)) / 20) * 20,  // 0~1을 글자 굵기 100~900으로 (20 단위)
+      // CONFIG.words에 낱말을 넣었으면 그것을, 아니면 기본 낱말을 씁니다
+      words: def => { const w = (api.words || []).filter(Boolean); return w.length ? w : def; },
+      // 화면을 배경색으로 지우고 시작
+      begin(color) {
+        c.setTransform(dpr, 0, 0, dpr, 0, 0);
+        c.globalAlpha = 1;
+        c.globalCompositeOperation = 'source-over';
+        c.fillStyle = color || api.bg;
+        c.fillRect(0, 0, W, H);
+      },
+      // 글자 크기가 1일 때의 폭 (굵기마다 다르므로 따로 기억해 둠). ko: 한글 글줄의 글꼴로 잴지 (비우면 text를 보고 정함)
+      wide(text, weight, ko) {
+        const kr = ko === undefined ? k.ko(text) : !!ko, key = (weight || 800) + (kr ? '|k|' : '|l|') + text;
+        if (widths[key] === undefined) {
+          if (!asked[key] && document.fonts && document.fonts.load) {   // 이 글자에 필요한 글꼴 조각을 불러 둠
+            asked[key] = true;
+            document.fonts.load('800 40px ' + (kr ? '"Pretendard Variable"' : '"Inter"'), text).catch(() => {});
+          }
+          c.font = (weight || 800) + ' 200px ' + (kr ? KOREAN : LATIN);
+          widths[key] = c.measureText(text).width / 200;
+        }
+        return widths[key];
+      },
+      // 폭 room 안에 들어가는 가장 큰 글자 크기 (max를 넘지 않게)
+      fit: (text, room, weight, max, ko) => Math.min(max || 1e9, room / k.wide(text, weight, ko)),
+      // 글자를 그림. (x, y)는 align 기준점과 글자 밑줄. 그린 폭을 돌려줌
+      // o: { weight 굵기, align 'left'|'center'|'right', track 자간(글자 크기의 몇 배), line 외곽선 굵기, g 다른 캔버스,
+      //      ko 한글 글줄의 글꼴로 그릴지 (비우면 text 전체를 보고 정함. 낱말을 한 자씩 따로 그릴 때는 낱말 전체로 정해 넘김) }
+      put(text, x, y, px, color, o) {
+        o = o || {};
+        const d = o.g || c, weight = o.weight || 800, track = (o.track || 0) * px, kr = o.ko === undefined ? k.ko(text) : !!o.ko;
+        const chars = track ? Array.from(text) : [text], each = chars.map(ch => k.wide(ch, weight, kr) * px);
+        const total = each.reduce((sum, w) => sum + w, 0) + track * (chars.length - 1);
+        let at = x - (o.align === 'center' ? total / 2 : o.align === 'right' ? total : 0);
+        d.font = weight + ' ' + px + 'px ' + (kr ? KOREAN : LATIN);
+        d.textAlign = 'left';
+        d.textBaseline = 'alphabetic';
+        chars.forEach((ch, i) => {
+          if (o.line) {
+            d.lineWidth = o.line;
+            d.lineJoin = 'round';
+            d.strokeStyle = color;
+            d.strokeText(ch, at, y);
+          } else {
+            d.fillStyle = color;
+            d.fillText(ch, at, y);
+          }
+          at += each[i] + track;
+        });
+        return total;
+      },
+      // 글줄 하나를 영문 글꼴 또는 한글 글꼴 가운데 하나로 그림: 한글이 한 자라도 있으면 영문·숫자까지 통째로 한글 글꼴로
+      // (한 글줄 안에서 두 글꼴이 섞이지 않게). 그린 폭을 돌려줌
+      // style: { latin: [글꼴, 굵기, 'italic' 또는 '', 크기 배율], hangul: [같은 순서] }. draw가 false면 폭만 잼
+      pair(text, x, y, px, color, style, draw) {
+        const run = String(text);
+        if (!run) return 0;
+        const set = k.ko(run) ? style.hangul : style.latin, size = px * (set[3] || 1);
+        const font = (set[2] ? set[2] + ' ' : '') + set[1] + ' ' + size + 'px ' + set[0] + ',' + api.font, key = font + '|' + run;
+        if (!asked[key] && document.fonts && document.fonts.load) { asked[key] = true; document.fonts.load(font, run).catch(() => {}); }
+        c.font = font;
+        if (widths[key] === undefined) widths[key] = c.measureText(run).width;
+        if (draw !== false) {
+          c.textAlign = 'left';
+          c.textBaseline = 'alphabetic';
+          c.fillStyle = color;
+          c.fillText(run, x, y);
+        }
+        return widths[key];
+      },
+      // 가는 줄 하나
+      rule(x, y, w, color, alpha) {
+        c.globalAlpha = alpha === undefined ? 1 : alpha;
+        c.fillStyle = color;
+        c.fillRect(x, y, w, Math.max(1, k.u * 0.003));
+        c.globalAlpha = 1;
+      },
+      // 01 / 05 같은 차례 표시
+      count: (i, n) => String(i + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0'),
+      // i번째 그림: 내 이미지가 있으면 그 이미지(다 불러온 뒤부터), 없으면 글자 없는 샘플 그림
+      pic(i) {
+        const url = api.image(i), art = api.art(i, true);
+        if (url) {
+          if (!pics[url]) { pics[url] = new Image(); pics[url].src = url; }
+          if (pics[url].complete && pics[url].naturalWidth) return pics[url];
+        }
+        return art ? art.cv : pics.none || (pics.none = document.createElement('canvas'));
+      },
+      // 그림을 (x, y, w, h) 칸에 꽉 차게 잘라 넣음. zoom: 확대, round: 모서리 둥글기
+      cover(src, x, y, w, h, zoom, round, g) {
+        const d = g || c, sw = src.naturalWidth || src.width, sh = src.naturalHeight || src.height, r = Math.max(w / sw, h / sh) * (zoom || 1), q = Math.min(round || 0, w / 2, h / 2);
+        d.save();
+        d.beginPath();
+        d.moveTo(x + q, y);
+        d.arcTo(x + w, y, x + w, y + h, q);
+        d.arcTo(x + w, y + h, x, y + h, q);
+        d.arcTo(x, y + h, x, y, q);
+        d.arcTo(x, y, x + w, y, q);
+        d.closePath();
+        d.clip();
+        d.drawImage(src, x + (w - sw * r) / 2, y + (h - sh * r) / 2, sw * r, sh * r);
+        d.restore();
+      },
+      // 화면과 같은 크기의 빈 캔버스 하나 (글자를 창으로 쓰거나 조각낼 때)
+      layer() {
+        const p = document.createElement('canvas');
+        p.width = cv.width;
+        p.height = cv.height;
+        const g = p.getContext('2d');
+        g.setTransform(dpr, 0, 0, dpr, 0, 0);
+        return { cv: p, g: g, clear() { g.setTransform(dpr, 0, 0, dpr, 0, 0); g.globalCompositeOperation = 'source-over'; g.clearRect(0, 0, W, H); } };
+      }
+    };
+    return k;
+  }
+
+  function qmArt(i, plain) {
+    const S = 512, INK = '#15171c', PAPER = '#f4f2ed', WINE = '#6e1a2f', MIST = '#dfe4ee', NAVY = '#1f3460';
+    const FONT = '"Inter","Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif';
+    // 글자 없는 그림의 배색 (위 → 아래 바탕 3색 + 주인공 1색)
+    const PHOTO = [
+      ['#101a33', '#3f4f72', '#c9c4bc', '#f6f1ea'], ['#eceae6', '#d9d5ce', '#bbb5ac', '#1f3460'],
+      ['#0d0d0f', '#27272b', '#58585f', '#f2f2f2'], ['#f4efea', '#e6dad3', '#cbb0ad', '#5a1528'],
+      ['#3b0f1c', '#7a3040', '#d9bfb8', '#f8eee6'], ['#101a33', '#1f3460', '#7387b0', '#f4f6fa'],
+      ['#16264a', '#3d5180', '#aab6cf', '#ffffff'], ['#e9e9eb', '#d3d3d7', '#b0b0b6', '#131315']
+    ];
+    const ORDER = ['t0', 'p0', 't1', 'p4', 't2', 'p1', 't3', 'p2', 't4', 'p5', 't5', 'p3', 't6', 'p6', 't7', 'p7'];
+    const pick = plain ? 'p' + ((i % 8 + 8) % 8) : ORDER[(i % 16 + 16) % 16], n = +pick.slice(1);
+    let fonts = 0;                                 // 글자 있는 포스터는 폰트가 도착하면 다시 그립니다
+    if (pick[0] === 't' && document.fonts && document.fonts.forEach) document.fonts.forEach(f => { if (f.status === 'loaded') fonts++; });
+    const made = qmArt.made || (qmArt.made = {}), key = pick + '/' + fonts;
+    if (made[key]) return made[key];
+    const cv = document.createElement('canvas'), g = cv.getContext('2d');
+    cv.width = cv.height = S;
+    const text = (words, x, y, px, color, weight, align) => {
+      g.font = (weight || 800) + ' ' + px + 'px ' + FONT;
+      g.textAlign = align || 'left';
+      g.textBaseline = 'alphabetic';
+      g.fillStyle = color;
+      g.fillText(words, x, y);
+    };
+    const fill = color => { g.fillStyle = color; g.fillRect(0, 0, S, S); };
+    const disc = (x, y, r, color) => { g.fillStyle = color; g.beginPath(); g.arc(x, y, r, 0, 6.2832); g.fill(); };
+    const grain = seed => {                        // 필름 알갱이
+      for (let k = 0; k < 2400; k++) {
+        seed = (seed * 1664525 + 1013904223) % 4294967296;
+        const x = seed / 4294967296 * S;
+        seed = (seed * 1664525 + 1013904223) % 4294967296;
+        g.fillStyle = k % 2 ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';
+        g.fillRect(x, seed / 4294967296 * S, 1.6, 1.6);
+      }
+    };
+    if (pick[0] === 'p') {                         // 색 번짐 바탕 위에 해·아치·공·계단 가운데 하나
+      const col = PHOTO[n], sky = g.createLinearGradient(0, 0, 0, S);
+      const glow = (x, y, r, color, alpha) => {    // alpha: 두 자리 16진수 투명도
+        const rg = g.createRadialGradient(x, y, 0, x, y, r);
+        rg.addColorStop(0, color + alpha);
+        rg.addColorStop(1, color + '00');
+        g.fillStyle = rg;
+        g.fillRect(0, 0, S, S);
+      };
+      sky.addColorStop(0, col[0]);
+      sky.addColorStop(0.62, col[1]);
+      sky.addColorStop(1, col[2]);
+      g.fillStyle = sky;
+      g.fillRect(0, 0, S, S);
+      glow(120 + n * 37 % 280, 120 + n * 53 % 160, 300, col[2], '88');
+      if (n % 4 === 0) {            // 해
+        glow(300, 230, 220, col[3], 'aa');
+        disc(300, 232, 98, col[3]);
+        g.fillStyle = col[0] + '66';
+        g.fillRect(0, 372, S, 140);
+      } else if (n % 4 === 1) {     // 아치
+        const arch = g.createLinearGradient(0, 150, 0, S);
+        arch.addColorStop(0, col[3]);
+        arch.addColorStop(1, col[3] + '55');
+        g.fillStyle = arch;
+        g.beginPath();
+        g.arc(256, 262, 112, Math.PI, 0);
+        g.lineTo(368, S);
+        g.lineTo(144, S);
+        g.closePath();
+        g.fill();
+      } else if (n % 4 === 2) {     // 공
+        const ball = g.createRadialGradient(212, 210, 10, 256, 270, 160);
+        ball.addColorStop(0, col[3]);
+        ball.addColorStop(0.55, col[2]);
+        ball.addColorStop(1, col[0]);
+        g.fillStyle = ball;
+        g.beginPath();
+        g.arc(256, 270, 150, 0, 6.2832);
+        g.fill();
+      } else {                      // 계단
+        g.fillStyle = col[3];
+        for (let s = 0; s < 4; s++) g.fillRect(104 + s * 68, 196 + s * 79, 344 - s * 68, 80);
+      }
+      grain(n * 97 + 13);
+    } else if (n === 0) {           // 크림 바탕에 큰 숫자
+      fill(PAPER);
+      text('QUOKA  —  2026', 44, 78, 17, INK, 700);
+      text('140', 34, 318, 236, INK, 800);
+      g.fillStyle = INK;
+      g.fillRect(44, 350, 424, 2);
+      text('선생님들', 44, 404, 34, INK, 700);
+    } else if (n === 1) {           // 먹 바탕에 오른쪽 맞춘 목록
+      fill(INK);
+      text('03', 44, 78, 18, PAPER, 700);
+      disc(456, 70, 8, '#b0556a');
+      ['수업 나눔', 'AI 융합', '사회정서', '프로젝트'].forEach((w, k) => text(w, 468, 318 + k * 46, 31, k === 1 ? '#c98a98' : PAPER, 700, 'right'));
+    } else if (n === 2) {           // 버건디 바탕에 큰 낱말
+      fill(WINE);
+      text('Q.U.O.K.A', 44, 78, 19, '#ffffff', 700);
+      text('함께', 30, 420, 200, '#ffffff', 800);
+    } else if (n === 3) {           // 크림 바탕에 반원 무늬
+      fill(PAPER);
+      text('함께 웃으며 연구', 44, 96, 30, INK, 700);
+      g.fillStyle = INK;
+      for (let y = 276; y < S + 64; y += 64) for (let x = 32 + ((y - 276) / 64 % 2) * 32; x < S + 64; x += 64) { g.beginPath(); g.arc(x, y, 32, Math.PI, 0); g.fill(); }
+    } else if (n === 4) {           // 네이비 액자 안에 작은 그림
+      fill(NAVY);
+      g.drawImage(qmArt(4, true).cv, 106, 84, 300, 300);
+      text('quoka lab', 106, 432, 22, PAPER, 700);
+    } else if (n === 5) {           // 먹 바탕에 점으로 찍은 원
+      fill('#1b1b1d');
+      for (let y = 76; y <= 436; y += 30) for (let x = 76; x <= 436; x += 30) if (Math.hypot(x - 256, y - 256) < 172) disc(x, y, 9, PAPER);
+    } else if (n === 6) {           // 크림 바탕에 번호와 원
+      fill(PAPER);
+      text('0034', 44, 112, 52, INK, 700);
+      text('0095', 44, 172, 52, INK, 700);
+      g.strokeStyle = INK;
+      g.lineWidth = 3;
+      g.beginPath();
+      g.arc(326, 338, 122, 0, 6.2832);
+      g.stroke();
+      disc(326, 338, 30, WINE);
+    } else {                        // 옅은 푸른 회색 바탕에 큰 글자
+      fill(MIST);
+      text('AI', 30, 322, 268, INK, 800);
+      text('수업', 42, 420, 62, INK, 800);
+    }
+    return made[key] = { cv: cv, url: cv.toDataURL('image/jpeg', 0.86) };
+  }
+  function ringType(api) {
+    const k = kType(api), c = k.c, words = k.words(['QUOKA', 'MOTION LAB', '함께 웃으며 연구']), cx = k.W / 2, cy = k.H / 2;
+    // 낱말을 이어 붙여 반지름 r인 원 둘레를 꼭 맞게 채움 (글자 윗부분이 바깥을 봄)
+    const ring = (text, r, px, weight, turn, color) => {
+      const ko = k.ko(text);                       // 한 자씩 둘러 그려도 글꼴은 고리 글줄 전체로 정함
+      const L = Array.from(text + ' · '), each = L.map(ch => k.wide(ch, weight, ko) * px), one = each.reduce((sum, w) => sum + w, 0);
+      const reps = Math.max(1, Math.round(6.2832 * r / one)), scale = 6.2832 * r / (one * reps);   // 몇 번 되풀이할지, 그때 벌어지는 자간
+      let a = turn;
+      for (let n = 0; n < reps; n++) L.forEach((ch, i) => {
+        const half = each[i] * scale / 2 / r;
+        c.save();
+        c.translate(cx + r * Math.sin(a + half), cy - r * Math.cos(a + half));
+        c.rotate(a + half);
+        k.put(ch, 0, 0, px, color, { weight: weight, align: 'center', ko: ko });
+        c.restore();
+        a += half * 2;
+      });
+    };
+    const big = Math.min(k.u * 0.2, k.fit(words[0], k.u * 0.44, 800));
+    const frame = t => {
+      k.begin();
+      ring(words[1 % words.length], k.u * 0.385, k.u * 0.07, 700, t * 0.22, api.fg);
+      c.globalAlpha = 0.55;
+      ring(words[2 % words.length], k.u * 0.3, k.u * 0.04, 500, -t * 0.3, api.fg);
+      c.globalAlpha = 1;
+      k.put(words[0], cx, cy + big * k.CAP / 2, big, api.fg, { align: 'center' });
+      const a = t * 0.9;                           // 두 고리 사이를 도는 점
+      c.fillStyle = api.accent;
+      c.beginPath();
+      c.arc(cx + k.u * 0.345 * Math.sin(a), cy - k.u * 0.345 * Math.cos(a), k.u * 0.012, 0, 6.2832);
+      c.fill();
+    };
+    frame.fonts = true;
+    return frame;
+  }
+
+  // ③ 공통 엔진: 고칠 필요 없습니다
+  function qmEngine(root, CFG, motion) {
+    // 색 8개: 가장 밝은 색 → 가장 진한 색. [0] 흰 판·밝은 글자, [1]~[4] 연한 색에서 중간 색, [5] 포인트 색, [6] 둘째 포인트 색, [7] 글자색
+    // 바꾸려면 CONFIG에 colors: ['#...', ...] 를 같은 순서로 넣으면 됩니다. 비워 두면 흰색·네이비 계열이 쓰입니다
+    const COLORS = CFG.colors || ['#ffffff', '#e8ecf3', '#cfd7e6', '#9aa8c4', '#5c7099', '#1f3460', '#6e1a2f', '#15171c'];
+    // 매번 같은 순서가 나오는 난수 (같은 seed면 같은 결과)
+    const rand = seed => () => (seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296;
+    // 샘플 그림: CONFIG.images가 비어 있을 때 쓰입니다. 어느 카드에 어떤 그림이 갈지는 열 때마다 섞입니다
+    const dice = rand(CFG.seed || Math.floor(Math.random() * 1e9) + 1);
+    const shift = Math.floor(dice() * 16);
+    const FONT = '"Pretendard Variable","Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif';
+    // 색의 밝기 (0 = 검정, 255 = 흰색). #rrggbb 꼴이 아니면 검정으로 봅니다
+    const light = color => /^#[0-9a-f]{6}$/i.test(color) ? (parseInt(color.slice(1, 3), 16) * 299 + parseInt(color.slice(3, 5), 16) * 587 + parseInt(color.slice(5, 7), 16) * 114) / 1000 : 0;
+    const bright = light(CFG.bg);
+    const still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let frame = null, time = CFG.startAt || (still ? 4 : 0), last = 0, raf = 0, timer = 0, size = '';
+    let playing = false, seen = true, want = CFG.autoplay !== false && !still, drew = false;
+    // 랜딩페이지용: 실제 마우스·스크롤에 반응합니다 (CONFIG.live). true = 페이지에 붙여 쓸 때, 'try' = 미리보기 창(마우스가 없으면 연출대로)
+    const LIVE = CFG.live === true || CFG.live === 'try', TRY = CFG.live === 'try';
+    const live = { x: 0, y: 0, tx: 0, ty: 0, over: 0, on: false, down: 0, press: false, s: 0, ts: 0, ready: false };
+  
+    const api = {
+      root: root,
+      bg: CFG.bg,
+      clear: CFG.bg === 'transparent',              // 투명 배경으로 그리는 중 (영상 편집기에 얹을 자막 등). 이때는 화면 전체를 칠하는 바탕을 그리지 않습니다
+      fg: bright > 150 ? COLORS[7] : COLORS[0],     // 배경 위에 바로 쓰는 글자색
+      ink: COLORS[7],                               // 흰 판 위에 쓰는 글자색
+      accent: COLORS[5],                            // 포인트 색
+      deep: COLORS[6],                              // 둘째 포인트 색
+      on: color => light(color) > 150 ? COLORS[7] : '#ffffff',   // 그 색 위에 올릴 글자색 (밝은 색 위엔 진한 글자, 진한 색 위엔 흰 글자)
+      tone: i => COLORS[1 + (i % 5 + 5) % 5],       // i번째 변주 색 (연한 색 ~ 포인트 색)
+      rand: rand,
+      font: FONT,
+      ko: text => /[\u3131-\u318e\uac00-\ud7a3]/.test(text),   // 한글이 들어 있나 (한글이 든 글줄은 한글 글꼴 하나로 씁니다)
+      count: (CFG.images || []).length,             // 넣은 이미지 수 (0이면 샘플)
+      words: CFG.words || [],                       // 넣은 낱말 (글자 모션에서 사용, 비면 기본 낱말)
+      live: LIVE && !TRY,                           // 실제 페이지에서 마우스·스크롤에 반응하는 중 (미리보기 칸·영상 저장 때는 false)
+      // 마우스 자리 { x, y: 무대 안의 px, down: 누름 0~1, on: 마우스가 와 있는 정도 0~1, fake: 연출용 가짜 커서를 보일 정도 0~1 }
+      // demo: 미리보기·영상 저장 때 쓸 연출 자리 { x, y, down, on } (t로 계산해서 넘김). 실제 페이지에서는 진짜 마우스를 따라갑니다
+      pointer(demo) {
+        const d = Object.assign({ x: api.W / 2, y: api.H / 2, down: 0, on: 1 }, demo || {});
+        if (!LIVE) return { x: d.x, y: d.y, down: d.down, on: d.on, fake: 1 };
+        if (!live.ready) return TRY ? { x: d.x, y: d.y, down: d.down, on: d.on, fake: 1 } : { x: d.x, y: d.y, down: 0, on: 0, fake: 0 };
+        const k = TRY ? live.over : 1, mix = (a, b) => a + (b - a) * k;
+        return { x: mix(d.x, live.x), y: mix(d.y, live.y), down: mix(d.down, live.down), on: TRY ? mix(d.on, live.over) : live.over, fake: 1 - k };
+      },
+      // 스크롤 진행 0~1. 미리보기·영상 저장 때는 demo(t로 계산한 값), 실제 페이지에서는 이 상자(또는 CONFIG.track의 칸)가 화면을 지나는 정도
+      scroll: demo => LIVE && !TRY ? live.s : demo,
+      image: i => { const n = (CFG.images || []).length; return n ? CFG.images[i % n] : null; },   // i번째 이미지 주소 (없으면 null)
+      // i번째 샘플 그림 { cv, url }. 코드에 qmArt가 함께 들어 있을 때만 나옵니다 (plain: 글자 없는 그림만)
+      art: (i, plain) => { drew = true; return typeof qmArt === 'function' ? qmArt(plain ? i : i + shift, plain) : null; },
+      // i번째 그림을 CSS background 값으로: 내 이미지가 있으면 이미지, 없으면 샘플 그림
+      paint: i => {
+        const n = (CFG.images || []).length, a = n ? null : api.art(i);
+        return n ? `url("${CFG.images[i % n]}") center / cover no-repeat, #1c1c1e` : a ? `url(${a.url}) center / cover no-repeat` : `linear-gradient(145deg, ${COLORS[2]}, ${COLORS[5]})`;
+      },
+      // 숏폼 자막용 미리보기 바탕: 영상 대신 깔아 두는 흐릿한 장면 (내 이미지를 넣으면 그 그림). 투명 배경일 때는 그리지 않고 null을 돌려줍니다
+      footage(dim) {
+        if (api.clear) return null;
+        const el = document.createElement('div'), n = (CFG.images || []).length;
+        el.style.cssText = 'position:absolute;left:0;top:0;width:100%;height:100%;filter:brightness(' + (dim == null ? 0.85 : dim) + ');background:' + (n ? `url("${CFG.images[0]}") center / cover no-repeat` :
+          'radial-gradient(55% 32% at 28% 26%, rgba(243,237,226,.5), rgba(243,237,226,0) 70%), radial-gradient(45% 30% at 78% 52%, rgba(154,120,110,.45), rgba(154,120,110,0) 70%), ' +
+          'radial-gradient(80% 45% at 50% 108%, rgba(31,52,96,.75), rgba(31,52,96,0) 72%), radial-gradient(40% 25% at 18% 70%, rgba(205,196,184,.28), rgba(205,196,184,0) 70%), linear-gradient(172deg, #4a4f5a, #23262d 60%, #15171c)') + ';';
+        root.appendChild(el);
+        return el;
+      },
+      // 0~1 사이 값을 부드럽게 (천천히 출발, 천천히 도착)
+      ease: x => { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); },
+      // 0~1 사이 값을 통통 튀게 (살짝 넘쳤다가 제자리로)
+      spring: x => { x = Math.max(0, Math.min(1, x)) - 1; return 1 + 2.70158 * x * x * x + 1.70158 * x * x; },
+      // 화면 한가운데가 (0,0,0)인 3D 공간. 숫자가 작을수록 원근감이 세집니다
+      space(perspective) {
+        root.style.perspective = perspective ? perspective + 'px' : 'none';
+        return api.group(root, 'left:50%;top:50%;');
+      },
+      // 여러 조각을 한꺼번에 돌리거나 옮길 묶음
+      group(parent, extra) {
+        const el = document.createElement('div');
+        el.style.cssText = 'position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d;' + (extra || '');
+        parent.appendChild(el);
+        return el;
+      },
+      // 빈 상자 하나. 상자의 중심이 (0,0)에 놓입니다 (UI 모션에서 사용)
+      box(parent, w, h, css) {
+        const el = document.createElement('div');
+        el.style.cssText = `position:absolute;left:0;top:0;box-sizing:border-box;width:${w}px;height:${h}px;margin:${-h / 2}px 0 0 ${-w / 2}px;font-family:${FONT};` + (css || '');
+        parent.appendChild(el);
+        return el;
+      },
+      // 카드 한 장. 카드의 중심이 (0,0)에 놓입니다 (카드 모션에서 사용)
+      card(parent, i, w, h, twoSided) {
+        const el = api.box(parent, w, h, 'overflow:hidden;'), s = el.style;
+        s.borderRadius = Math.min(w, h) * (CFG.radius || 0) + 'px';
+        s.backfaceVisibility = s.webkitBackfaceVisibility = twoSided ? 'visible' : 'hidden';
+        s.background = api.paint(i);
+        return el;
+      }
+    };
+  
+    function build() {
+      const W = root.clientWidth, H = root.clientHeight;
+      if (!W || !H || size === W + 'x' + H) return;
+      size = W + 'x' + H;
+      if (frame && frame.dispose) frame.dispose();   // WebGL 모션은 다시 만들기 전에 정리
+      root.textContent = '';
+      api.W = W; api.H = H; api.u = Math.min(W, H);
+      if (LIVE && !TRY) { measure(); live.s = live.ts; }
+      frame = motion(api);
+      frame(time);
+      runs(root);
+      if (watch) watch.takeRecords();   // 방금 만든 장면은 위에서 다 봤으니 쌓인 기록은 버림
+    }
+    // 한 글줄 안에 한글과 영문·숫자가 섞였는데 영문 전용 글꼴(Anton·Inter 등)이 앞에 서 있으면,
+    // 그 글줄은 글꼴 목록 뒤쪽의 한글 글꼴로 통째로 씁니다 (영문 글꼴과 한글 글꼴이 한 줄에서 따로 놀지 않게)
+    const LATIN = /^(Anton|Archivo|Instrument Serif|Inter|JetBrains Mono)$/i;
+    function runs(top) {
+      const walk = document.createTreeWalker(top, NodeFilter.SHOW_TEXT), seen = new Set();
+      for (let n = walk.nextNode(); n; n = walk.nextNode()) if (n.parentElement) seen.add(n.parentElement);
+      seen.forEach(el => {
+        let own = '';
+        el.childNodes.forEach(c => { if (c.nodeType === 3) own += c.nodeValue; });
+        if (!/[\u3131-\u318e\uac00-\ud7a3]/.test(own) || !/[A-Za-z0-9]/.test(own)) return;
+        const list = getComputedStyle(el).fontFamily.split(',').map(f => f.trim().replace(/^["']|["']$/g, ''));
+        if (!LATIN.test(list[0])) return;
+        el.style.fontFamily = list.filter(f => !LATIN.test(f)).map(f => /^[a-z-]+$/.test(f) ? f : '"' + f + '"').join(',');
+      });
+    }
+    // 장면이 글자를 바꾸면 바뀐 곳만 다시 봅니다
+    const watch = window.MutationObserver ? new MutationObserver(list => mend(list)) : null;
+    const mend = list => list.forEach(r => { const el = r.target.nodeType === 3 ? r.target.parentElement : r.target; if (el && root.contains(el)) runs(el); });
+    if (watch) watch.observe(root, { childList: true, characterData: true, subtree: true });
+    function tick(now) {
+      raf = requestAnimationFrame(tick);
+      const dt = Math.max(0, Math.min((now - last) / 1000, 0.1));
+      time += dt * CFG.speed;                       // 흐른 시간만큼 (뒤로 가지 않게)
+      if (CFG.once && time > CFG.once) time = CFG.once;   // 한 번만: 화면에 들어오면 한 번 재생하고 이 초의 장면에서 멈춤
+      last = now;
+      if (LIVE) follow(dt);
+      if (frame) frame(time);
+    }
+    // 스크롤 진행: CONFIG.track이 있으면 그 칸(키 큰 칸 안에 이 상자를 position:sticky로 넣은 경우)을 다 내려가는 정도, 없으면 이 상자가 화면 아래에서 위로 지나가는 정도
+    function measure() {
+      const el = CFG.track ? document.querySelector(CFG.track) : root;
+      if (!el) return;
+      const r = el.getBoundingClientRect(), vh = window.innerHeight || 1;
+      live.ts = Math.max(0, Math.min(1, CFG.track ? -r.top / Math.max(1, r.height - vh) : (vh - r.top) / (vh + r.height)));
+    }
+    // 진짜 마우스·스크롤 값을 부드럽게 따라감
+    function follow(dt) {
+      const k = 1 - Math.exp(-dt * 14);
+      live.x += (live.tx - live.x) * k;
+      live.y += (live.ty - live.y) * k;
+      live.over += ((live.on ? 1 : 0) - live.over) * (1 - Math.exp(-dt * 6));
+      live.down += ((live.press ? 1 : 0) - live.down) * (1 - Math.exp(-dt * 18));
+      if (!TRY) { measure(); live.s += (live.ts - live.s) * (1 - Math.exp(-dt * 10)); }
+    }
+    const spot = e => {
+      const r = root.getBoundingClientRect();
+      live.tx = (e.clientX - r.left) * root.clientWidth / (r.width || 1);
+      live.ty = (e.clientY - r.top) * root.clientHeight / (r.height || 1);
+      if (!live.ready) { live.x = live.tx; live.y = live.ty; live.ready = true; }
+    };
+    // 멈춰 있을 때(일시 정지·동작 줄이기 설정)도 마우스에는 바로 반응
+    const poke = () => { if (playing || !frame) return; live.x = live.tx; live.y = live.ty; live.over = live.on ? 1 : 0; live.down = live.press ? 1 : 0; frame(time); };
+    const hands = {
+      pointerenter: e => { spot(e); live.on = true; poke(); },
+      pointermove: e => { spot(e); live.on = true; poke(); },
+      pointerleave: () => { live.on = false; live.press = false; poke(); },
+      pointerdown: e => { spot(e); live.on = live.press = true; poke(); },
+      pointerup: () => { live.press = false; poke(); }
+    };
+    if (LIVE) Object.keys(hands).forEach(k => root.addEventListener(k, hands[k]));
+    // 화면에 보일 때만 움직입니다
+    function sync() {
+      const on = want && seen;
+      if (on && !playing) { playing = true; last = performance.now(); raf = requestAnimationFrame(tick); }
+      if (!on && playing) { playing = false; cancelAnimationFrame(raf); }
+    }
+  
+    Object.assign(root.style, { position: 'relative', overflow: 'hidden', background: CFG.bg, aspectRatio: CFG.ratio });
+    build();
+    const ro = new ResizeObserver(() => { clearTimeout(timer); timer = setTimeout(build, 100); });
+    const io = new IntersectionObserver(e => { seen = e[e.length - 1].isIntersecting; sync(); });
+    // 웹폰트로 그리는 모션은 폰트가 도착하면 크기를 다시 재서 그립니다
+    const refit = () => { if (frame && (frame.fonts || drew)) { size = ''; build(); } };
+    if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', refit);
+    ro.observe(root);
+    io.observe(root);
+    sync();
+  
+    return {
+      play() { want = true; sync(); },
+      pause() { want = false; sync(); },
+      restart() { time = 0; if (frame) frame(time); },
+      seek(t) { time = t; if (frame) frame(time); if (watch) mend(watch.takeRecords()); },   // t초의 장면으로 건너뜀 (영상으로 한 장씩 찍을 때)
+      destroy() { want = false; sync(); if (LIVE) Object.keys(hands).forEach(k => root.removeEventListener(k, hands[k])); ro.disconnect(); io.disconnect(); if (watch) watch.disconnect(); clearTimeout(timer); if (document.fonts && document.fonts.removeEventListener) document.fonts.removeEventListener('loadingdone', refit); if (frame && frame.dispose) frame.dispose(); root.textContent = ''; }
+    };
+  }
+
+  qmEngine(document.getElementById('qm-ring-type'), CONFIG, ringType);
+})();
+</script>
+</body>
+</html>
