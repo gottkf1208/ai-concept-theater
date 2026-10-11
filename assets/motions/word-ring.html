@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>단어장</title>
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#1c1b19}</style>
+</head>
+<body>
+<!-- 쿼카 모션랩 · 단어장 (Word Ring) -->
+<!-- 글꼴: 마루 부리 (OFL (네이버)) · 프리텐다드 (OFL) · 눈누(noonnu.cc)의 무료 한글 글꼴 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Noto+Sans+KR:wght@100..900&family=Instrument+Serif:ital@0;1&family=Noto+Serif+KR:wght@200..900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+@font-face{font-family:'MaruBuri';font-style:normal;font-weight:200;font-display:swap;src:url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-ExtraLight.woff2) format('woff2')}@font-face{font-family:'MaruBuri';font-style:normal;font-weight:300;font-display:swap;src:url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Light.woff2) format('woff2')}@font-face{font-family:'MaruBuri';font-style:normal;font-weight:400;font-display:swap;src:url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.woff2) format('woff2')}@font-face{font-family:'MaruBuri';font-style:normal;font-weight:600;font-display:swap;src:url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-SemiBold.woff2) format('woff2')}@font-face{font-family:'MaruBuri';font-style:normal;font-weight:700;font-display:swap;src:url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Bold.woff2) format('woff2')}
+</style>
+<div id="qm-word-ring" style="width:100%;max-width:calc(100vh * 1)"></div>
+<script>
+(function () {
+  // ① 설정: 여기만 고치면 됩니다
+  const CONFIG = {
+    speed: 1,          // 속도 (1 = 기본, 2 = 두 배)
+    bg: '#1c1b19',     // 배경색 ('transparent'로 바꾸면 투명)
+    colors: ['#fbf9f4', '#f6f3ec', '#efeade', '#e4ddd0', '#a59c8d', '#6e1a2f', '#1f3460', '#22201d'],   // 색 8개: 밝은 색 → 진한 색 ([5] 포인트 색, [7] 글자색)
+    ratio: '1 / 1'     // 화면 비율 (가로 / 세로)
+  };
+
+  // ② 모션: 단어장
+  function qmKit(api) {
+    const clamp = x => Math.max(0, Math.min(1, x));
+    const kit = {
+      sans: '"Pretendard Variable","Pretendard","Noto Sans KR",' + api.font,    // 기본 글꼴: 프리텐다드 하나로 한글·영문을 함께 (한 줄 안에서 글꼴이 섞이지 않게)
+      serif: '"Instrument Serif","MaruBuri","Noto Serif KR","Times New Roman",serif',     // 강조 한마디에 쓰는 세리프 (영문은 기울임과 잘 어울리는 Instrument Serif, 한글이 섞인 글줄은 마루 부리 하나로)
+      mono: '"JetBrains Mono","Pretendard Variable",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace',   // 작은 라벨·숫자 (한글이 섞인 라벨은 프리텐다드 하나로)
+      clamp: clamp,
+      seg: (t, a, b) => clamp((t - a) / (b - a)),                 // t가 a~b 사이 어디쯤인지 0~1로
+      mix: (a, b, p) => a + (b - a) * p,
+      out: x => 1 - Math.pow(1 - clamp(x), 4),                    // 빠르게 출발해 부드럽게 멈춤 (cubic-bezier(.22,1,.36,1)과 비슷)
+      expo: x => { x = clamp(x); return x >= 1 ? 1 : 1 - Math.pow(2, -10 * x); },   // 더 급하게 출발해 길게 멈춤 (cubic-bezier(.16,1,.3,1)과 비슷)
+      into: x => Math.pow(clamp(x), 3),                           // 천천히 출발해 빠르게 빠져나감
+      io: x => { x = clamp(x); return x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2; },   // 천천히-빠르게-천천히 (cubic-bezier(.76,0,.24,1)과 비슷)
+      // 글자를 쪼개 parent에 넣음. by: 'line'(줄바꿈 \n 기준) | 'word' | 'char'
+      // 조각마다 가림막(overflow:hidden) 하나와 그 안에서 움직일 알맹이 하나가 생깁니다. 돌려주는 값: 알맹이 목록
+      split(parent, text, by) {
+        const units = by === 'line' ? String(text).split('\n') : by === 'word' ? String(text).split(/(\s+)/) : Array.from(String(text));
+        const parts = [];
+        units.forEach(unit => {
+          if (!unit) return;
+          if (by !== 'line' && /^\s+$/.test(unit)) { parent.appendChild(document.createTextNode(unit.indexOf('\n') >= 0 ? '\n' : ' ')); return; }
+          const mask = document.createElement('span'), core = document.createElement('span');
+          // 가림막은 위아래로 조금 넉넉하게 (받침·꼬리가 잘리지 않게), 그만큼 바깥 여백을 당겨 줄 간격은 그대로 둠
+          mask.style.cssText = `display:${by === 'line' ? 'block' : 'inline-block'};overflow:hidden;vertical-align:top;padding:.14em 0;margin:-.14em 0;` + (by === 'line' ? '' : 'white-space:pre;');
+          core.style.cssText = `display:${by === 'line' ? 'block' : 'inline-block'};will-change:transform;`;
+          core.textContent = unit;
+          mask.appendChild(core);
+          parent.appendChild(mask);
+          parts.push(core);
+        });
+        return parts;
+      },
+      // 조각들이 차례로 아래에서 올라옴: p는 전체 진행 0~1, gap은 조각 사이 시차(전체의 몇 분의 일), 올라온 뒤 그대로 있음
+      rise(parts, p, gap) {
+        const each = 1 - (gap || 0.5), n = Math.max(1, parts.length - 1);
+        parts.forEach((el, i) => {
+          const q = kit.expo(kit.seg(p, (i / n) * (1 - each), (i / n) * (1 - each) + each));
+          el.style.transform = `translate3d(0,${(1 - q) * 108}%,0)`;
+        });
+      },
+      // 작은 라벨 (대문자, 자간 넓게)
+      label(parent, text, px, color) {
+        const el = document.createElement('span');
+        el.textContent = text;
+        el.style.cssText = `display:block;font:500 ${px}px/1.2 ${kit.mono};letter-spacing:.12em;text-transform:uppercase;color:${color || api.fg};white-space:nowrap;`;
+        parent.appendChild(el);
+        return el;
+      }
+    };
+    return kit;
+  }
+
+  function ppKit(api) {
+    const NS = 'http://www.w3.org/2000/svg', u = api.u;
+    const clamp = x => Math.max(0, Math.min(1, x));
+    const dark = api.fg !== api.ink;   // 어두운 책상 위인지
+    const pp = {
+      hair: Math.max(1, Math.round(u / 560)),          // 가장 가는 선의 굵기
+      nib: Math.max(1.3, u * 0.0052),                  // 펜 선의 굵기
+      cell: Math.max(6, Math.round(u * 0.027)),        // 모눈 한 칸 (종이의 5mm에 해당)
+      paper: api.tone(0),                              // 종이색
+      pen: api.deep,                                   // 펜 색 (블루블랙 잉크)
+      // 색에 투명도 주기: '#rrggbb' → 'rgba(r,g,b,투명도)'
+      a(color, alpha) { if (!/^#[0-9a-f]{6}$/i.test(color)) return color; const n = parseInt(color.slice(1), 16); return `rgba(${n >> 16},${n >> 8 & 255},${n & 255},${alpha})`; },
+      // 빈 조각 하나 (부모 상자의 왼쪽 위가 기준). text를 주면 글자가 들어갑니다
+      el(parent, css, text) {
+        const el = document.createElement('div');
+        el.style.cssText = 'position:absolute;box-sizing:border-box;' + (css || '');
+        if (text != null) el.textContent = text;
+        parent.appendChild(el);
+        return el;
+      },
+      // 모눈 무늬 (CSS background 값). dots가 참이면 선 대신 점
+      grid(size, color, dots) {
+        const h = pp.hair;
+        return dots
+          ? `radial-gradient(circle at ${h}px ${h}px, ${color} ${h * 0.8}px, transparent ${h * 0.8 + 0.5}px) ${-h}px ${-h}px / ${size}px ${size}px`
+          : `linear-gradient(to right, ${color} ${h}px, transparent ${h}px) 0 0 / ${size}px ${size}px, linear-gradient(to bottom, ${color} ${h}px, transparent ${h}px) 0 0 / ${size}px ${size}px`;
+      },
+      // 종이 한 장: 직각 모서리, 머리카락 굵기 테두리, 아주 옅은 그림자. 종이의 중심이 (0,0)에 놓입니다
+      sheet(parent, w, h, css) {
+        return api.box(parent, w, h, `background:${pp.paper};color:${api.ink};box-shadow:0 0 0 ${pp.hair}px ${pp.a(api.ink, dark ? 0 : 0.09)},0 ${u * 0.003}px ${u * 0.008}px rgba(0,0,0,${dark ? 0.3 : 0.05}),0 ${u * 0.02}px ${u * 0.05}px rgba(0,0,0,${dark ? 0.32 : 0.07});` + (css || ''));
+      },
+      // 종이가 들어오고 나가기: 아래에서 짧게 올라오며 드러나고(pin 0→1), 위로 짧게 올라가며 가려진다(pout 0→1)
+      enter(el, pin, pout, x, y, turn) {
+        const pad = u * 0.14;
+        pout = pout || 0;
+        el.style.transform = `translate3d(${x || 0}px,${(y || 0) + ((1 - pin) * 0.07 - pout * 0.05) * u}px,0) rotate(${turn || 0}deg)`;
+        el.style.clipPath = `inset(${pout > 0 ? pout * 100 + '%' : -pad + 'px'} ${-pad}px ${pin < 1 ? (1 - pin) * 100 + '%' : -pad + 'px'} ${-pad}px)`;
+      },
+      // 가로로 긋는 가는 줄 (인쇄된 괘선)
+      rule(parent, x, y, w, color, thick) {
+        return pp.el(parent, `left:${x}px;top:${y}px;width:${w}px;height:${thick || pp.hair}px;background:${color};transform-origin:0 50%;`);
+      },
+      // 펜 선을 그릴 판 (부모 상자와 같은 좌표)
+      svg(parent, w, h, css) {
+        const s = document.createElementNS(NS, 'svg');
+        s.setAttribute('viewBox', `0 0 ${w} ${h}`);
+        s.style.cssText = `position:absolute;left:0;top:0;width:${w}px;height:${h}px;overflow:visible;pointer-events:none;` + (css || '');
+        parent.appendChild(s);
+        return s;
+      },
+      // 펜 선 한 획. 돌려받은 선에 pp.draw(선, 0~1)로 그어진 만큼을 정합니다
+      stroke(svg, d, color, width) {
+        const p = document.createElementNS(NS, 'path');
+        p.setAttribute('d', d);
+        p.setAttribute('pathLength', 1);
+        p.style.cssText = `fill:none;stroke:${color || pp.pen};stroke-width:${width || pp.nib}px;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 1;`;
+        svg.appendChild(p);
+        return p;
+      },
+      // 선을 p만큼 긋는다 (0 = 아직 안 그음, 1 = 다 그음). off를 주면 처음부터 그만큼 다시 걷어 낸다
+      draw(path, p, off) {
+        p = clamp(p); off = clamp(off || 0);
+        path.style.strokeDashoffset = 1 - p - off;
+        path.style.visibility = p > 0.002 && off < 0.998 ? 'visible' : 'hidden';
+      },
+      // 점들을 부드럽게 잇는 곡선 (path의 d 값)
+      curve(pts) {
+        const f = v => v.toFixed(1);
+        let d = `M${f(pts[0][0])} ${f(pts[0][1])}`;
+        for (let i = 0; i < pts.length - 1; i++) {
+          const a = pts[Math.max(0, i - 1)], b = pts[i], c = pts[i + 1], e = pts[Math.min(pts.length - 1, i + 2)];
+          d += ` C${f(b[0] + (c[0] - a[0]) / 6)} ${f(b[1] + (c[1] - a[1]) / 6)} ${f(c[0] - (e[0] - b[0]) / 6)} ${f(c[1] - (e[1] - b[1]) / 6)} ${f(c[0])} ${f(c[1])}`;
+        }
+        return d;
+      },
+      // 손으로 그린 동그라미: 한 바퀴를 조금 넘겨 끝이 겹치게 (seed를 바꾸면 모양이 조금 달라짐)
+      loop(cx, cy, rx, ry, seed) {
+        const r = api.rand(seed || 7), pts = [], N = 14, a0 = -2.3 + r() * 0.5;
+        for (let i = 0; i <= N; i++) {
+          const f = i / N, a = a0 + f * Math.PI * 2 * 1.14, k = 1.06 - f * 0.12 + (r() - 0.5) * 0.05;
+          pts.push([cx + Math.cos(a) * rx * k + f * rx * 0.08, cy + Math.sin(a) * ry * k - f * ry * 0.06]);
+        }
+        return pp.curve(pts);
+      },
+      // 손으로 그은 줄: 자를 대지 않아 살짝 흔들리는 선
+      hand(x1, y1, x2, y2, seed) {
+        const r = api.rand(seed || 3), j = Math.hypot(x2 - x1, y2 - y1) * 0.01 + u * 0.0015, pts = [];
+        for (let i = 0; i <= 4; i++) pts.push([x1 + (x2 - x1) * i / 4, y1 + (y2 - y1) * i / 4 + (i % 4 ? (r() - 0.5) * 2 * j : 0)]);
+        return pp.curve(pts);
+      },
+      // 가림막 안에서 올라오는 글 한 줄. 돌려받은 알맹이에 pp.up(알맹이, 0~1)
+      slip(parent, css, text) {
+        const mask = pp.el(parent, 'overflow:hidden;white-space:nowrap;padding:.18em 0;margin:-.18em 0;' + (css || ''));
+        const core = document.createElement('div');
+        core.textContent = text;
+        core.style.cssText = 'will-change:transform;';
+        mask.appendChild(core);
+        core.mask = mask;
+        return core;
+      },
+      // 알맹이를 p만큼 올린다 (0 = 아래에 숨음, 1 = 제자리). out을 주면 위로 그만큼 빠져나간다
+      up(core, p, out) { core.style.transform = `translate3d(0,${(1 - clamp(p)) * 130 - clamp(out || 0) * 130}%,0)`; },
+      // 숫자·낱말 굴리기: 목록을 세로로 쌓아 두고 가림막 안에서 pos번째가 보이게 민다 (pos는 소수도 되고, 끝까지 가면 처음과 이어짐)
+      reel(parent, items, lh, css) {
+        const mask = pp.el(parent, `overflow:hidden;white-space:nowrap;height:${lh}px;line-height:${lh}px;` + (css || '')), col = document.createElement('div');
+        items.concat([items[0]]).forEach(s => { const d = document.createElement('div'); d.textContent = s; d.style.height = lh + 'px'; col.appendChild(d); });
+        col.style.willChange = 'transform';
+        mask.appendChild(col);
+        return { el: mask, set(pos) { col.style.transform = `translate3d(0,${-pos * lh}px,0)`; } };
+      }
+    };
+    return pp;
+  }
+
+  function pp2Kit(api, kit, pp) {
+    const clamp = x => Math.max(0, Math.min(1, x));
+    return {
+      // 작은 모노 글자의 글꼴 (영어 대문자·숫자용. 한글은 모노 글꼴에 없으므로 쓰지 않습니다)
+      mono: (px, gap) => `font:500 ${px}px/1.2 ${kit.mono};letter-spacing:${gap == null ? 0.14 : gap}em;white-space:nowrap;`,
+      // 펜으로 쓰듯 왼쪽에서 오른쪽으로 드러낸다 (p: 0 = 아직 안 씀, 1 = 다 씀). off를 주면 왼쪽부터 다시 지운다
+      write(el, p, off) {
+        p = clamp(p); off = clamp(off || 0);
+        el.style.clipPath = `inset(-30% ${p >= 1 ? -8 : (1 - p) * 100}% -30% ${off > 0 ? off * 100 : -8}%)`;
+        el.style.visibility = p > 0.002 && off < 0.998 ? 'visible' : 'hidden';
+      },
+      // 가로 점선 (인쇄된 30분 눈금 같은 것)
+      dash(parent, x, y, w, color) {
+        return pp.el(parent, `left:${x}px;top:${y}px;width:${w}px;height:${pp.hair}px;background:repeating-linear-gradient(to right,${color} 0 ${pp.hair}px,transparent ${pp.hair}px ${pp.hair * 4}px);`);
+      },
+      // 쪽 전체가 들어오고 나가기: 아래쪽부터 짧게 올라오며 드러나고(pin 0→1), 위에서부터 가려지며 나간다(pout 0→1)
+      page(el, pin, pout) {
+        el.style.transform = `translate3d(0,${((1 - pin) * 0.05 - pout * 0.04) * api.u}px,0)`;
+        el.style.clipPath = pout > 0 ? `inset(${pout * 100}% 0 0 0)` : pin < 1 ? `inset(${(1 - pin) * 100}% 0 0 0)` : 'none';
+      },
+      // 종이 한 장이 들어오고 나가기 (pp.enter와 같고, 다 나간 뒤에는 테두리 그림자까지 숨긴다)
+      enter(el, pin, pout) {
+        pp.enter(el, pin, pout);
+        el.style.visibility = pin > 0 && pout < 1 ? 'visible' : 'hidden';
+      },
+      // 한 자리 숫자 앞에 0을 붙인다 (7 → '07')
+      two: n => (n < 10 ? '0' : '') + n
+    };
+  }
+  function wordRing(api) {
+    const CARDS = [   // [낱말, 뜻, 보기 문장]
+      ['together', '함께', 'We learn together.'],
+      ['curious', '궁금한', 'I am curious about it.'],
+      ['share', '나누다', 'We share our ideas.']
+    ];
+    const LABELS = ['WORD', 'MEANING'];   // 카드 위 작은 글: [낱말 쪽, 뜻 쪽]
+    const LOOP = 11.4;                    // 한 바퀴 길이(초)
+    const kit = qmKit(api), pp = ppKit(api), x2 = pp2Kit(api, kit, pp), { u, W, H } = api, sp = api.space(0), ink = api.ink, hair = pp.hair, n = CARDS.length, faces = n * 2, hold = LOOP / faces;
+    const cw = Math.round(u * 0.64), ch = Math.round(u * 0.31), ho = u * 0.042, R = ho * Math.SQRT2, left = W / 2 + u * 0.025 - cw / 2, topY = H / 2 - ch / 2;   // ho: 모서리에서 구멍까지, R: 고리의 반지름
+    const stage = api.box(sp, W, H);
+    const fit = (text, px, wide) => Math.min(px, (cw - u * 0.155) / (Math.max(3, Array.from(text).length) * wide));   // 긴 낱말은 카드 폭에 맞춰 줄인다
+    const cards = [];
+    CARDS.forEach((c, i) => [0, 1].forEach(side => {
+      const el = pp.el(stage, `left:${left}px;top:${topY}px;width:${cw}px;height:${ch}px;border-radius:${u * 0.016}px;background:${pp.paper};box-shadow:0 0 0 ${hair}px ${pp.a(ink, 0.14)},0 ${u * 0.004}px ${u * 0.014}px rgba(0,0,0,.2);transform-origin:${ho}px ${ho}px;will-change:transform;`);
+      pp.el(el, `left:${ho - u * 0.015}px;top:${ho - u * 0.015}px;width:${u * 0.03}px;height:${u * 0.03}px;border-radius:50%;background:${api.bg};box-shadow:inset 0 ${hair}px ${hair * 2}px rgba(0,0,0,.4);`);   // 뚫린 구멍
+      pp.el(el, `left:${u * 0.108}px;top:${u * 0.034}px;${x2.mono(u * 0.0155)}color:${side ? api.accent : pp.a(ink, 0.5)};`, LABELS[side]);
+      pp.el(el, `right:${u * 0.04}px;top:${u * 0.034}px;${x2.mono(u * 0.0155)}color:${pp.a(ink, 0.42)};`, x2.two(i + 1) + ' / ' + x2.two(n));
+      if (side) {
+        const px = fit(c[1], u * 0.076, 1.02);
+        pp.el(el, `left:${u * 0.105}px;top:${ch * 0.47 - px * 0.7}px;font:600 ${px}px/1.3 ${kit.serif};letter-spacing:-.03em;white-space:nowrap;color:${ink};`, c[1]);
+        pp.rule(el, u * 0.108, ch - u * 0.088, cw - u * 0.148, pp.a(ink, 0.2));
+        pp.el(el, `left:${u * 0.108}px;top:${ch - u * 0.072}px;font:italic 400 ${u * 0.03}px/1.3 ${kit.serif};white-space:nowrap;color:${pp.a(ink, 0.65)};`, c[2]);
+      } else {
+        const px = fit(c[0], u * 0.118, 0.47);
+        pp.el(el, `left:${u * 0.102}px;top:${ch * 0.53 - px * 0.62}px;font:400 ${px}px/1.2 ${kit.serif};letter-spacing:-.01em;white-space:nowrap;color:${ink};`, c[0]);
+      }
+      cards.push(el);
+    }));
+    // 고리: 카드 모서리 바깥을 돌아 구멍으로 들어가는 선 (구멍에서 카드 밑으로 이어지는 부분은 그리지 않는다)
+    const sv = pp.svg(stage, W, H, 'z-index:40;'), d = `M${left} ${topY + R}A${R} ${R} 0 1 1 ${left + ho} ${topY + ho}`, rw = u * 0.011;
+    [[rw + hair * 2, 'rgba(0,0,0,.4)', 1], [rw, api.tone(3), 1], [rw * 0.26, '#fff', 0.55]].forEach(k => {
+      const ring = pp.stroke(sv, d, k[1], k[0]);
+      ring.style.strokeLinecap = 'butt';
+      ring.style.opacity = k[2];
+      pp.draw(ring, 1);
+    });
+    const fan = [0, 3.2, 6.2];   // 뒤에 겹친 카드가 벌어진 각도
+    const angle = slot => fan[Math.min(slot, fan.length - 1)];
+    return t => {
+      t %= LOOP;
+      const k = Math.min(faces - 1, Math.floor(t / hold)), s = t - k * hold, p = kit.seg(s, hold - 0.86, hold - 0.03);   // p: 다음 장으로 넘어가는 진행
+      cards.forEach((el, j) => {
+        const slot = (j - k + faces) % faces, move = kit.expo(kit.seg(p, 0.12, 1));
+        const turn = slot ? kit.mix(angle(slot), angle(slot - 1), move) : -124 * kit.io(p);   // 맨 앞 장은 고리를 축으로 크게 돌아 화면 밖으로
+        el.style.transform = `rotate(${turn}deg)`;
+        el.style.opacity = slot === 0 ? 1 - kit.seg(p, 0.66, 0.94) : slot < fan.length ? 1 : slot === fan.length ? kit.seg(p, 0.2, 0.7) : 0;
+        el.style.visibility = slot > fan.length ? 'hidden' : 'visible';
+        el.style.zIndex = 20 - slot;
+      });
+    };
+  }
+
+  // ③ 공통 엔진: 고칠 필요 없습니다
+  function qmEngine(root, CFG, motion) {
+    // 색 8개: 가장 밝은 색 → 가장 진한 색. [0] 흰 판·밝은 글자, [1]~[4] 연한 색에서 중간 색, [5] 포인트 색, [6] 둘째 포인트 색, [7] 글자색
+    // 바꾸려면 CONFIG에 colors: ['#...', ...] 를 같은 순서로 넣으면 됩니다. 비워 두면 흰색·네이비 계열이 쓰입니다
+    const COLORS = CFG.colors || ['#ffffff', '#e8ecf3', '#cfd7e6', '#9aa8c4', '#5c7099', '#1f3460', '#6e1a2f', '#15171c'];
+    // 매번 같은 순서가 나오는 난수 (같은 seed면 같은 결과)
+    const rand = seed => () => (seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296;
+    // 샘플 그림: CONFIG.images가 비어 있을 때 쓰입니다. 어느 카드에 어떤 그림이 갈지는 열 때마다 섞입니다
+    const dice = rand(CFG.seed || Math.floor(Math.random() * 1e9) + 1);
+    const shift = Math.floor(dice() * 16);
+    const FONT = '"Pretendard Variable","Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif';
+    // 색의 밝기 (0 = 검정, 255 = 흰색). #rrggbb 꼴이 아니면 검정으로 봅니다
+    const light = color => /^#[0-9a-f]{6}$/i.test(color) ? (parseInt(color.slice(1, 3), 16) * 299 + parseInt(color.slice(3, 5), 16) * 587 + parseInt(color.slice(5, 7), 16) * 114) / 1000 : 0;
+    const bright = light(CFG.bg);
+    const still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let frame = null, time = CFG.startAt || (still ? 4 : 0), last = 0, raf = 0, timer = 0, size = '';
+    let playing = false, seen = true, want = CFG.autoplay !== false && !still, drew = false;
+    // 랜딩페이지용: 실제 마우스·스크롤에 반응합니다 (CONFIG.live). true = 페이지에 붙여 쓸 때, 'try' = 미리보기 창(마우스가 없으면 연출대로)
+    const LIVE = CFG.live === true || CFG.live === 'try', TRY = CFG.live === 'try';
+    const live = { x: 0, y: 0, tx: 0, ty: 0, over: 0, on: false, down: 0, press: false, s: 0, ts: 0, ready: false };
+  
+    const api = {
+      root: root,
+      bg: CFG.bg,
+      clear: CFG.bg === 'transparent',              // 투명 배경으로 그리는 중 (영상 편집기에 얹을 자막 등). 이때는 화면 전체를 칠하는 바탕을 그리지 않습니다
+      fg: bright > 150 ? COLORS[7] : COLORS[0],     // 배경 위에 바로 쓰는 글자색
+      ink: COLORS[7],                               // 흰 판 위에 쓰는 글자색
+      accent: COLORS[5],                            // 포인트 색
+      deep: COLORS[6],                              // 둘째 포인트 색
+      on: color => light(color) > 150 ? COLORS[7] : '#ffffff',   // 그 색 위에 올릴 글자색 (밝은 색 위엔 진한 글자, 진한 색 위엔 흰 글자)
+      tone: i => COLORS[1 + (i % 5 + 5) % 5],       // i번째 변주 색 (연한 색 ~ 포인트 색)
+      rand: rand,
+      font: FONT,
+      ko: text => /[\u3131-\u318e\uac00-\ud7a3]/.test(text),   // 한글이 들어 있나 (한글이 든 글줄은 한글 글꼴 하나로 씁니다)
+      count: (CFG.images || []).length,             // 넣은 이미지 수 (0이면 샘플)
+      words: CFG.words || [],                       // 넣은 낱말 (글자 모션에서 사용, 비면 기본 낱말)
+      live: LIVE && !TRY,                           // 실제 페이지에서 마우스·스크롤에 반응하는 중 (미리보기 칸·영상 저장 때는 false)
+      // 마우스 자리 { x, y: 무대 안의 px, down: 누름 0~1, on: 마우스가 와 있는 정도 0~1, fake: 연출용 가짜 커서를 보일 정도 0~1 }
+      // demo: 미리보기·영상 저장 때 쓸 연출 자리 { x, y, down, on } (t로 계산해서 넘김). 실제 페이지에서는 진짜 마우스를 따라갑니다
+      pointer(demo) {
+        const d = Object.assign({ x: api.W / 2, y: api.H / 2, down: 0, on: 1 }, demo || {});
+        if (!LIVE) return { x: d.x, y: d.y, down: d.down, on: d.on, fake: 1 };
+        if (!live.ready) return TRY ? { x: d.x, y: d.y, down: d.down, on: d.on, fake: 1 } : { x: d.x, y: d.y, down: 0, on: 0, fake: 0 };
+        const k = TRY ? live.over : 1, mix = (a, b) => a + (b - a) * k;
+        return { x: mix(d.x, live.x), y: mix(d.y, live.y), down: mix(d.down, live.down), on: TRY ? mix(d.on, live.over) : live.over, fake: 1 - k };
+      },
+      // 스크롤 진행 0~1. 미리보기·영상 저장 때는 demo(t로 계산한 값), 실제 페이지에서는 이 상자(또는 CONFIG.track의 칸)가 화면을 지나는 정도
+      scroll: demo => LIVE && !TRY ? live.s : demo,
+      image: i => { const n = (CFG.images || []).length; return n ? CFG.images[i % n] : null; },   // i번째 이미지 주소 (없으면 null)
+      // i번째 샘플 그림 { cv, url }. 코드에 qmArt가 함께 들어 있을 때만 나옵니다 (plain: 글자 없는 그림만)
+      art: (i, plain) => { drew = true; return typeof qmArt === 'function' ? qmArt(plain ? i : i + shift, plain) : null; },
+      // i번째 그림을 CSS background 값으로: 내 이미지가 있으면 이미지, 없으면 샘플 그림
+      paint: i => {
+        const n = (CFG.images || []).length, a = n ? null : api.art(i);
+        return n ? `url("${CFG.images[i % n]}") center / cover no-repeat, #1c1c1e` : a ? `url(${a.url}) center / cover no-repeat` : `linear-gradient(145deg, ${COLORS[2]}, ${COLORS[5]})`;
+      },
+      // 숏폼 자막용 미리보기 바탕: 영상 대신 깔아 두는 흐릿한 장면 (내 이미지를 넣으면 그 그림). 투명 배경일 때는 그리지 않고 null을 돌려줍니다
+      footage(dim) {
+        if (api.clear) return null;
+        const el = document.createElement('div'), n = (CFG.images || []).length;
+        el.style.cssText = 'position:absolute;left:0;top:0;width:100%;height:100%;filter:brightness(' + (dim == null ? 0.85 : dim) + ');background:' + (n ? `url("${CFG.images[0]}") center / cover no-repeat` :
+          'radial-gradient(55% 32% at 28% 26%, rgba(243,237,226,.5), rgba(243,237,226,0) 70%), radial-gradient(45% 30% at 78% 52%, rgba(154,120,110,.45), rgba(154,120,110,0) 70%), ' +
+          'radial-gradient(80% 45% at 50% 108%, rgba(31,52,96,.75), rgba(31,52,96,0) 72%), radial-gradient(40% 25% at 18% 70%, rgba(205,196,184,.28), rgba(205,196,184,0) 70%), linear-gradient(172deg, #4a4f5a, #23262d 60%, #15171c)') + ';';
+        root.appendChild(el);
+        return el;
+      },
+      // 0~1 사이 값을 부드럽게 (천천히 출발, 천천히 도착)
+      ease: x => { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); },
+      // 0~1 사이 값을 통통 튀게 (살짝 넘쳤다가 제자리로)
+      spring: x => { x = Math.max(0, Math.min(1, x)) - 1; return 1 + 2.70158 * x * x * x + 1.70158 * x * x; },
+      // 화면 한가운데가 (0,0,0)인 3D 공간. 숫자가 작을수록 원근감이 세집니다
+      space(perspective) {
+        root.style.perspective = perspective ? perspective + 'px' : 'none';
+        return api.group(root, 'left:50%;top:50%;');
+      },
+      // 여러 조각을 한꺼번에 돌리거나 옮길 묶음
+      group(parent, extra) {
+        const el = document.createElement('div');
+        el.style.cssText = 'position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d;' + (extra || '');
+        parent.appendChild(el);
+        return el;
+      },
+      // 빈 상자 하나. 상자의 중심이 (0,0)에 놓입니다 (UI 모션에서 사용)
+      box(parent, w, h, css) {
+        const el = document.createElement('div');
+        el.style.cssText = `position:absolute;left:0;top:0;box-sizing:border-box;width:${w}px;height:${h}px;margin:${-h / 2}px 0 0 ${-w / 2}px;font-family:${FONT};` + (css || '');
+        parent.appendChild(el);
+        return el;
+      },
+      // 카드 한 장. 카드의 중심이 (0,0)에 놓입니다 (카드 모션에서 사용)
+      card(parent, i, w, h, twoSided) {
+        const el = api.box(parent, w, h, 'overflow:hidden;'), s = el.style;
+        s.borderRadius = Math.min(w, h) * (CFG.radius || 0) + 'px';
+        s.backfaceVisibility = s.webkitBackfaceVisibility = twoSided ? 'visible' : 'hidden';
+        s.background = api.paint(i);
+        return el;
+      }
+    };
+  
+    function build() {
+      const W = root.clientWidth, H = root.clientHeight;
+      if (!W || !H || size === W + 'x' + H) return;
+      size = W + 'x' + H;
+      if (frame && frame.dispose) frame.dispose();   // WebGL 모션은 다시 만들기 전에 정리
+      root.textContent = '';
+      api.W = W; api.H = H; api.u = Math.min(W, H);
+      if (LIVE && !TRY) { measure(); live.s = live.ts; }
+      frame = motion(api);
+      frame(time);
+      runs(root);
+      if (watch) watch.takeRecords();   // 방금 만든 장면은 위에서 다 봤으니 쌓인 기록은 버림
+    }
+    // 한 글줄 안에 한글과 영문·숫자가 섞였는데 영문 전용 글꼴(Anton·Inter 등)이 앞에 서 있으면,
+    // 그 글줄은 글꼴 목록 뒤쪽의 한글 글꼴로 통째로 씁니다 (영문 글꼴과 한글 글꼴이 한 줄에서 따로 놀지 않게)
+    const LATIN = /^(Anton|Archivo|Instrument Serif|Inter|JetBrains Mono)$/i;
+    function runs(top) {
+      const walk = document.createTreeWalker(top, NodeFilter.SHOW_TEXT), seen = new Set();
+      for (let n = walk.nextNode(); n; n = walk.nextNode()) if (n.parentElement) seen.add(n.parentElement);
+      seen.forEach(el => {
+        let own = '';
+        el.childNodes.forEach(c => { if (c.nodeType === 3) own += c.nodeValue; });
+        if (!/[\u3131-\u318e\uac00-\ud7a3]/.test(own) || !/[A-Za-z0-9]/.test(own)) return;
+        const list = getComputedStyle(el).fontFamily.split(',').map(f => f.trim().replace(/^["']|["']$/g, ''));
+        if (!LATIN.test(list[0])) return;
+        el.style.fontFamily = list.filter(f => !LATIN.test(f)).map(f => /^[a-z-]+$/.test(f) ? f : '"' + f + '"').join(',');
+      });
+    }
+    // 장면이 글자를 바꾸면 바뀐 곳만 다시 봅니다
+    const watch = window.MutationObserver ? new MutationObserver(list => mend(list)) : null;
+    const mend = list => list.forEach(r => { const el = r.target.nodeType === 3 ? r.target.parentElement : r.target; if (el && root.contains(el)) runs(el); });
+    if (watch) watch.observe(root, { childList: true, characterData: true, subtree: true });
+    function tick(now) {
+      raf = requestAnimationFrame(tick);
+      const dt = Math.max(0, Math.min((now - last) / 1000, 0.1));
+      time += dt * CFG.speed;                       // 흐른 시간만큼 (뒤로 가지 않게)
+      if (CFG.once && time > CFG.once) time = CFG.once;   // 한 번만: 화면에 들어오면 한 번 재생하고 이 초의 장면에서 멈춤
+      last = now;
+      if (LIVE) follow(dt);
+      if (frame) frame(time);
+    }
+    // 스크롤 진행: CONFIG.track이 있으면 그 칸(키 큰 칸 안에 이 상자를 position:sticky로 넣은 경우)을 다 내려가는 정도, 없으면 이 상자가 화면 아래에서 위로 지나가는 정도
+    function measure() {
+      const el = CFG.track ? document.querySelector(CFG.track) : root;
+      if (!el) return;
+      const r = el.getBoundingClientRect(), vh = window.innerHeight || 1;
+      live.ts = Math.max(0, Math.min(1, CFG.track ? -r.top / Math.max(1, r.height - vh) : (vh - r.top) / (vh + r.height)));
+    }
+    // 진짜 마우스·스크롤 값을 부드럽게 따라감
+    function follow(dt) {
+      const k = 1 - Math.exp(-dt * 14);
+      live.x += (live.tx - live.x) * k;
+      live.y += (live.ty - live.y) * k;
+      live.over += ((live.on ? 1 : 0) - live.over) * (1 - Math.exp(-dt * 6));
+      live.down += ((live.press ? 1 : 0) - live.down) * (1 - Math.exp(-dt * 18));
+      if (!TRY) { measure(); live.s += (live.ts - live.s) * (1 - Math.exp(-dt * 10)); }
+    }
+    const spot = e => {
+      const r = root.getBoundingClientRect();
+      live.tx = (e.clientX - r.left) * root.clientWidth / (r.width || 1);
+      live.ty = (e.clientY - r.top) * root.clientHeight / (r.height || 1);
+      if (!live.ready) { live.x = live.tx; live.y = live.ty; live.ready = true; }
+    };
+    // 멈춰 있을 때(일시 정지·동작 줄이기 설정)도 마우스에는 바로 반응
+    const poke = () => { if (playing || !frame) return; live.x = live.tx; live.y = live.ty; live.over = live.on ? 1 : 0; live.down = live.press ? 1 : 0; frame(time); };
+    const hands = {
+      pointerenter: e => { spot(e); live.on = true; poke(); },
+      pointermove: e => { spot(e); live.on = true; poke(); },
+      pointerleave: () => { live.on = false; live.press = false; poke(); },
+      pointerdown: e => { spot(e); live.on = live.press = true; poke(); },
+      pointerup: () => { live.press = false; poke(); }
+    };
+    if (LIVE) Object.keys(hands).forEach(k => root.addEventListener(k, hands[k]));
+    // 화면에 보일 때만 움직입니다
+    function sync() {
+      const on = want && seen;
+      if (on && !playing) { playing = true; last = performance.now(); raf = requestAnimationFrame(tick); }
+      if (!on && playing) { playing = false; cancelAnimationFrame(raf); }
+    }
+  
+    Object.assign(root.style, { position: 'relative', overflow: 'hidden', background: CFG.bg, aspectRatio: CFG.ratio });
+    build();
+    const ro = new ResizeObserver(() => { clearTimeout(timer); timer = setTimeout(build, 100); });
+    const io = new IntersectionObserver(e => { seen = e[e.length - 1].isIntersecting; sync(); });
+    // 웹폰트로 그리는 모션은 폰트가 도착하면 크기를 다시 재서 그립니다
+    const refit = () => { if (frame && (frame.fonts || drew)) { size = ''; build(); } };
+    if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', refit);
+    ro.observe(root);
+    io.observe(root);
+    sync();
+  
+    return {
+      play() { want = true; sync(); },
+      pause() { want = false; sync(); },
+      restart() { time = 0; if (frame) frame(time); },
+      seek(t) { time = t; if (frame) frame(time); if (watch) mend(watch.takeRecords()); },   // t초의 장면으로 건너뜀 (영상으로 한 장씩 찍을 때)
+      destroy() { want = false; sync(); if (LIVE) Object.keys(hands).forEach(k => root.removeEventListener(k, hands[k])); ro.disconnect(); io.disconnect(); if (watch) watch.disconnect(); clearTimeout(timer); if (document.fonts && document.fonts.removeEventListener) document.fonts.removeEventListener('loadingdone', refit); if (frame && frame.dispose) frame.dispose(); root.textContent = ''; }
+    };
+  }
+
+  qmEngine(document.getElementById('qm-word-ring'), CONFIG, wordRing);
+})();
+</script>
+</body>
+</html>

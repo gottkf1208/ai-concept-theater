@@ -137,6 +137,10 @@ const CSS = `
 .mc-fsub{font-size:18px;font-weight:700;color:var(--muted2);text-align:center;padding:0 12px}
 .mc-def{position:absolute;border-radius:16px;background:var(--acc2-pale);border:1px solid rgba(27,31,36,.06);padding:12px 16px;box-sizing:border-box;font-size:21px;font-weight:700;line-height:1.4;color:var(--ink)}
 .mc-def b{color:var(--acc2)}
+.mc-ring{position:absolute;left:60px;top:190px;width:600px;height:560px;perspective:1400px}
+.mc-ring i{position:absolute;top:-6px;width:20px;height:44px;border:6px solid var(--muted2);border-radius:12px;box-sizing:border-box;z-index:30;background:transparent}
+.mc-ringbox{position:absolute;left:60px;top:178px;width:600px;height:600px;border-radius:26px;overflow:hidden;background:#f5f5f7;box-shadow:0 28px 60px -30px rgba(27,31,36,.6);opacity:0;transform-origin:50% 50%;will-change:transform}
+.mc-ringbox iframe{display:block;width:600px;height:600px;border:0;pointer-events:none}
 .mc-tile{position:absolute;width:290px;height:290px;border-radius:22px;overflow:hidden;background:#fff;box-shadow:0 18px 40px -24px rgba(27,31,36,.55);transform-origin:50% 50%;opacity:0;will-change:transform}
 .mc-tile iframe{display:block;width:290px;height:290px;border:0;pointer-events:none}
 .mc-tile-ko{position:absolute;left:12px;bottom:12px;font-size:16px;font-weight:800;color:#fff;background:rgba(27,31,36,.7);border-radius:999px;padding:3px 10px;opacity:0}
@@ -182,12 +186,12 @@ export default {
   scenes: [
     /* 1 ── 카운트다운, 클로드 코드가 만든 움직임 넷(모션랩 iframe), 질문(글자 올라오기) */
     {
-      title: '클로드 코드가 만든 것', dur: 16,
+      title: '클로드 코드가 만든 것', dur: 14,
       captions: [
         { t: 0, text: '클로드 코드로 만든 움직임들이에요.' },
         { t: 5.5, text: '모션랩에만 578개가 있어요.' },
-        { t: 9.5, text: '그런데 클로드는 손도 눈도 없어요.' },
-        { t: 12.5, text: '어떻게 만든 걸까요?' }
+        { t: 8.5, text: '그런데 클로드는 손도 눈도 없어요.' },
+        { t: 11.5, text: '어떻게 만든 걸까요?' }
       ],
       build({ stage, lines, P, tl, base }) {
         sty(stage, P);
@@ -209,17 +213,17 @@ export default {
         const tr = track(stage, P, []);
         return {
           tick(t) {
-            q.tick(t, t > 9 && t < 15); tr.at(t, 2);
+            q.tick(t, t > 8 && t < 13); tr.at(t, 2);
             const n = 3 - Math.floor(t / .5), turn = (t % .5) / .5;
             cd.style.opacity = t < 1.5 ? 1 : 0; cd.lastChild.textContent = String(Math.max(1, n));
             cd.querySelector('b').style.background = `conic-gradient(var(--acc2-pale) ${turn * 360}deg, transparent 0)`;
             tiles.forEach((w, k) => {
-              const come = SP(seg(t, 1.6 + k * .45, 2.3 + k * .45)), dim = SM(seg(t, 9.3, 10));
+              const come = SP(seg(t, 1.6 + k * .45, 2.3 + k * .45)), dim = SM(seg(t, 8.3, 9));
               w.style.opacity = come > 0 ? 1 - dim * .55 : 0;
               w.style.transform = `scale(${come * (1 - dim * .06)})`;
               w.lastChild.style.opacity = seg(t, 4 + k * .2, 4.4 + k * .2) * (1 - dim);
             });
-            rq.at(t, 9.6);
+            rq.at(t, 8.6);
           }
         };
       }
@@ -418,7 +422,7 @@ export default {
     },
     /* 6 ── 글이 영상이 되기까지: 브라우저가 그림 30장, FFmpeg가 묶기 */
     {
-      title: '글이 영상이 되기까지', dur: 14,
+      title: '글이 영상이 되기까지', dur: 13,
       captions: [
         { t: 0, text: '글을 쓰면 브라우저가 그림으로 그려요.' },
         { t: 3.5, text: '1초에 30장. 아직 영상은 아니에요.' },
@@ -461,7 +465,7 @@ export default {
     },
     /* 6 ── 잘하는 것, 어려운 것, 사진 확인, 색종이 */
     {
-      title: '잘하는 것, 어려운 것', dur: 12,
+      title: '잘하는 것, 어려운 것', dur: 11,
       captions: [
         { t: 0, text: '많이 본 움직임은 잘 만들어요.' },
         { t: 3.2, text: '처음 보는 복잡한 동작에선 숫자가 어긋나요.' },
@@ -498,6 +502,34 @@ export default {
             ask.style.opacity = t > 9.2 ? 1 : 0;
             bolds.forEach((b, i) => { const p = EO(seg(t, 9.4 + i * .3, 10 + i * .3)); b.style.filter = p < 1 ? `blur(${(1 - p) * 8}px)` : 'none'; b.style.opacity = p; b.style.transform = `translateY(${(1 - p) * 10}px)`; });
             conf.forEach(c => { const u = (t - 10.2 - c.d) / (1.6 * c.sp); if (u < 0 || u > 1.2) { c.el.style.opacity = 0; return; } c.el.style.opacity = u < 1 ? 1 : 1 - (u - 1) * 5; c.el.style.transform = `translate(${c.x + Math.sin(u * 6 + c.rot) * 30}px, ${80 + u * 760}px) rotate(${c.rot + u * 540}deg)`; });
+          }
+        };
+      }
+    }
+    ,
+    /* 8 ── 오늘의 정리: 모션랩 '탭 넘기기'(browser-tabs) 원본에 용어 셋을 넣어 돌려요 */
+    {
+      title: '오늘의 정리', dur: 16,
+      captions: [
+        { t: 0, text: '오늘 나온 말 셋만 정리할게요.' },
+        { t: 1.6, text: '키프레임은 처음 그림과 끝 그림이에요.' },
+        { t: 5.6, text: '이징은 같은 거리를 다른 빠르기로 가는 속도표.' },
+        { t: 10.2, text: 'FFmpeg는 그림을 영상으로 묶는 무료 도구예요.' }
+      ],
+      build({ stage, lines, P, tl, base }) {
+        sty(stage, P);
+        const head = P.h('div', { class: 'mc-big', style: 'left:60px;top:112px;width:600px;font-size:34px;text-align:left' }); stage.append(head);
+        const rh = riser(P, head, '오늘의 AI 개념극장 · 용어 셋');
+        const box = P.h('div', { class: 'mc-ringbox' }, P.h('iframe', { src: `${base || ''}assets/motions/browser-tabs-e76.html`, title: '용어 정리', tabindex: '-1' }));
+        stage.append(box);
+        const q = P.quokka({ x: 410, y: 820, size: 300, pose: 'wave' });
+        stage.append(q.el);
+        const tr = track(stage, P, [0, 1, 2, 3, 4]);
+        return {
+          tick(t) {
+            q.tick(t, t < 15); tr.at(t); rh.at(t, .2);
+            const come = SP(seg(t, .6, 1.2));
+            box.style.opacity = come > 0 ? 1 : 0; box.style.transform = `translateY(${(1 - come) * 50}px) scale(${.9 + .1 * come})`;
           }
         };
       }
