@@ -14,3 +14,4 @@ thumbnails.zip
 *.zip
 cards/
 test/run-*.log
+_workspace/
