@@ -331,7 +331,7 @@
     return v;
   }
   function v6BrowserTabs(api) {
-    const TABS = [['키프레임', 'quoka.theater/keyframe', 'Keyframe', '처음 그림과', '끝 그림', '처음 그림과 끝 그림만 사람이 정해요. 사이 그림은 컴퓨터가 채워요.'], ['이징', 'quoka.theater/easing', 'Easing', '같은 거리,', '다른 빠르기', '어떤 빠르기로 갈지 적은 속도표예요. 천천히 멈춤이 자연스러워요.'], ['FFmpeg', 'quoka.theater/ffmpeg', 'FFmpeg', '그림 30장을', '영상으로 묶기', '그림·소리·영상을 자르고 이어 붙이는 무료 도구예요. 명령 한 줄이면 돼요.']];   // 탭마다 [탭 이름, 주소, 쪽의 작은 라벨, 쪽 제목 첫 줄, 둘째 줄]
+    const TABS = [['키프레임', 'quoka.theater/keyframe', 'Keyframe', '키프레임', '처음 그림과 끝 그림', '사람은 처음과 끝만 정해요. 사이 그림은 컴퓨터가 채워요.'], ['이징', 'quoka.theater/easing', 'Easing', '이징', '속도표', '같은 거리를 어떤 빠르기로 갈지 적은 표예요. 천천히 멈춤이 자연스러워요.'], ['FFmpeg', 'quoka.theater/ffmpeg', 'FFmpeg', 'FFmpeg', '영상으로 묶는 도구', '그림·소리·영상을 자르고 이어 붙여요. 무료고, 명령 한 줄이면 돼요.']];   // 탭마다 [탭 이름, 주소, 쪽의 작은 라벨, 쪽 제목 첫 줄, 둘째 줄]
     const CLICKS = [4.6, 9.2];                                         // 둘째 탭 / 셋째 탭을 누르는 때(초)
     const LOOP = 15.2;                                                  // 한 바퀴 길이(초)
     const s = screenKit(api), v = v6Kit(api, s), kit = s.kit, u = s.u, fg = api.fg, al = s.al, hair = s.hair, n = TABS.length;
@@ -362,14 +362,14 @@
     s.box(win, 0, tb + ab - hair, ww, hair, `background:${al(fg, 0.14)};`);
     const load = s.box(win, 0, tb + ab - hair * 2, ww, hair * 2, `background:${s.pop};transform-origin:0 50%;`);
     // 쪽 셋: 제목은 같고 아래 도식이 서로 다름 (큰 칸 하나 / 카드 여섯 / 줄 목록)
-    const view = s.box(win, 0, tb + ab, ww, vh, 'overflow:hidden;'), pad = ww * 0.065, ts = ww * 0.082, stack = true, thick = Math.max(2, ww * 0.006);
+    const view = s.box(win, 0, tb + ab, ww, vh, 'overflow:hidden;'), pad = ww * 0.065, ts = ww * 0.1, stack = true, thick = Math.max(2, ww * 0.006);
     const pages = TABS.map((tab, k) => {
       const el = s.box(view, 0, 0, ww, vh, `background:${v.sheet};`), ty = pad * 0.9, parts = [];
       const label = s.mtag(el, tab[2], pad, ty, `color:${al(fg, 0.55)};font-size:${Math.max(6, ts * 0.26)}px;`);
-      const title = [tab[3], tab[4]].map((str, i) => s.mask(el, str || '', pad, ty + ts * 0.62 + i * ts * 1.14, ts));
-      const below = ty + ts * 0.62 + ts * 2.5, bit = (x, y, bw, bh2, a, css) => { const b = s.box(el, x, y, bw, bh2, `background:${al(fg, a)};` + (css || '')); parts.push(b); return b; };
+      const title = [tab[3], tab[4]].map((str, i) => s.mask(el, str || '', pad, ty + ts * 0.62 + (i ? ts * 1.22 : 0), i ? ts * 0.5 : ts, i ? `font-weight:500;color:${al(fg, 0.7)};` : ''));
+      const below = ty + ts * 0.62 + ts * 2.05, bit = (x, y, bw, bh2, a, css) => { const b = s.box(el, x, y, bw, bh2, `background:${al(fg, a)};` + (css || '')); parts.push(b); return b; };
       const lx = pad, ly = below + ts * 2.75, lw = ww - pad - lx, lh2 = vh - pad * 0.9 - ly;   // 도식이 놓일 칸(뜻 아래)
-      const def = s.box(el, pad, below - ts * 0.1, ww - pad * 2, null, `font:500 ${ts * 0.52}px/1.5 ${kit.sans};letter-spacing:-.01em;color:${al(fg, 0.88)};white-space:normal;word-break:keep-all;`); def.textContent = tab[5] || ''; parts.push(def);
+      const def = s.box(el, pad, below - ts * 0.1, ww - pad * 2, null, `font:600 ${ts * 0.5}px/1.45 ${kit.sans};letter-spacing:-.02em;color:${al(fg, 0.92)};white-space:normal;word-break:keep-all;`); def.textContent = tab[5] || ''; parts.push(def);
       if (!stack) parts.push(s.tag(el, String(k + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0'), pad, vh - pad * 0.9 - s.small * 1.2, `color:${al(fg, 0.45)};`));
       if (lh2 < ww * 0.2) { /* 뜻 아래 자리가 좁으면 도식은 생략 */ } else if (k % 3 === 0) {
         const pane = bit(lx, ly, lw, lh2, 0.05, `border-radius:${s.round * 0.6}px;border:${hair}px solid ${al(fg, 0.16)};overflow:hidden;`), rr = Math.min(lw, lh2) * 0.22;

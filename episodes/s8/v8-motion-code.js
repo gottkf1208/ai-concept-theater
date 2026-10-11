@@ -122,6 +122,10 @@ const CSS = `
 .mc-count span{position:absolute;inset:0;display:grid;place-items:center}
 .mc-track{position:absolute;left:60px;top:842px;width:330px;display:flex;flex-direction:column;gap:8px}
 .mc-wide{position:absolute;left:40px;top:22px;width:720px;height:1280px;transform:scale(.74);transform-origin:0 0}
+.mc-marq{position:absolute;overflow:hidden;border-radius:20px}
+.mc-marq-in{position:absolute;left:0;top:12px;display:flex;gap:14px;will-change:transform}
+.mc-mtile{flex:none;width:240px;height:240px;border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 16px 36px -22px rgba(27,31,36,.55)}
+.mc-mtile iframe{display:block;width:240px;height:240px;border:0;pointer-events:none}
 .mc-step{display:flex;align-items:center;gap:12px;height:48px;padding:0 14px;border-radius:14px;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.8);opacity:0;will-change:transform}
 .mc-step b{font-size:22px;font-weight:800;color:var(--muted2);width:44px}
 .mc-step span{font-size:17px;font-weight:700;color:var(--muted2);font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -532,10 +536,15 @@ export default {
         const box = P.h('div', { class: 'mc-ringbox' }, P.h('iframe', { src: `${base || ''}assets/motions/browser-tabs-e76.html`, title: '용어 정리', tabindex: '-1' }));
         stage.append(box);
         const q = quokka(stage, P, 'wave');
-        const tr = track(stage, P, [0, 1, 2, 3, 4]);
+        /* 쿼카 옆으로 모션랩 모션 여섯이 지나가요 */
+        const root = stage.__root || stage, wide = !!stage.__root, MW = wide ? 360 : 330;
+        const marq = P.h('div', { class: 'mc-marq', style: wide ? 'left:640px;top:96px;width:360px;height:290px' : 'left:60px;top:842px;width:330px;height:270px' });
+        const inner = P.h('div', { class: 'mc-marq-in' }, ...['wave-type', 'char-rise', 'weight-wave', 'slice-shift', 'drop-type', 'ring-type'].map(id => P.h('div', { class: 'mc-mtile' }, P.h('iframe', { src: `${base || ''}assets/motions/${id}.html`, title: id, tabindex: '-1' }))));
+        marq.append(inner); root.append(marq);
         return {
           tick(t) {
-            q.tick(t, t < 15); tr.at(t); rh.at(t, .2);
+            q.tick(t, t < 15); rh.at(t, .2);
+            inner.style.transform = `translateX(${MW - Math.max(0, t - .4) * 92}px)`;
             const come = SP(seg(t, .6, 1.2));
             box.style.opacity = come > 0 ? 1 : 0; box.style.transform = `translateY(${(1 - come) * 50}px) scale(${.9 + .1 * come})`;
           }
