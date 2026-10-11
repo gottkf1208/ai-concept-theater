@@ -106,7 +106,7 @@ const CSS = `
 .mc-spot{position:absolute;left:0;top:0;width:300px;height:56px;border-radius:999px;box-shadow:0 0 0 2000px rgba(27,31,36,.42);pointer-events:none;opacity:0}
 .mc-frag{position:absolute;left:0;top:0;font-family:var(--mono);font-size:20px;font-weight:700;color:#fff;background:var(--acc2);padding:4px 10px;border-radius:8px;white-space:nowrap;will-change:transform;opacity:0}
 .mc-slot{display:inline-block;min-width:60px;border-bottom:2px dashed rgba(255,255,255,.4);color:rgba(255,255,255,.35)}
-.mc-slot.on{border-bottom-color:transparent;color:var(--acc2)}
+.mc-slot.on{border-bottom-color:transparent;color:var(--acc2);min-width:0!important}
 .mc-col{position:absolute;border-radius:20px;background:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.9);box-sizing:border-box;padding:16px 18px}
 .mc-col h4{margin:0 0 10px;font-size:24px;font-weight:800}
 .mc-col ul{margin:0;padding:0}
@@ -360,20 +360,21 @@ export default {
           tick(t) {
             q.tick(t, t < 18);
             frags.forEach(({ el, k }, i) => {
-              const u = (t - T0 - i * STEP) / 1;
-              const on = u >= 0 && u < 1.25; chips[i].classList.toggle('on', on);
+              const u = (t - T0 - i * STEP) / .9;
+              chips[i].classList.toggle('on', u >= 0 && (i === 3 ? t < T0 + 3 * STEP + 1.1 : u < STEP / .9));
               if (u < 0) { el.style.opacity = 0; slots[k].classList.remove('on'); slots[k].textContent = ''; return; }
-              if (u >= 1) { el.style.opacity = 0; slots[k].classList.add('on'); const full = WORDS[i][2]; slots[k].textContent = full.slice(0, Math.ceil(full.length * seg(u, 1, 1.3))); return; }
+              const st = stage.getBoundingClientRect(), kk = 720 / st.width;
+              if (u >= 1) { slots[k].classList.add('on'); slots[k].textContent = WORDS[i][2]; const sr = slots[k].getBoundingClientRect(); el.style.opacity = 1 - seg(u, 1, 1.25); el.style.transform = `translate(${(sr.left - st.left) * kk - 10}px, ${(sr.top - st.top) * kk - 4}px) scale(1)`; return; }
               const p = SP(u), sx = CX(i) + 70, sy = CY(i) + 8;
-              const sr = slots[k].getBoundingClientRect(), st = stage.getBoundingClientRect(), kk = 720 / st.width;
-              const ex = (sr.left - st.left) * kk, ey = (sr.top - st.top) * kk - 4;
+              const sr = slots[k].getBoundingClientRect();
+              const ex = (sr.left - st.left) * kk - 10, ey = (sr.top - st.top) * kk - 4;
               el.style.opacity = 1; el.style.transform = `translate(${sx + (ex - sx) * p}px, ${sy + (ey - sy) * p}px) scale(${1.15 - .15 * clamp(p)})`;
             });
             /* 스포트라이트: 켜진 낱말만 밝게. 다음 낱말로 0.3초 동안 미끄러져 가요 */
             const idx = clamp(Math.floor((t - T0) / STEP), 0, 3), prv = Math.max(0, idx - 1), m = SM(seg(t - (T0 + idx * STEP), 0, .3));
             spot.style.opacity = t >= T0 - .2 && t < T0 + 3 * STEP + 1.1 ? 1 : 0;
             spot.style.transform = `translate(${CX(prv) + (CX(idx) - CX(prv)) * m - 10}px, ${CY(prv) + (CY(idx) - CY(prv)) * m - 2}px)`;
-            prev.style.opacity = t > 14.8 ? 1 : 0;
+            prev.style.opacity = SM(seg(t, 2.6, 3.1));
             loopIn(word, t, 15);
           }
         };
