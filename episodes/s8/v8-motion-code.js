@@ -121,7 +121,7 @@ const CSS = `
 .mc-count b{position:absolute;inset:14px;border-radius:50%}
 .mc-count span{position:absolute;inset:0;display:grid;place-items:center}
 .mc-track{position:absolute;left:60px;top:842px;width:330px;display:flex;flex-direction:column;gap:8px}
-.mc-wide{position:absolute;left:40px;top:40px;width:720px;height:1280px;transform:scale(.74);transform-origin:0 0}
+.mc-wide{position:absolute;left:40px;top:22px;width:720px;height:1280px;transform:scale(.74);transform-origin:0 0}
 .mc-step{display:flex;align-items:center;gap:12px;height:48px;padding:0 14px;border-radius:14px;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.8);opacity:0;will-change:transform}
 .mc-step b{font-size:22px;font-weight:800;color:var(--muted2);width:44px}
 .mc-step span{font-size:17px;font-weight:700;color:var(--muted2);font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
