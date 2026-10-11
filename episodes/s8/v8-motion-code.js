@@ -10,6 +10,8 @@ const INTO = p => { p = clamp(p); return p * p * p; };
 const SP = p => { p = clamp(p) - 1; return 1 + 2.70158 * p * p * p + 1.70158 * p * p; };
 const BOUNCE = p => { p = clamp(p); const n = 7.5625, d = 2.75; return p < 1 / d ? n * p * p : p < 2 / d ? n * (p -= 1.5 / d) * p + .75 : p < 2.5 / d ? n * (p -= 2.25 / d) * p + .9375 : n * (p -= 2.625 / d) * p + .984375; };
 const WPOS = p => -40 + 90 * p; /* 글자 중심: -40%(왼쪽 밖) → 50%(가운데) */
+/* 되풀이 미리보기: period마다 1초 동안 들어와 멈췄다가 끝 0.35초에 흐려져요 */
+const loopIn = (el, t, T0, period = 2.5) => { if (t < T0) { el.style.left = `${WPOS(0)}%`; el.style.opacity = 0; return; } const c = (t - T0) % period; el.style.left = `${WPOS(EO(c / 1))}%`; el.style.opacity = c > period - .35 ? (period - c) / .35 : Math.min(1, c / .15 + .3); };
 const CODE = ['@keyframes in {', '  from { left: -100% }', '  to   { left: 50% }', '}', 'animation: in 1s ease-out;'];
 const TITLE = '2026 가을 체육대회';
 
@@ -101,7 +103,7 @@ const CSS = `
 .mc-handle{position:absolute;left:0;top:0;width:120px;height:18px;border-radius:9px;background:var(--ink);transform-origin:0 50%;opacity:0}
 .mc-chip{position:absolute;font-size:24px;font-weight:800;padding:8px 16px;border-radius:999px;background:#fff;border:2px solid rgba(27,31,36,.1);color:var(--ink);white-space:nowrap;box-sizing:border-box;transition:border-color .2s,background .2s,color .2s}
 .mc-chip.on{border-color:var(--acc2);background:var(--acc2-pale);color:var(--acc2)}
-.mc-spot{position:absolute;left:0;top:0;width:300px;height:56px;border-radius:999px;box-shadow:0 0 0 2000px rgba(27,31,36,.42);pointer-events:none;opacity:0;transition:opacity .25s}
+.mc-spot{position:absolute;left:0;top:0;width:300px;height:56px;border-radius:999px;box-shadow:0 0 0 2000px rgba(27,31,36,.42);pointer-events:none;opacity:0}
 .mc-frag{position:absolute;left:0;top:0;font-family:var(--mono);font-size:20px;font-weight:700;color:#fff;background:var(--acc2);padding:4px 10px;border-radius:8px;white-space:nowrap;will-change:transform;opacity:0}
 .mc-slot{display:inline-block;min-width:60px;border-bottom:2px dashed rgba(255,255,255,.4);color:rgba(255,255,255,.35)}
 .mc-slot.on{border-bottom-color:transparent;color:var(--acc2)}
@@ -117,6 +119,7 @@ const CSS = `
 .mc-count{position:absolute;left:0;top:0;width:260px;height:260px;border-radius:50%;display:grid;place-items:center;font-size:120px;font-weight:800;color:var(--ink);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
 .mc-count i{position:absolute;inset:0;border-radius:50%;border:2px solid var(--ink);opacity:.5}
 .mc-count b{position:absolute;inset:14px;border-radius:50%}
+.mc-count span{position:absolute;inset:0;display:grid;place-items:center}
 `;
 const sty = (stage, P) => stage.append(P.h('style', {}, CSS));
 const codeBlock = (P, style) => {
@@ -184,7 +187,7 @@ export default {
             ty.at(t - 1.8);
             rq.at(t, 5.6);
             prev.style.opacity = t > 9.4 ? 1 : 0;
-            word.style.left = `${WPOS(t > 9.6 ? EO(((t - 9.6) % 2.5) / 1) : 0)}%`;
+            loopIn(word, t, 9.6);
           }
         };
       }
@@ -219,7 +222,7 @@ export default {
             /* 1초부터 4초 주기: 2.4초 동안 천천히 움직이고 1.6초 멈춤 */
             const cyc = Math.max(0, t - 1) % 4, p = Math.min(1, cyc / 2.4), loops = Math.floor(Math.max(0, t - 1) / 4);
             const e = EO(p);
-            word.style.left = `${WPOS(e)}%`;
+            word.style.left = `${WPOS(e)}%`; word.style.opacity = t < 1 ? 0 : cyc > 3.65 ? (4 - cyc) / .35 : Math.min(1, cyc / .15 + .3);
             rows.forEach(({ r, o, s }, i) => {
               const on = loops > 0 || p >= s - .001;
               r.classList.toggle('on', on);
@@ -313,12 +316,12 @@ export default {
               const u = (t - .4 - r.delay) / 2.2;
               if (u < 0) { r.el.style.opacity = 0; return; }
               const p = Math.min(1, u), y = 40 + (r.y1 - 40) * SM(p), x = r.x0 + (r.x1 - r.x0) * p;
-              r.el.style.opacity = p < 1 ? 1 : (t > 9.5 && r !== top ? .3 : 1);
+              r.el.style.opacity = p < 1 ? Math.min(1, p * 6) : (t > 9.5 && r !== top ? .3 : 1);
               r.el.style.transform = `translate(${x}px, ${y}px) rotate(${r.rot * (1 - p) + r.rot1 * p}deg)`;
             });
             /* 돋보기: 9.5초에 오른쪽 아래에서 들어와 설명 줄 → 코드 줄로 내려가요 */
             const come = EXPO(seg(t, 9.5, 10.6)), down = SM(seg(t, 12, 13.2));
-            const px = 64 + 26 * down, py = 19 + 21 * down; /* 카드 안에서 비출 점: 설명 줄 → 코드 줄 */
+            const px = 64 + 10 * down, py = 19 + 21 * down; /* 카드 안에서 비출 점: 설명 줄 → 코드 줄 */
             const cx = top.x1 + px, cy = top.y1 + py; /* 무대 좌표 */
             const lx = 760 + (cx - R - 760) * come, ly = 900 + (cy - R - 900) * come;
             lens.style.opacity = come > 0 ? 1 : 0; lens.style.transform = `translate(${lx}px, ${ly}px)`;
@@ -356,10 +359,9 @@ export default {
         return {
           tick(t) {
             q.tick(t, t < 18);
-            let active = -1;
             frags.forEach(({ el, k }, i) => {
               const u = (t - T0 - i * STEP) / 1;
-              const on = u >= 0 && u < 1.25; chips[i].classList.toggle('on', on); if (on) active = i;
+              const on = u >= 0 && u < 1.25; chips[i].classList.toggle('on', on);
               if (u < 0) { el.style.opacity = 0; slots[k].classList.remove('on'); slots[k].textContent = ''; return; }
               if (u >= 1) { el.style.opacity = 0; slots[k].classList.add('on'); const full = WORDS[i][2]; slots[k].textContent = full.slice(0, Math.ceil(full.length * seg(u, 1, 1.3))); return; }
               const p = SP(u), sx = CX(i) + 70, sy = CY(i) + 8;
@@ -367,11 +369,12 @@ export default {
               const ex = (sr.left - st.left) * kk, ey = (sr.top - st.top) * kk - 4;
               el.style.opacity = 1; el.style.transform = `translate(${sx + (ex - sx) * p}px, ${sy + (ey - sy) * p}px) scale(${1.15 - .15 * clamp(p)})`;
             });
-            /* 스포트라이트: 켜진 낱말만 밝게 */
-            spot.style.opacity = active >= 0 && t < T0 + 3 * STEP + .8 ? 1 : 0;
-            if (active >= 0) spot.style.transform = `translate(${CX(active) - 10}px, ${CY(active) - 2}px)`;
+            /* 스포트라이트: 켜진 낱말만 밝게. 다음 낱말로 0.3초 동안 미끄러져 가요 */
+            const idx = clamp(Math.floor((t - T0) / STEP), 0, 3), prv = Math.max(0, idx - 1), m = SM(seg(t - (T0 + idx * STEP), 0, .3));
+            spot.style.opacity = t >= T0 - .2 && t < T0 + 3 * STEP + 1.1 ? 1 : 0;
+            spot.style.transform = `translate(${CX(prv) + (CX(idx) - CX(prv)) * m - 10}px, ${CY(prv) + (CY(idx) - CY(prv)) * m - 2}px)`;
             prev.style.opacity = t > 14.8 ? 1 : 0;
-            word.style.left = `${WPOS(t > 15 ? EO(((t - 15) % 2.5) / 1) : 0)}%`;
+            loopIn(word, t, 15);
           }
         };
       }
@@ -383,7 +386,7 @@ export default {
         { t: 0, text: '많이 본 움직임은 잘 만들어요.' },
         { t: 4, text: '처음 보는 복잡한 동작에선 숫자가 어긋나요.' },
         { t: 8, text: '쓴 글이 맞는지는 사진을 찍어 보면 알아요.' },
-        { t: 11.5, text: '시킬 땐 흔한 말과 숫자로 적어 주세요.' }
+        { t: 11.5, text: '시킬 땐 어디서, 몇 초, 어떻게. 셋이면 돼요.' }
       ],
       build({ stage, lines, P, tl }) {
         sty(stage, P);
@@ -469,7 +472,7 @@ export default {
     '클로드는 설명 옆에 코드가 짝으로 붙은 글을 아주 많이 읽었어요. 그래서 <b>어떤 말 옆에 어떤 코드가 따라오는지</b> 외우고 있어요.'
   ],
   tip: {
-    body: '클로드에게 모션그래픽을 시킬 때는 흔한 말과 숫자로 적어 주세요. "왼쪽 밖에서 가운데로, 1초 동안, 천천히 멈추게"처럼요. 많이 본 말일수록 외워 둔 코드 조각도 정확하거든요. "느낌 있게", "세련되게" 같은 말엔 따라붙는 코드가 없어요.',
+    body: '클로드에게 모션그래픽을 시킬 때는 세 가지만 적어 주세요. 어디서 어디로, 몇 초 동안, 어떻게 멈추는지. "왼쪽 밖에서 가운데로, 1초 동안, 천천히 멈추게"처럼요. 많이 쓰는 말일수록 외워 둔 코드 조각도 정확하거든요. "느낌 있게", "세련되게" 같은 말엔 따라붙는 코드가 없어요.',
     extra: '처음 보는 복잡한 동작을 시킬 땐 두 동작으로 나눠 주세요. "들어온 다음, 한 번 통통 튀게"처럼 흔한 동작 둘을 이으면 숫자 실수가 줄어요. 결과를 확인할 땐 영상을 다 보는 대신 0.5초 사진 한 장을 달라고 하면 돼요.'
   },
   myth: {
@@ -488,5 +491,5 @@ export default {
 
 클로드는 인터넷에 있는 코드를 엄청나게 읽었어요. 설명과 코드가 짝으로 붙은 글들이요. "왼쪽에서 들어와"라는 설명 옆엔 늘 같은 코드가 있었어요. 클로드는 바로 그 짝을 외워 뒀어요. 부탁이 들어오면 낱말로 쪼갠 다음 낱말마다 외워 둔 코드 조각을 갖다 붙여요. 조각을 이어 붙여 글 한 편을 만들면 브라우저가 그걸 읽고 움직임으로 그려요.
 
-많이 본 움직임은 잘 만들지만 처음 보는 복잡한 동작에선 숫자를 잘못 적어요. 쓴 글이 맞는지는 사진을 찍어 보고 확인해요. 시킬 땐 흔한 말과 숫자로 적어 주세요.`
+많이 본 움직임은 잘 만들지만 처음 보는 복잡한 동작에선 숫자를 잘못 적어요. 쓴 글이 맞는지는 사진을 찍어 보고 확인해요. 시킬 땐 어디서 어디로, 몇 초 동안, 어떻게 멈추는지. 이 세 가지만 적어 주면 돼요.`
 };
