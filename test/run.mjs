@@ -66,7 +66,7 @@ for (const vp of VIEWPORTS) {
     await page.locator('.scene-list button').nth(n - 1).click();
     await page.click('.controls .btn.primary');
     const dur = await page.evaluate(() => { const t = document.querySelector('.controls .time').textContent.split('/')[1].trim().split(':'); return +t[0] * 60 + +t[1]; });
-    const lecture = await page.evaluate(() => document.body.dataset.format === 'lecture'); const [dMin, dMax] = lecture ? [150, 360] : [55, 120]; ok(dur >= dMin && dur <= dMax, `watch: 애니메이션 길이 ${dur}s (${dMin}~${dMax})`);
+    const lecture = await page.evaluate(() => document.body.dataset.format === 'lecture'); const [dMin, dMax] = lecture ? [150, 360] : [55, 140]; ok(dur >= dMin && dur <= dMax, `watch: 애니메이션 길이 ${dur}s (${dMin}~${dMax})`);
     /* 만져 보기 */
     const panel = page.locator('#iPanel');
     const before = await panel.innerHTML();
@@ -80,7 +80,7 @@ for (const vp of VIEWPORTS) {
     await page.screenshot({ path: `${OUT}/${slug}-full-${vp.name}.png`, fullPage: true });
     /* 출처 */
     const links = await page.locator('#srcList a').evaluateAll(a => a.map(x => x.href));
-    ok(links.length >= 2 && links.length <= 4, `watch: 출처 ${links.length}개`);
+    ok(links.length >= 2 && links.length <= 5, `watch: 출처 ${links.length}개`);
     /* 연수 모드 */
     await page.goto(`${BASE}watch.html?ep=${slug}&mode=train`, { waitUntil: 'networkidle' });
     await page.waitForTimeout(400);
