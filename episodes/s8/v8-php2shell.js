@@ -1,5 +1,5 @@
 /* S8-78 AI가 버그를 찾으면 무슨 일이 생길까: 세로 무대(720×1280), 8장면 120초
-   모션은 쿼카 모션랩에서 뽑은 파일(assets/motions/e78-*.html)을 iframe으로 얹어요. 자체 모션 코드 없음.
+   모션은 쿼카 모션랩에서 뽑은 파일(assets/motions/e78-*.html, 포인트 #2563EB)을 iframe으로 얹어요. 자체 모션 코드 없음.
    1차 출처: CISA 경보(10.21), Wiz 블로그(발견 경위·일정), Amazon 위협정보(공개 전 시도·AI와 공격 비용), 대한민국 정책브리핑(10.22 주의 격상·권고), CNBC(각국 사이트 중단·AI 속도 인용) */
 import { clamp, seg, EO, SM, EXPO, INTO, SP, typer, riser, odo, frame, quokka, track } from './kit.js';
 
@@ -62,7 +62,7 @@ export default {
       build({ stage: st0, lines, P, tl, base }) {
         const stage = frame(st0, P, CSS);
         const head = P.h('div', { class: 'ps-head' }); stage.append(head); const rh = riser(P, head, '지식샘터, 두 달 휴업?');
-        const box = motionBox(stage, P, base, 'phone-notice', true);
+        const box = motionBox(stage, P, base, 'notify-stack', true);
         const q = quokka(stage, P, 'oops'); const tr = track(stage, P, STEPS, [0]);
         return { tick(t) { q.tick(t, t < 12); tr.at(t, .3); rh.at(t, .2); box.at(t, .5); } };
       }
