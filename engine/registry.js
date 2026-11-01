@@ -10,7 +10,7 @@ export const TRACKS = {
   S4: { label: '시즌 4 · 심화', desc: '원리를 끝까지 파고들기' },
   S5: { label: '시즌 5 · 판단', desc: '2026년의 AI, 교실의 판단' },
   S777: { label: '시즌 777 · 지금', desc: '2026년 9월 말~10월 초, 지금 화제인 AI 소식으로 배우는 개념' },
-  S8: { label: '시즌 8 · 세로 극장', desc: '2026년 10월, 세로 화면으로 보는 AI 이야기: 편집실 원리와 이달의 소식' }
+  S8: { label: '시즌 8 · 세로 극장', desc: '2026년 10~11월, 세로 화면으로 보는 AI 이야기: 편집실 원리와 이달의 소식' }
 };
 
 export const EPISODES_V1 = [
@@ -123,7 +123,8 @@ export const EPISODES = [
   { no: 69, slug: 't7-deepfake-response', file: 'episodes/s777/t7-deepfake-response.js', status: 'ready', track: 'S777' },
   { no: 70, slug: 't7-super-intelligence-word', file: 'episodes/s777/t7-super-intelligence-word.js', status: 'ready', track: 'S777' },
   { no: 76, slug: 'v8-motion-code', file: 'episodes/s8/v8-motion-code.js', status: 'ready', track: 'S8' },
-  { no: 77, slug: 'v8-inclusive-ai', file: 'episodes/s8/v8-inclusive-ai.js', status: 'ready', track: 'S8' }
+  { no: 77, slug: 'v8-inclusive-ai', file: 'episodes/s8/v8-inclusive-ai.js', status: 'ready', track: 'S8' },
+  { no: 78, slug: 'v8-php2shell', file: 'episodes/s8/v8-php2shell.js', status: 'ready', track: 'S8' }
 ];
 
 export async function loadEpisode(slug, base = '') {
