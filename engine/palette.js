@@ -104,7 +104,7 @@ export const PALETTES = {
   't7-super-intelligence-word':{ a1: '#15803D', a2: '#B45309', name: '크림 트렌치·초록 베레' },
   'v8-motion-code':            { a1: '#111827', a2: '#CA8A04', name: '블랙 터틀넥·금테 안경' },
   'v8-inclusive-ai':           { a1: '#1E3A8A', a2: '#B91C1C', name: '바시티 재킷' },
-  'v8-php2shell':              { a1: '#2563EB', a2: '#0EA5E9', name: '하늘색 후디' }
+  'v8-php2shell':              { a1: '#2563EB', a2: '#B45309', name: '가을 아가일' }
 };
 export const DEFAULT_PALETTE = { a1: '#2563EB', a2: '#EA580C', name: '기본' };
 
